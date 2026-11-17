@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Word page, variant A: stage</title>
+<!-- Shape A, "stage": one centred column. The ten words become a strip across the top, with Finish at its end.
+     The word, its picture and Record sit alone in the middle of the screen; Last time and the session tally are
+     two quiet facts under it, not cards. After Record the word shrinks to a line and the question card takes the
+     stage. Proof bar: a plain strip at the bottom; unmeasured values fold into one sentence, measured values are big
+     numbers with small labels, no boxes. Fake data. Use the mockup controls at the top. -->
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f6f7f9; color: #16202c; font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+         font-variant-numeric: tabular-nums; padding-bottom: 60px; }
+  body.board { padding-bottom: 92px; }
+  a { color: #1d4f91; }
+  button { font: inherit; cursor: pointer; }
+  .mock { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; padding: 6px 16px; background: #fffbe6;
+          border-bottom: 1px dashed #d8c36a; font-size: 13px; }
+  .mock b { color: #6b5300; }
+  .mock button { padding: 3px 10px; border: 1px solid #c4ccd6; border-radius: 6px; background: #fff; }
+  .mock button.on { background: #16202c; color: #fff; border-color: #16202c; }
+
+  .banner { display: flex; align-items: baseline; gap: 18px; padding: 14px 28px; background: #fff; border-bottom: 1px solid #e3e7ec; flex-wrap: wrap; }
+  .brand { font-weight: 750; color: #1d4f91; font-size: 17px; }
+  .who { flex: 1; color: #44505e; }
+  .who b { color: #16202c; font-weight: 650; }
+  .tag { font-size: 12px; font-weight: 650; padding: 2px 8px; border-radius: 999px; background: #e8eef7; color: #1d4f91; margin-left: 4px; }
+  .links { display: flex; gap: 16px; font-size: 14px; }
+
+  .strip { display: flex; align-items: stretch; gap: 6px; padding: 14px 28px; max-width: 1180px; margin: 0 auto; }
+  .words { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; flex: 1; }
+  .w { border: 0; background: none; padding: 6px 4px 8px; border-radius: 8px; text-align: center; color: #44505e; font-size: 14px; }
+  .w:hover { background: #eceff3; }
+  .w i { display: block; height: 5px; border-radius: 3px; background: #dde2e8; margin-bottom: 6px; }
+  .w.flag i { background: #c4472a; } .w.ok i { background: #2e8b57; }
+  .w.cur { color: #16202c; font-weight: 700; background: #fff; box-shadow: 0 1px 0 #e3e7ec, 0 0 0 2px #1d4f91 inset; }
+  .w.cur i { background: #1d4f91; }
+  .finish { border: 1px solid #c4ccd6; background: #fff; border-radius: 8px; padding: 0 16px; color: #44505e; white-space: nowrap; }
+  .finish b { color: #16202c; }
+
+  .stage { max-width: 760px; margin: 28px auto 0; padding: 0 20px; text-align: center; }
+  .stage img { width: 132px; height: 132px; }
+  .tword { font-size: 92px; font-weight: 800; letter-spacing: -.02em; line-height: 1; margin-top: 6px; }
+  .tpos { color: #6b7785; font-size: 17px; margin-top: 8px; }
+  .record { margin-top: 26px; background: #1d4f91; color: #fff; border: 0; border-radius: 999px; font-size: 24px; font-weight: 700;
+            padding: 18px 56px; box-shadow: 0 8px 22px rgba(29,79,145,.28); }
+  .record:hover { background: #163f75; }
+  .help { color: #6b7785; font-size: 14px; max-width: 520px; margin: 16px auto 0; }
+
+  .facts { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; max-width: 760px; margin: 40px auto 0; padding: 22px 20px 0;
+           border-top: 1px solid #e3e7ec; text-align: left; }
+  .facts h4 { margin: 0 0 6px; font-size: 14px; font-weight: 650; color: #44505e; }
+  .facts p { margin: 0; }
+  .facts table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  .facts td { padding: 3px 0; } .facts td + td { text-align: right; color: #44505e; }
+  .aid { text-align: center; color: #8a95a3; font-size: 13px; margin: 26px 0 0; }
+
+  /* After Record */
+  .after { display: none; }
+  body.rec .before { display: none; } body.rec .after { display: block; }
+  .line { display: flex; align-items: center; gap: 14px; max-width: 760px; margin: 22px auto 0; padding: 0 20px; }
+  .line img { width: 52px; height: 52px; }
+  .line .tword { font-size: 40px; margin: 0; }
+  .line .tpos { margin: 0; flex: 1; text-align: left; font-size: 14px; }
+  .again { border: 1px solid #1d4f91; color: #1d4f91; background: #fff; border-radius: 999px; padding: 8px 18px; font-weight: 650; }
+  .q { max-width: 760px; margin: 14px auto 0; background: #fff; border-radius: 16px; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 8px 28px rgba(22,32,44,.07); overflow: hidden; }
+  .qhead { text-align: center; padding: 20px 20px 0; }
+  .qhead small { font-size: 13px; color: #6b7785; }
+  .ask { font-size: 24px; margin-top: 4px; } .ask b { color: #9b2c13; }
+  .meta { color: #6b7785; font-size: 13px; margin-top: 6px; }
+  .choose { position: relative; display: grid; grid-template-columns: 1fr 1fr; margin-top: 18px; }
+  .half { border: 0; height: 170px; font-size: 26px; font-weight: 700; display: grid; place-content: center; gap: 4px; }
+  .half small { font-size: 14px; font-weight: 500; color: #44505e; }
+  .disagree { background: #fdf0ec; color: #9b2c13; } .agree { background: #eef7f0; color: #23633a; }
+  .listen { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 108px; height: 108px; border-radius: 50%;
+            border: 4px solid #fff; background: #1d4f91; color: #fff; font-weight: 700; box-shadow: 0 6px 18px rgba(0,0,0,.18); line-height: 1.1; }
+  .listen small { display: block; font-weight: 500; font-size: 12px; opacity: .85; }
+  .saved { text-align: center; color: #44505e; padding: 10px; margin: 0; }
+  .next { display: block; width: calc(100% - 32px); margin: 0 16px 16px; background: #1d4f91; color: #fff; border: 0; border-radius: 10px; padding: 14px; font-size: 18px; font-weight: 700; }
+  details { max-width: 760px; margin: 14px auto 0; padding: 0 20px; }
+  summary { cursor: pointer; color: #44505e; font-weight: 600; padding: 6px 0; }
+  .ev { background: #fff; border-radius: 12px; padding: 14px 16px; margin-top: 6px; border: 1px solid #e3e7ec; }
+  .wave { height: 90px; border-radius: 8px; background: linear-gradient(90deg, #f1f4f8 0 30%, #fff1d6 30% 62%, #f1f4f8 62%); }
+
+  /* Proof bar */
+  .proof { position: fixed; left: 0; right: 0; bottom: 0; background: #fff; border-top: 1px solid #d9dfe7; padding: 10px 28px; z-index: 3; }
+  .proof .fold { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; font-size: 14px; color: #6b7785; max-width: 1180px; margin: 0 auto; }
+  .proof .fold b { color: #16202c; font-weight: 650; }
+  .proof .dot { width: 8px; height: 8px; border-radius: 50%; background: #9aa5b1; }
+  .proof .fold .sp { flex: 1; }
+  .proof form { display: flex; gap: 6px; align-items: center; }
+  .proof input { width: 70px; font: inherit; padding: 3px 8px; border: 1px solid #c4ccd6; border-radius: 6px; }
+  .proof .set { padding: 3px 12px; border-radius: 6px; border: 1px solid #1d4f91; background: #1d4f91; color: #fff; font-weight: 600; }
+  .proof .stats { display: none; max-width: 1180px; margin: 0 auto; grid-template-columns: repeat(5, 1fr); }
+  body.board .proof .fold { display: none; } body.board .proof .stats { display: grid; }
+  .stat { padding: 0 18px; border-left: 1px solid #e3e7ec; }
+  .stat:first-child { border-left: 0; padding-left: 0; }
+  .stat .v { font-size: 28px; font-weight: 800; line-height: 1.1; }
+  .stat .v span { font-size: 14px; font-weight: 600; color: #6b7785; margin-left: 3px; }
+  .stat .l { font-size: 13px; color: #6b7785; }
+  .stat .v.off { color: #23633a; }
+
+  @media (max-width: 900px) {
+    .strip { flex-direction: column; padding: 12px 16px; }
+    .words { grid-template-columns: repeat(5, 1fr); }
+    .finish { padding: 10px; }
+    .tword { font-size: 72px; }
+    .facts { grid-template-columns: 1fr; gap: 18px; }
+    body.board { padding-bottom: 150px; }
+    .proof { padding: 10px 16px; }
+    .proof .stats { grid-template-columns: repeat(3, 1fr); row-gap: 10px; }
+    .stat:nth-child(4) { border-left: 0; padding-left: 0; }
+    .listen { width: 76px; height: 76px; font-size: 13px; }
+    .disagree { padding-right: 40px; } .agree { padding-left: 40px; }
+  }
+</style>
+</head>
+<body>
+<div class="mock"><b>Mockup controls</b>
+  <span>Page: <button data-set="rec" data-v="0" class="on">Before Record</button> <button data-set="rec" data-v="1">After Record</button></span>
+  <span>Bar: <button data-set="board" data-v="0" class="on">Laptop (not measured)</button> <button data-set="board" data-v="1">Board (measured)</button></span>
+  <span>Fake data. Board numbers are placeholders for layout only.</span>
+</div>
+
+<header class="banner">
+  <span class="brand">Speak Up</span>
+  <span class="who"><b>test-4</b>, 8 yr 9 mo <span class="tag">Child voice</span></span>
+  <nav class="links"><a href="#">Sound book</a><a href="#">Child screen</a><a href="#">Past sessions</a><a href="#">New</a></nav>
+</header>
+
+<div class="strip">
+  <div class="words">
+    <button class="w flag"><i></i>rabbit</button><button class="w cur"><i></i>rain</button><button class="w"><i></i>ring</button>
+    <button class="w"><i></i>rocket</button><button class="w"><i></i>truck</button><button class="w"><i></i>carrot</button>
+    <button class="w"><i></i>very</button><button class="w"><i></i>car</button><button class="w"><i></i>door</button><button class="w"><i></i>bear</button>
+  </div>
+  <button class="finish">Finish, <b>1 of 10</b> done</button>
+</div>
+
+<section class="before">
+  <div class="stage">
+    <img src="../../speakup/static/pics/rain.svg" alt="">
+    <div class="tword">rain</div>
+    <div class="tpos">r at the start, word 2 of 10</div>
+    <button class="record">● Record</button>
+    <p class="help">The child screen shows the picture. Press Record: the mic keeps recording until the child has been quiet for 3 s, or until you press Stop. The app then picks out the word.</p>
+  </div>
+</section>
+
+<section class="after">
+  <div class="line"><img src="../../speakup/static/pics/rain.svg" alt=""><div class="tword">rain</div><div class="tpos">r at the start, word 2 of 10</div><button class="again">● Record again</button></div>
+  <div class="q">
+    <div class="qhead"><small>Arti suggests</small>
+      <div class="ask">Arti heard: <b>the r sounded off</b>. Do you agree?</div>
+      <div class="meta">82% sure. Heard: wain (gliding). Flagged for age 8 yr 9 mo. Model: arti-v0.</div>
+    </div>
+    <div class="choose">
+      <button class="half disagree">Disagree<small>The r sounded right (D)</small></button>
+      <button class="half agree">Agree<small>The r sounded off (A)</small></button>
+      <button class="listen">Listen<br>again<small>L</small></button>
+    </div>
+    <p class="saved">Not checked yet. Next keeps Arti's call.</p>
+    <button class="next">Next word →</button>
+  </div>
+  <details open><summary>Evidence: recording, voice, sound picture</summary>
+    <div class="ev"><b>Recording OK</b> 0.8 s of speech, loudest point 14,200 of 32,767.<div class="wave" style="margin-top:8px"></div></div>
+  </details>
+</section>
+
+<div class="facts">
+  <div><h4>Last time</h4><p>No earlier result for this student on this word.</p></div>
+  <div><h4>This session, your checks</h4>
+    <table><tr><td>r at the start</td><td>0 right, 0 off</td></tr><tr><td>r at the middle</td><td>0 right, 0 off</td></tr><tr><td>r at the end</td><td>0 right, 0 off</td></tr></table><p style="color:#6b7785;font-size:14px;margin-top:4px">Nothing checked yet.</p>
+  </div>
+</div>
+<p class="aid">Screening aid, not a diagnosis. The SLP decides.</p>
+
+<footer class="proof">
+  <div class="fold"><span class="dot"></span><span><b>Measured on this machine:</b> app memory peak 35 MB. Arti, Qwen, network and watts are not measured yet on this machine.</span>
+    <span class="sp"></span><form onsubmit="return false"><label>Watts</label><input inputmode="decimal"><button class="set">Set</button></form></div>
+  <div class="stats">
+    <div class="stat"><div class="v">412<span>ms</span></div><div class="l">Arti, last word</div></div>
+    <div class="stat"><div class="v">4.1<span>tokens/s</span></div><div class="l">Qwen, writing</div></div>
+    <div class="stat"><div class="v">610<span>of 1,962 MB</span></div><div class="l">Memory used</div></div>
+    <div class="stat"><div class="v off">Offline</div><div class="l">Network, no default route</div></div>
+    <div class="stat"><div class="v">3.4<span>W</span></div><div class="l">Watts, typed from the meter</div></div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll(".mock [data-set]").forEach(b => b.addEventListener("click", () => {
+  const cls = b.dataset.set;
+  document.body.classList.toggle(cls, b.dataset.v === "1");
+  document.querySelectorAll(`.mock [data-set="${cls}"]`).forEach(x => x.classList.toggle("on", x === b));
+}));
+// #rec and #board in the address open those states, for screenshots.
+["rec", "board"].forEach(k => { if (location.hash.includes(k)) document.querySelector(`.mock [data-set="${k}"][data-v="1"]`).click(); });
+</script>
+</body>
+</html>

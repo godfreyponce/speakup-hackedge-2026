@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Speak Up mockup c3-bubble: speech bubble (the word and the verdict sit in speech bubbles)</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #fbfbf8; color: #1b1b18; font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .label { max-width: 860px; margin: 40px auto 8px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: #8b8b80; }
+  .screen { max-width: 860px; margin: 0 auto; background: #fff; border: 1px solid #e2e2da; border-radius: 12px; padding: 24px 32px 28px; }
+  .top { display: flex; justify-content: space-between; font-size: 14px; color: #6d6d63; margin-bottom: 16px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; padding-bottom: 20px; border-bottom: 1px solid #ececE4; }
+  .chip { font-size: 14px; padding: 4px 12px; border-radius: 999px; border: 1px solid #d6d6cc; color: #9a9a8f; }
+  .chip.ok { background: #e7f1e4; border-color: #c4dcbe; color: #2e5a26; }
+  .chip.normal { background: #f3efe0; border-color: #e2d9b8; color: #6b5a1c; }
+  .chip.flag { background: #f8dfd6; border-color: #eab9a8; color: #8b2b10; font-weight: 600; }
+  .chip.current { border: 2px solid #1b1b18; color: #1b1b18; font-weight: 600; }
+  .stage { text-align: center; padding: 36px 0 8px; }
+  .word { font-size: 104px; font-weight: 700; line-height: 1; letter-spacing: -.02em; }
+  .heard { font-size: 20px; margin: 24px 0 4px; }
+  .flagline { font-weight: 600; }
+  .flagline.yes { color: #8b2b10; }
+  .flagline.no { color: #6b5a1c; }
+  .buttons { display: flex; justify-content: center; gap: 12px; margin-top: 28px; }
+  button { font: inherit; font-weight: 600; padding: 14px 32px; border-radius: 10px; border: 1px solid #1b1b18; cursor: pointer; }
+  .primary { background: #1b1b18; color: #fff; }
+  .secondary { background: #fff; color: #1b1b18; }
+  h1 { font-size: 26px; margin: 0 0 4px; }
+  form { display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 16px; align-items: end; margin-top: 20px; }
+  label { display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+  .hint { color: #8b8b80; font-size: 14px; margin: 0; }
+  input { width: 100%; font: inherit; padding: 11px 12px; border: 1px solid #cfcfc4; border-radius: 8px; }
+  .verdict { font-size: 22px; font-weight: 700; margin: 24px 0 4px; }
+  .tally { color: #6d6d63; margin: 0 0 20px; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th { text-align: left; font-size: 13px; text-transform: uppercase; letter-spacing: .05em; color: #8b8b80; border-bottom: 1px solid #d6d6cc; padding: 8px 6px; }
+  td { padding: 8px 6px; border-bottom: 1px solid #ececE4; }
+  td.f { color: #8b2b10; font-weight: 600; }
+  footer { margin-top: 24px; font-size: 13px; color: #a3a398; }
+</style>
+<style>
+  /* speech bubble (the word and the verdict sit in speech bubbles) */
+  body { font-family: ui-rounded, "SF Pro Rounded", "Arial Rounded MT Bold", "Nunito", system-ui, sans-serif; }
+  .screen { border-radius: 20px; }
+  button, input { border-radius: 14px; }
+  .logo { display: inline-flex; align-items: center; gap: 10px; }
+  .logo i { position: relative; width: 30px; height: 24px; border-radius: 12px; background: #4f7cff; }
+  .logo i::after { content: ""; position: absolute; left: 5px; bottom: -6px; border: 6px solid transparent; border-top-color: #4f7cff; border-left-color: #4f7cff; }
+  .bubble { position: relative; display: inline-block; padding: 14px 44px 20px; border: 3px solid #1b1b18; border-radius: 40px; background: #fff; }
+  .bubble::before { content: ""; position: absolute; left: 56px; top: 100%; border-style: solid; border-width: 22px 16px 0 0; border-color: #1b1b18 transparent transparent transparent; }
+  .bubble::after { content: ""; position: absolute; left: 59px; top: calc(100% - 4px); border-style: solid; border-width: 19px 12px 0 0; border-color: #fff transparent transparent transparent; }
+  .verdict.bubble { display: block; font-size: 20px; padding: 16px 24px 18px; border-radius: 24px; margin-bottom: 34px; background: #fff4f0; border-color: #8b2b10; }
+  .verdict.bubble::before { border-top-color: #8b2b10; left: 40px; }
+  .verdict.bubble::after { border-top-color: #fff4f0; left: 43px; }
+  .primary { background: #4f7cff; border-color: #4f7cff; }
+  .secondary { color: #2c4fc4; border-color: #4f7cff; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const DATA = {
+  child_id: "S-014", age: "7;4", age_months: 88, model: "fake",
+  words: [
+    { word: "rabbit",  position: "start",  heard: "w", error_type: "gliding",    flagged: true },
+    { word: "rain",    position: "start",  heard: "ɹ", error_type: null,         flagged: false },
+    { word: "ring",    position: "start",  heard: "ɹ", error_type: null,         flagged: false },
+    { word: "rocket",  position: "start",  heard: "ɹ", error_type: null,         flagged: false },
+    { word: "carrot",  position: "middle", heard: null, error_type: "distortion", flagged: false },
+    { word: "cherry",  position: "middle", heard: "ɹ", error_type: null,         flagged: false },
+    { word: "giraffe", position: "middle", heard: "ɹ", error_type: null,         flagged: false },
+    { word: "car",     position: "end",    heard: "ɹ", error_type: null,         flagged: false },
+    { word: "door",    position: "end",    heard: "ɹ", error_type: null,         flagged: false },
+    { word: "bear",    position: "end",    heard: "ɹ", error_type: null,         flagged: false },
+  ],
+  verdict: "Refer: 1 of 10 words flagged for age 7;4. The therapist decides on a full assessment.",
+  tally: "Flagged: gliding 1, distortion 0",
+};
+
+// done: how many words have a result; current: index of the outlined chip, or -1
+const chips = (done, current) => `<div class="chips">${DATA.words.map((w, i) => {
+  const state = i >= done ? "" : w.flagged ? "flag" : w.error_type ? "normal" : "ok";
+  return `<span class="chip ${state} ${i === current ? "current" : ""}">${w.word}</span>`;
+}).join("")}</div>`;
+const header = right => `<div class="top"><span>${DATA.child_id} · age ${DATA.age}</span><span>${right}</span></div>`;
+const w0 = DATA.words[0];
+const n = DATA.words.length;
+
+document.getElementById("app").innerHTML = `
+<div class="label">Screen 1 — Start</div>
+<div class="screen">
+  <h1 class="logo"><i></i>Speak Up</h1>
+  <p class="hint">Child ID: letters, digits, hyphens; no names.</p>
+  <form>
+    <div><label>Child ID</label><input value="${DATA.child_id}"></div>
+    <div><label>Age, years</label><input value="7"></div>
+    <div><label>Months</label><input value="4"></div>
+    <button class="primary" type="button">Start</button>
+  </form>
+</div>
+
+<div class="label">Screen 2 — Word, before Record</div>
+<div class="screen">
+  ${header(`Word 1 of ${n}`)}
+  ${chips(0, 0)}
+  <div class="stage">
+    <div class="word bubble">${w0.word}</div>
+    <div class="buttons"><button class="primary" type="button">Record</button></div>
+  </div>
+</div>
+
+<div class="label">Screen 3 — Word, with a result</div>
+<div class="screen">
+  ${header(`Word 1 of ${n}`)}
+  ${chips(1, 0)}
+  <div class="stage">
+    <div class="word bubble">${w0.word}</div>
+    <p class="heard">Heard: ${w0.heard || "not named"} (${w0.error_type || "correct"})</p>
+    <div class="flagline ${w0.flagged ? "yes" : "no"}">${w0.flagged ? "Flagged" : "Normal"} for age ${DATA.age}</div>
+    <div class="buttons">
+      <button class="secondary" type="button">Record again</button>
+      <button class="primary" type="button">Next word</button>
+    </div>
+  </div>
+  <footer>model: ${DATA.model}</footer>
+</div>
+
+<div class="label">Screen 4 — Summary</div>
+<div class="screen">
+  ${header("Done")}
+  ${chips(n, -1)}
+  <p class="verdict bubble">${DATA.verdict}</p>
+  <p class="tally">${DATA.tally}</p>
+  <table>
+    <tr><th>Word</th><th>Heard</th><th>Flagged</th></tr>
+    ${DATA.words.map(w => `<tr><td>${w.word}</td><td>${w.heard || "not named"} (${w.error_type || "correct"})</td>
+      <td class="${w.flagged ? "f" : ""}">${w.flagged ? "yes" : w.error_type ? "no, normal for age" : "no"}</td></tr>`).join("")}
+  </table>
+  <footer>model: ${DATA.model}</footer>
+</div>`;
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+ "source": "scripts/gap_baseline.py on PERCEPT-R 2.2.2py, 300 training-speaker clips per position and label (seed 2026); summary numbers only",
+ "start": {
+  "median_gap_correct": 684,
+  "median_gap_wrong": 1358,
+  "cutoff_hz": 1053
+ },
+ "end": {
+  "median_gap_correct": 470,
+  "median_gap_wrong": 1232,
+  "cutoff_hz": 785
+ },
+ "test_agreed": 214,
+ "test_not_measured": 8
+}

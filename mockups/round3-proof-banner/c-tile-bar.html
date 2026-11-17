@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Proof banner C: tile bar, Speak Up</title>
+<!-- Mockup for #38, shape C: a bar fixed to the bottom of the screen, five big tiles readable from a judge's seat. FAKE DATA. -->
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f3f5f8; color: #16202c; padding-bottom: 112px;
+         font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-variant-numeric: tabular-nums; }
+  a { color: #1d4f91; }
+  .banner { display: flex; align-items: center; gap: 22px; background: #fff; border-bottom: 1px solid #d9dfe7; padding: 10px 24px; }
+  .brand { font-weight: 700; color: #1d4f91; }
+  .who { display: flex; gap: 22px; flex: 1; }
+  .who div { display: grid; }
+  .who small { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: #6b7785; }
+  .who b { font-size: 15px; font-weight: 600; }
+  .links { display: flex; gap: 14px; font-size: 13px; }
+  .shell { display: grid; grid-template-columns: 210px 1fr 300px; gap: 18px; padding: 18px 24px 40px; max-width: 1500px; margin: 0 auto; }
+  .card { background: #fff; border: 1px solid #d9dfe7; border-radius: 8px; padding: 14px 16px; }
+  .card h3 { margin: 0 0 8px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: #6b7785; font-weight: 600; }
+  .ghost { height: 120px; background: repeating-linear-gradient(45deg, #f7f9fb, #f7f9fb 10px, #eef1f5 10px, #eef1f5 20px); border-radius: 6px; }
+  .fake { position: fixed; right: 12px; top: 12px; background: #16202c; color: #fff; font-size: 12px; padding: 4px 10px; border-radius: 4px; }
+
+  /* the proof bar */
+  .proof { position: fixed; left: 0; right: 0; bottom: 0; z-index: 3; background: #fff; border-top: 2px solid #1d4f91;
+           box-shadow: 0 -2px 10px rgba(22, 32, 44, .08); padding: 10px 24px; }
+  .tiles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; max-width: 1500px; margin: 0 auto; }
+  .tile { border: 1px solid #d9dfe7; border-radius: 8px; padding: 8px 12px; }
+  .tile small { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: #6b7785; font-weight: 600; }
+  .tile .big { font-size: 30px; font-weight: 750; line-height: 1.1; }
+  .tile .big span { font-size: 15px; font-weight: 600; color: #44505e; margin-left: 3px; }
+  .tile .sub { font-size: 12px; color: #6b7785; }
+  .tile .none { font-size: 16px; font-weight: 500; font-style: italic; color: #6b7785; line-height: 1.9; }
+  .tile.off { background: #e3f2e6; border-color: #9fd0ae; }
+  .tile.off .big { color: #23633a; }
+  .tile.on { background: #fbe3dd; border-color: #e7a99a; }
+  .tile.on .big { color: #9b2c13; }
+  .tile form { display: flex; gap: 6px; margin: 2px 0; }
+  .tile input { width: 90px; font: inherit; font-size: 20px; font-weight: 700; padding: 2px 8px; border: 1px solid #c4ccd6; border-radius: 6px; }
+  .tile button { font: inherit; font-weight: 600; padding: 2px 12px; border-radius: 6px; border: 1px solid #1d4f91; background: #1d4f91; color: #fff; }
+  @media (max-width: 900px) { .tiles { grid-template-columns: repeat(2, 1fr); } body { padding-bottom: 280px; } }
+</style>
+</head>
+<body>
+<header class="banner">
+  <span class="brand">Speak Up</span>
+  <div class="who">
+    <div><small>Student</small><b>S-1042</b></div>
+    <div><small>Age</small><b>7 y 4 m</b></div>
+    <div><small>Now</small><b>Screening done</b></div>
+  </div>
+  <nav class="links"><a href="#">Sound book</a><a href="#">Child screen</a><a href="#">Past sessions</a><a href="#">New</a></nav>
+</header>
+<main class="shell">
+  <div class="card"><h3>Words</h3><div class="ghost" style="height:340px"></div></div>
+  <section><div class="card"><h3>Result</h3><div class="ghost" style="height:420px"></div></div></section>
+  <aside><div class="card"><h3>This session</h3><div class="ghost"></div></div></aside>
+</main>
+<footer class="proof" aria-label="Measured on this machine">
+  <div class="tiles">
+    <div class="tile"><small>Arti, last word</small><div class="big">61<span>ms</span></div>
+      <div class="sub">median 64 ms over 12 words</div></div>
+    <div class="tile"><small>Qwen, writing</small><div class="big">6.8<span>tokens/s</span></div>
+      <div class="sub">prompt 21.4 tokens/s, llama.cpp's timing</div></div>
+    <div class="tile"><small>Memory used</small><div class="big">812<span>of 1,946 MB</span></div>
+      <div class="sub">app peak 214 MB</div></div>
+    <div class="tile off"><small>Network</small><div class="big">Offline</div>
+      <div class="sub">no default route</div></div>
+    <div class="tile"><small>Watts, typed from the USB-C meter</small>
+      <form><input placeholder="" inputmode="decimal"><button>Set</button></form>
+      <div class="sub">blank until typed</div></div>
+  </div>
+</footer>
+<div class="fake">Mockup C, fake data</div>
+</body>
+</html>

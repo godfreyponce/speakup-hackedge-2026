@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Proof banner B: side card, Speak Up</title>
+<!-- Mockup for #38, shape B: a card in the right column, one row per value with where it came from. FAKE DATA. -->
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f3f5f8; color: #16202c;
+         font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-variant-numeric: tabular-nums; }
+  a { color: #1d4f91; }
+  .banner { display: flex; align-items: center; gap: 22px; background: #fff; border-bottom: 1px solid #d9dfe7; padding: 10px 24px; }
+  .brand { font-weight: 700; color: #1d4f91; }
+  .who { display: flex; gap: 22px; flex: 1; }
+  .who div { display: grid; }
+  .who small { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: #6b7785; }
+  .who b { font-size: 15px; font-weight: 600; }
+  .links { display: flex; gap: 14px; font-size: 13px; }
+  .shell { display: grid; grid-template-columns: 210px 1fr 300px; gap: 18px; padding: 18px 24px 40px; max-width: 1500px; margin: 0 auto; }
+  .card { background: #fff; border: 1px solid #d9dfe7; border-radius: 8px; padding: 14px 16px; }
+  .card + .card { margin-top: 14px; }
+  .card h3 { margin: 0 0 8px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: #6b7785; font-weight: 600; }
+  .ghost { height: 120px; background: repeating-linear-gradient(45deg, #f7f9fb, #f7f9fb 10px, #eef1f5 10px, #eef1f5 20px); border-radius: 6px; }
+  .fake { position: fixed; right: 12px; bottom: 12px; background: #16202c; color: #fff; font-size: 12px; padding: 4px 10px; border-radius: 4px; }
+
+  /* the proof card */
+  .proof { border-color: #b9c7da; }
+  .proof h3 { display: flex; justify-content: space-between; align-items: baseline; }
+  .proof h3 span { text-transform: none; letter-spacing: 0; font-weight: 500; }
+  .prow { display: grid; grid-template-columns: 70px 1fr; gap: 2px 10px; padding: 8px 0; border-bottom: 1px solid #edf0f4; }
+  .prow:last-child { border-bottom: 0; padding-bottom: 0; }
+  .prow .k { font-size: 12px; font-weight: 600; color: #44505e; padding-top: 3px; }
+  .prow .v { font-size: 20px; font-weight: 700; line-height: 1.2; }
+  .prow .v small { font-size: 13px; font-weight: 500; color: #44505e; }
+  .prow .s { grid-column: 2; font-size: 12px; color: #6b7785; }
+  .prow .none { font-size: 14px; font-weight: 500; font-style: italic; color: #6b7785; }
+  .badge { display: inline-block; font-size: 14px; font-weight: 700; padding: 2px 10px; border-radius: 12px; }
+  .badge.off { background: #e3f2e6; color: #23633a; }
+  .badge.on { background: #fbe3dd; color: #9b2c13; }
+  .watts { display: flex; gap: 6px; }
+  .watts input { width: 80px; font: inherit; padding: 4px 8px; border: 1px solid #c4ccd6; border-radius: 6px; }
+  .watts button { font: inherit; font-weight: 600; padding: 4px 12px; border-radius: 6px; border: 1px solid #1d4f91; background: #fff; color: #1d4f91; }
+</style>
+</head>
+<body>
+<header class="banner">
+  <span class="brand">Speak Up</span>
+  <div class="who">
+    <div><small>Student</small><b>S-1042</b></div>
+    <div><small>Age</small><b>7 y 4 m</b></div>
+    <div><small>Now</small><b>Word 4 of 12</b></div>
+  </div>
+  <nav class="links"><a href="#">Sound book</a><a href="#">Child screen</a><a href="#">Past sessions</a><a href="#">New</a></nav>
+</header>
+<main class="shell">
+  <div class="card"><h3>Words</h3><div class="ghost" style="height:340px"></div></div>
+  <section><div class="card"><h3>red</h3><div class="ghost" style="height:420px"></div></div></section>
+  <aside>
+    <div class="card proof">
+      <h3>Measured on this machine <span>live</span></h3>
+      <div class="prow"><span class="k">Arti</span><span class="v">61 <small>ms, last word</small></span>
+        <span class="s">Median 64 ms over 3 words this run</span></div>
+      <div class="prow"><span class="k">Qwen</span><span class="v">6.8 <small>tokens/s writing</small></span>
+        <span class="s">Prompt read at 21.4 tokens/s, from llama.cpp's own timing, last call</span></div>
+      <div class="prow"><span class="k">RAM</span><span class="v">812 <small>of 1,946 MB used</small></span>
+        <span class="s">This app's peak: 214 MB. From /proc/meminfo</span></div>
+      <div class="prow"><span class="k">Network</span><span class="v"><span class="badge off">Offline</span></span>
+        <span class="s">No default route in /proc/net/route</span></div>
+      <div class="prow"><span class="k">Watts</span><span class="v"><span class="none">not typed yet</span></span>
+        <form class="watts s"><input placeholder="e.g. from meter" inputmode="decimal"><button>Set</button></form>
+        <span class="s">Typed by a person from the USB-C meter, never by the app</span></div>
+    </div>
+    <div class="card"><h3>This session</h3><div class="ghost"></div></div>
+  </aside>
+</main>
+<div class="fake">Mockup B, fake data</div>
+</body>
+</html>

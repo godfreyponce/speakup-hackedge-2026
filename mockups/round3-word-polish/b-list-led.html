@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Word page, variant B: list-led</title>
+<!-- Shape B, "list-led": two panes. The word list is the left pane and the work happens inside it: the current word
+     opens in place into a big row with its picture, the word and Record. Finish is the list's last row, with a
+     progress line. The right pane is the answer pane: before Record it shows this session at a glance (a bar per
+     r position) and Last time; after Record the question card fills it. Proof bar: moved to a slim band under the
+     header, so it can never cover a button at the bottom; unmeasured values fold into one chip, measured values
+     show as a row of readouts. Fake data. Use the mockup controls at the top. -->
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #eef1f5; color: #16202c; font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+         font-variant-numeric: tabular-nums; }
+  a { color: #1d4f91; }
+  button { font: inherit; cursor: pointer; }
+  .mock { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; padding: 6px 16px; background: #fffbe6;
+          border-bottom: 1px dashed #d8c36a; font-size: 13px; }
+  .mock b { color: #6b5300; }
+  .mock button { padding: 3px 10px; border: 1px solid #c4ccd6; border-radius: 6px; background: #fff; }
+  .mock button.on { background: #16202c; color: #fff; border-color: #16202c; }
+
+  .top { position: sticky; top: 0; z-index: 3; background: #fff; box-shadow: 0 1px 0 #dfe4ea; }
+  .banner { display: flex; align-items: center; gap: 18px; padding: 12px 24px; flex-wrap: wrap; }
+  .brand { font-weight: 750; color: #1d4f91; font-size: 17px; }
+  .who { flex: 1; color: #44505e; }
+  .who b { color: #16202c; font-weight: 650; }
+  .tag { font-size: 12px; font-weight: 650; padding: 2px 8px; border-radius: 999px; background: #e8eef7; color: #1d4f91; margin-left: 4px; }
+  .links { display: flex; gap: 16px; font-size: 14px; }
+
+  /* Proof band, under the header */
+  .proof { border-top: 1px solid #eef1f5; padding: 6px 24px; font-size: 13px; color: #6b7785; }
+  .proof .fold { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .proof .chip { background: #f1f3f6; border-radius: 999px; padding: 2px 10px; }
+  .proof .chip b { color: #16202c; font-weight: 650; }
+  .proof .sp { flex: 1; }
+  .proof form { display: flex; gap: 6px; align-items: center; }
+  .proof input { width: 64px; font: inherit; padding: 1px 6px; border: 1px solid #c4ccd6; border-radius: 6px; }
+  .proof .set { padding: 1px 10px; border-radius: 6px; border: 1px solid #1d4f91; background: #1d4f91; color: #fff; font-weight: 600; }
+  .proof .reads { display: none; gap: 26px; align-items: baseline; flex-wrap: wrap; }
+  body.board .proof .fold { display: none; } body.board .proof .reads { display: flex; }
+  .rd b { font-size: 18px; color: #16202c; font-weight: 800; margin-right: 4px; }
+  .rd b.off { color: #23633a; }
+  .proof .lbl { font-weight: 650; color: #1d4f91; }
+
+  .panes { display: grid; grid-template-columns: minmax(340px, 420px) 1fr; gap: 22px; max-width: 1280px; margin: 0 auto; padding: 20px 24px 40px; }
+  .list { background: #fff; border-radius: 14px; padding: 8px; box-shadow: 0 1px 2px rgba(0,0,0,.05); }
+  .row { display: grid; grid-template-columns: 26px 1fr auto; align-items: center; gap: 8px; width: 100%; text-align: left; border: 0;
+         background: none; padding: 9px 12px; border-radius: 8px; color: #16202c; }
+  .row:hover { background: #f3f5f8; }
+  .row .n { color: #8a95a3; font-size: 13px; }
+  .st { font-size: 13px; color: #8a95a3; }
+  .st.flag { color: #9b2c13; font-weight: 650; }
+  .st.flag::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #c4472a; margin-right: 6px; }
+  .open { margin: 4px 0; padding: 18px 18px 20px; border-radius: 12px; background: #1d4f91; color: #fff; }
+  .open .hd { display: flex; justify-content: space-between; font-size: 13px; opacity: .8; }
+  .open .mid { display: flex; align-items: center; gap: 16px; margin: 8px 0 16px; }
+  .open .pic { width: 88px; height: 88px; background: #fff; border-radius: 16px; display: grid; place-items: center; }
+  .open .pic img { width: 70px; height: 70px; }
+  .open .tword { font-size: 60px; font-weight: 800; line-height: 1; letter-spacing: -.02em; }
+  .record { width: 100%; background: #fff; color: #1d4f91; border: 0; border-radius: 10px; padding: 14px; font-size: 21px; font-weight: 750; }
+  .record .d { color: #c4472a; }
+  .again { width: 100%; background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.6); border-radius: 10px; padding: 8px; font-weight: 650; display: none; }
+  body.rec .record { display: none; } body.rec .again { display: block; }
+  .help { font-size: 13px; opacity: .85; margin: 12px 0 0; }
+  body.rec .help { display: none; }
+  .finish { margin: 8px 4px 4px; border-top: 1px solid #eef1f5; padding-top: 10px; }
+  .finish button { width: 100%; display: flex; justify-content: space-between; align-items: center; border: 1px solid #c4ccd6; background: #fff;
+                   border-radius: 8px; padding: 10px 12px; color: #16202c; font-weight: 600; }
+  .finish button span { color: #6b7785; font-weight: 500; }
+  .prog { height: 4px; background: #eef1f5; border-radius: 2px; margin-top: 8px; }
+  .prog i { display: block; height: 4px; width: 10%; background: #1d4f91; border-radius: 2px; }
+
+  .answer { min-width: 0; }
+  .glance { background: #fff; border-radius: 14px; padding: 22px 24px; box-shadow: 0 1px 2px rgba(0,0,0,.05); }
+  .glance h2 { margin: 0; font-size: 20px; }
+  .glance .sub { color: #6b7785; margin: 2px 0 18px; }
+  .pos { display: grid; grid-template-columns: 120px 1fr 110px; gap: 12px; align-items: center; padding: 8px 0; }
+  .bar { height: 12px; border-radius: 6px; background: #eef1f5; position: relative; overflow: hidden; }
+  .pos .c { color: #44505e; font-size: 14px; text-align: right; }
+  .last { margin-top: 18px; padding-top: 16px; border-top: 1px solid #eef1f5; }
+  .last b { display: block; font-size: 14px; color: #44505e; font-weight: 650; }
+  .aid { color: #8a95a3; font-size: 13px; margin: 14px 4px 0; }
+  .q, .ev { display: none; }
+  body.rec .glance { display: none; } body.rec .q, body.rec .ev { display: block; }
+  .q { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,.05), 0 10px 30px rgba(22,32,44,.07); }
+  .qhead { text-align: center; padding: 20px 20px 0; }
+  .qhead small { font-size: 13px; color: #6b7785; }
+  .qword { font-size: 34px; font-weight: 800; }
+  .ask { font-size: 22px; } .ask b { color: #9b2c13; }
+  .meta { color: #6b7785; font-size: 13px; margin-top: 6px; }
+  .choose { position: relative; display: grid; grid-template-columns: 1fr 1fr; margin-top: 18px; }
+  .half { border: 0; height: 180px; font-size: 26px; font-weight: 700; display: grid; place-content: center; gap: 4px; }
+  .half small { font-size: 14px; font-weight: 500; color: #44505e; }
+  .disagree { background: #fdf0ec; color: #9b2c13; } .agree { background: #eef7f0; color: #23633a; }
+  .listen { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 108px; height: 108px; border-radius: 50%;
+            border: 4px solid #fff; background: #1d4f91; color: #fff; font-weight: 700; box-shadow: 0 6px 18px rgba(0,0,0,.18); line-height: 1.1; }
+  .listen small { display: block; font-weight: 500; font-size: 12px; opacity: .85; }
+  .saved { text-align: center; color: #44505e; padding: 10px; margin: 0; }
+  .next { display: block; width: calc(100% - 32px); margin: 0 16px 16px; background: #1d4f91; color: #fff; border: 0; border-radius: 10px; padding: 14px; font-size: 18px; font-weight: 700; }
+  .ev { margin-top: 14px; }
+  .ev summary { cursor: pointer; color: #44505e; font-weight: 600; padding: 6px 0; }
+  .evbox { background: #fff; border-radius: 12px; padding: 14px 16px; }
+  .wave { height: 90px; border-radius: 8px; margin-top: 8px; background: linear-gradient(90deg, #f1f4f8 0 30%, #fff1d6 30% 62%, #f1f4f8 62%); }
+
+  @media (max-width: 900px) {
+    .banner, .proof { padding-left: 16px; padding-right: 16px; }
+    .panes { grid-template-columns: 1fr; padding: 14px 16px 30px; }
+    .answer { order: -1; }
+    body:not(.rec) .answer { order: 0; }
+    .pos { grid-template-columns: 100px 1fr 96px; }
+    .listen { width: 76px; height: 76px; font-size: 13px; }
+    .disagree { padding-right: 40px; } .agree { padding-left: 40px; }
+  }
+</style>
+</head>
+<body>
+<div class="mock"><b>Mockup controls</b>
+  <span>Page: <button data-set="rec" data-v="0" class="on">Before Record</button> <button data-set="rec" data-v="1">After Record</button></span>
+  <span>Bar: <button data-set="board" data-v="0" class="on">Laptop (not measured)</button> <button data-set="board" data-v="1">Board (measured)</button></span>
+  <span>Fake data. Board numbers are placeholders for layout only.</span>
+</div>
+
+<div class="top">
+  <header class="banner">
+    <span class="brand">Speak Up</span>
+    <span class="who"><b>test-4</b>, 8 yr 9 mo <span class="tag">Child voice</span></span>
+    <nav class="links"><a href="#">Sound book</a><a href="#">Child screen</a><a href="#">Past sessions</a><a href="#">New</a></nav>
+  </header>
+  <div class="proof">
+    <div class="fold"><span class="lbl">Measured on this machine</span><span class="chip"><b>35 MB</b> app memory peak</span>
+      <span>Arti, Qwen, network and watts: not measured yet on this machine.</span><span class="sp"></span>
+      <form onsubmit="return false"><label>Watts</label><input inputmode="decimal"><button class="set">Set</button></form></div>
+    <div class="reads"><span class="lbl">Measured on this board</span>
+      <span class="rd"><b>412 ms</b>Arti, last word</span><span class="rd"><b>4.1 tokens/s</b>Qwen</span>
+      <span class="rd"><b>610 of 1,962 MB</b>memory</span><span class="rd"><b class="off">Offline</b>no default route</span>
+      <span class="rd"><b>3.4 W</b>typed from the meter</span></div>
+  </div>
+</div>
+
+<main class="panes">
+  <aside class="list">
+    <button class="row"><span class="n">1</span><span>rabbit</span><span class="st flag">flag</span></button>
+    <div class="open">
+      <div class="hd"><span>Word 2 of 10</span><span>r at the start</span></div>
+      <div class="mid"><div class="pic"><img src="../../speakup/static/pics/rain.svg" alt=""></div><div class="tword">rain</div></div>
+      <button class="record"><span class="d">●</span> Record</button>
+      <button class="again">● Record again</button>
+      <p class="help">The child screen shows the picture. Press Record: the mic keeps recording until the child has been quiet for 3 s, or until you press Stop. The app then picks out the word.</p>
+    </div>
+    <button class="row"><span class="n">3</span><span>ring</span><span class="st">not yet</span></button>
+    <button class="row"><span class="n">4</span><span>rocket</span><span class="st">not yet</span></button>
+    <button class="row"><span class="n">5</span><span>truck</span><span class="st">not yet</span></button>
+    <button class="row"><span class="n">6</span><span>carrot</span><span class="st">not yet</span></button>
+    <button class="row"><span class="n">7</span><span>very</span><span class="st">not yet</span></button>
+    <button class="row"><span class="n">8</span><span>car</span><span class="st">not yet</span></button>
+    <button class="row"><span class="n">9</span><span>door</span><span class="st">not yet</span></button>
+    <button class="row"><span class="n">10</span><span>bear</span><span class="st">not yet</span></button>
+    <div class="finish"><button>Finish screening <span>1 of 10 recorded</span></button><div class="prog"><i></i></div></div>
+  </aside>
+
+  <section class="answer">
+    <div class="glance">
+      <h2>This session</h2>
+      <p class="sub">Your checks so far. Nothing checked yet.</p>
+      <div class="pos"><span>r at the start</span><div class="bar"></div><span class="c">0 right, 0 off</span></div>
+      <div class="pos"><span>r at the middle</span><div class="bar"></div><span class="c">0 right, 0 off</span></div>
+      <div class="pos"><span>r at the end</span><div class="bar"></div><span class="c">0 right, 0 off</span></div>
+      <div class="last"><b>Last time, rain</b>No earlier result for this student on this word.</div>
+    </div>
+
+    <div class="q">
+      <div class="qhead"><small>Arti suggests</small>
+        <div class="qword">rain</div>
+        <div class="ask">Arti heard: <b>the r sounded off</b>. Do you agree?</div>
+        <div class="meta">82% sure. Heard: wain (gliding). Flagged for age 8 yr 9 mo. Model: arti-v0.</div>
+      </div>
+      <div class="choose">
+        <button class="half disagree">Disagree<small>The r sounded right (D)</small></button>
+        <button class="half agree">Agree<small>The r sounded off (A)</small></button>
+        <button class="listen">Listen<br>again<small>L</small></button>
+      </div>
+      <p class="saved">Not checked yet. Next keeps Arti's call.</p>
+      <button class="next">Next word →</button>
+    </div>
+    <details class="ev" open><summary>Evidence: recording, voice, sound picture</summary>
+      <div class="evbox"><b>Recording OK</b> 0.8 s of speech, loudest point 14,200 of 32,767.<div class="wave"></div></div>
+    </details>
+    <p class="aid">Screening aid, not a diagnosis. The SLP decides.</p>
+  </section>
+</main>
+
+<script>
+document.querySelectorAll(".mock [data-set]").forEach(b => b.addEventListener("click", () => {
+  const cls = b.dataset.set;
+  document.body.classList.toggle(cls, b.dataset.v === "1");
+  document.querySelectorAll(`.mock [data-set="${cls}"]`).forEach(x => x.classList.toggle("on", x === b));
+}));
+// #rec and #board in the address open those states, for screenshots.
+["rec", "board"].forEach(k => { if (location.hash.includes(k)) document.querySelector(`.mock [data-set="${k}"][data-v="1"]`).click(); });
+</script>
+</body>
+</html>

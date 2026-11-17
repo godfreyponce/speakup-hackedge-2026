@@ -1,0 +1,4797 @@
+{
+ "version": 1,
+ "about": "Formant (and fricative noise peak) reference ranges by sound and age for the Speak Up 'Hz ranges' tool. Built by T3, 2026-11-04. Read sound-book/NORMS-README.md. Values in Hz. lo/hi = mean minus and plus 1 SD unless 'spread' says otherwise. These are where typical speakers usually fall, never pass/fail lines.",
+ "sources": {
+  "hillenbrand1995": {
+   "cite": "Hillenbrand, J., Getty, L. A., Clark, M. J., and Wheeler, K. (1995). Acoustic characteristics of American English vowels. Journal of the Acoustical Society of America, 97(5), 3099-3111.",
+   "doi": "10.1121/1.411872",
+   "verified": true,
+   "how": "Means and SDs computed by T3 from the authors' token file vowdata.dat (homepages.wmich.edu/~hillenbr/voweldata.html), steady-state F0, F1, F2, F3; zero (unmeasurable) values left out. Crossref confirms the citation."
+  },
+  "flipsen2001": {
+   "cite": "Flipsen, P., Jr., Shriberg, L. D., Weismer, G., Karlsson, H. B., and McSweeny, J. L. (2001). Acoustic phenotypes for speech-genetics studies: Reference data for residual /ɝ/ distortions. Clinical Linguistics and Phonetics, 15(8), 603-630.",
+   "doi": "10.1080/02699200110069410",
+   "verified": true,
+   "how": "Appendix (pp. 629-630), F3-F2 mean (SD) and token n by age and sex, computed from Lee et al. (1999) tokens of 'bird'. Read from the authors' PDF (web.waisman.wisc.edu/phonology/pubs/PUB20.pdf); every cell checked against the rendered page image on 2026-11-04."
+  },
+  "lee1999": {
+   "cite": "Lee, S., Potamianos, A., and Narayanan, S. (1999). Acoustics of children's speech: Developmental changes of temporal and spectral parameters. Journal of the Acoustical Society of America, 105(3), 1455-1468.",
+   "doi": "10.1121/1.426686",
+   "verified": true,
+   "how": "Citation confirmed on Crossref. The raw per-age F1/F2/F3 values are behind the publisher's bot check and were not read; only the F3-F2 values derived from its tokens (flipsen2001) are used."
+  },
+  "mcallisterbyun2012": {
+   "cite": "McAllister Byun, T., and Hitchcock, E. R. (2012). Investigating the use of traditional and spectral biofeedback approaches to intervention for /r/ misarticulation. American Journal of Speech-Language Pathology, 21(3), 207-221.",
+   "doi": "10.1044/1058-0360(2012/11-0083)",
+   "verified": true,
+   "how": "Table 3, F3 mean (SD) of /r/ productions rated correct by at least 2 of 3 certified SLPs, by context; 11 children aged 6;0 to 11;9 in treatment for /r/ errors. Read from the full text."
+  },
+  "wong2025": {
+   "cite": "Wong, E., and Munson, B. (2025). Beyond spectral moments: Validating alternative measures of sibilant fricatives using listener ratings of children's speech. JASA Express Letters, 5(10), 105202.",
+   "doi": "10.1121/10.0039497",
+   "verified": true,
+   "how": "Table 2, M1 and mid-frequency peak (3-9 kHz) mean (SD) by transcription category; 63 children aged 2;6 to 3;6. Read from the PMC full text (PMC12499953)."
+  },
+  "todd2011": {
+   "cite": "Todd, A. E., Edwards, J. R., and Litovsky, R. Y. (2011). Production of contrast between sibilant fricatives by children with cochlear implants. Journal of the Acoustical Society of America, 130(6), 3969-3979.",
+   "doi": "10.1121/1.3652852",
+   "verified": true,
+   "how": "Group spectral means (no SDs given in the text) read from the PMC full text (PMC3253598). Used as reference points only, not as bands."
+  },
+  "espywilson1992": {
+   "cite": "Espy-Wilson, C. Y. (1992). Acoustic measures for linguistic features distinguishing the semivowels /w j r l/ in American English. Journal of the Acoustical Society of America, 92(2), 736-757.",
+   "doi": "10.1121/1.403998",
+   "verified": true,
+   "how": "Table VI, mean F1/F2/F3 across 4 adult speakers (2 men, 2 women), no SDs. Read from the author-hosted PDF (scl.umd.edu). Reference points only."
+  },
+  "koenig2013": {
+   "cite": "Koenig, L. L., Shadle, C. H., Preston, J. L., and Mooshammer, C. R. (2013). Toward improved spectral measures of /s/: Results from adolescents. Journal of Speech, Language, and Hearing Research, 56(4), 1175-1189.",
+   "doi": "10.1044/1092-4388(2012/12-0038)",
+   "verified": true,
+   "how": "Citation confirmed on Crossref. Its /s/ peak values are known here only as quoted by Wong and Munson (2025); the paper itself was not read."
+  },
+  "dalston1975": {
+   "cite": "Dalston, R. M. (1975). Acoustic characteristics of English /w, r, l/ spoken correctly by young children and adults. Journal of the Acoustical Society of America, 57(2), 462-469.",
+   "doi": "10.1121/1.380469",
+   "verified": true,
+   "how": "Citation confirmed on Crossref. Values known only as summarised by McGowan et al. (2004): F3 about 2500 Hz for /r/ and about 3500 Hz for /w/ and /l/ at 3 to 4 years. No SDs, so no band."
+  },
+  "mcgowan2004": {
+   "cite": "McGowan, R. S., Nittrouer, S., and Manning, C. J. (2004). Development of [ɹ] in young, Midwestern, American children. Journal of the Acoustical Society of America, 115(2), 871-884.",
+   "doi": "10.1121/1.1642624",
+   "verified": true,
+   "how": "Read from the PMC full text (PMC3987658). Its 2-year-old values are in figures only and come from children still acquiring /r/, so they are not used as bands."
+  },
+  "campbell2018": {
+   "cite": "Campbell, H., Harel, D., Hitchcock, E., and McAllister Byun, T. (2018). Selecting an acoustic correlate for automated measurement of American English rhotic production in children. International Journal of Speech-Language Pathology, 20(6), 635-643.",
+   "doi": "10.1080/17549507.2017.1359334",
+   "verified": true,
+   "how": "Supports the choice of F3-F2 (z-scored by age and sex) as the r measure. Gives no new reference values."
+  },
+  "nissen2005": {
+   "cite": "Nissen, S. L., and Fox, R. A. (2005). Acoustic and spectral characteristics of young children's fricative productions: A developmental perspective. Journal of the Acoustical Society of America, 118(4), 2570-2578.",
+   "doi": "10.1121/1.2010407",
+   "verified": true,
+   "how": "Citation and abstract confirmed on Crossref. Full text behind the publisher's bot check, so no values are used."
+  },
+  "assmann2000": {
+   "cite": "Assmann, P. F., and Katz, W. F. (2000). Time-varying spectral change in the vowels of children and adults. Journal of the Acoustical Society of America, 108(4), 1856-1866.",
+   "doi": "10.1121/1.1289363",
+   "verified": true,
+   "how": "Citation confirmed on Crossref. Full text not reachable, so its 3, 5 and 7-year-old values are not used."
+  },
+  "vorperian2007": {
+   "cite": "Vorperian, H. K., and Kent, R. D. (2007). Vowel acoustic space development in children: A synthesis of acoustic and anatomic data. Journal of Speech, Language, and Hearing Research, 50(6), 1510-1545.",
+   "doi": "10.1044/1092-4388(2007/104)",
+   "verified": true,
+   "how": "Read from the PMC full text (PMC2597712). Its age-by-age averages are drawn in figures only (no number tables), so no values are taken from it; it supports the notes on sex differences and age trends."
+  }
+ },
+ "cues": {
+  "ɹ": {
+   "key": [
+    "F2",
+    "F3"
+   ],
+   "measure": "F3-F2",
+   "say": "F3 dips low, toward F2",
+   "source": "campbell2018"
+  },
+  "ɝ": {
+   "key": [
+    "F2",
+    "F3"
+   ],
+   "measure": "F3-F2",
+   "say": "F3 stays low and close to F2 through the vowel",
+   "source": "flipsen2001"
+  },
+  "ɚ": {
+   "key": [
+    "F2",
+    "F3"
+   ],
+   "measure": "F3-F2",
+   "say": "F3 stays low and close to F2 (unstressed r vowel, as in butter)",
+   "source": "flipsen2001"
+  },
+  "w": {
+   "key": [
+    "F1",
+    "F2"
+   ],
+   "measure": "F2",
+   "say": "F1 and F2 both very low, F3 stays high",
+   "source": "espywilson1992"
+  },
+  "l": {
+   "key": [
+    "F2",
+    "F3"
+   ],
+   "measure": "F3-F2",
+   "say": "F3 stays high, far above F2, with sharp edges at the release; dark l has a low F2",
+   "source": "espywilson1992"
+  },
+  "j": {
+   "key": [
+    "F1",
+    "F2"
+   ],
+   "measure": "F2",
+   "say": "F1 very low and F2 very high, near the i vowel",
+   "source": "espywilson1992"
+  },
+  "i": {
+   "key": [
+    "F1",
+    "F2"
+   ],
+   "measure": "F1 and F2",
+   "say": "F1 low, F2 high and close to F3",
+   "source": "hillenbrand1995"
+  },
+  "ɪ": {
+   "key": [
+    "F1",
+    "F2"
+   ],
+   "measure": "F1 and F2",
+   "say": "F1 fairly low, F2 high",
+   "source": "hillenbrand1995"
+  },
+  "eɪ": {
+   "key": [
+    "F1",
+    "F2"
+   ],
+   "measure": "F1 and F2",
+   "say": "F1 mid, F2 high, gliding up toward i",
+   "source": "hillenbrand1995"
+  },
+  "ɛ": {
+   "key": [
+    "F1",
+    "F2"
+   ],
+   "measure": "F1 and F2",
+   "say": "F1 mid to high, F2 fairly high",
+   "source": "hillenbrand1995"
+  },
+  "æ": {
+   "key": [
+    "F1",
+    "F2"
+   ],
+   "measure": "F1 and F2",
+   "say": "F1 high, F2 fairly high",
+   "source": "hillenbrand1995"
+  },
+  "ɑ": {
+   "key": [
+    "F1",
+    "F2"
+   ],
+   "measure": "F1 and F2",
+   "say": "F1 highest of all vowels, F2 low",
+   "source": "hillenbrand1995"
+  },
+  "ɔ": {
+   "key": [
+    "F1",
+    "F2"
+   ],
+   "measure": "F1 and F2",
+   "say": "F1 high, F2 low",
+   "source": "hillenbrand1995"
+  },
+  "oʊ": {
+   "key": [
+    "F1",
+    "F2"
+   ],
+   "measure": "F1 and F2",
+   "say": "F1 mid, F2 low, lips rounded",
+   "source": "hillenbrand1995"
+  },
+  "ʊ": {
+   "key": [
+    "F1",
+    "F2"
+   ],
+   "measure": "F1 and F2",
+   "say": "F1 fairly low, F2 low",
+   "source": "hillenbrand1995"
+  },
+  "u": {
+   "key": [
+    "F1",
+    "F2"
+   ],
+   "measure": "F1 and F2",
+   "say": "F1 low, F2 low (rounded lips lower it)",
+   "source": "hillenbrand1995"
+  },
+  "ʌ": {
+   "key": [
+    "F1",
+    "F2"
+   ],
+   "measure": "F1 and F2",
+   "say": "F1 mid to high, F2 in the middle",
+   "source": "hillenbrand1995"
+  },
+  "s": {
+   "key": [],
+   "measure": "spectral_peak",
+   "say": "Loud noise high up, peak often above 6 kHz in children (much of it above what the 16 kHz copy can show)",
+   "source": "wong2025"
+  },
+  "ʃ": {
+   "key": [],
+   "measure": "spectral_peak",
+   "say": "Loud noise lower than s, peak around 3 to 6 kHz in young children",
+   "source": "wong2025"
+  }
+ },
+ "norms": [
+  {
+   "phoneme": "i",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "male",
+   "n": 27,
+   "F1": {
+    "mean": 444,
+    "sd": 53,
+    "lo": 391,
+    "hi": 496
+   },
+   "F2": {
+    "mean": 3028,
+    "sd": 151,
+    "lo": 2876,
+    "hi": 3179
+   },
+   "F3": {
+    "mean": 3612,
+    "sd": 282,
+    "lo": 3330,
+    "hi": 3894
+   },
+   "F3_F2": {
+    "mean": 602,
+    "sd": 235,
+    "lo": 368,
+    "hi": 837
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 246,
+     "sd": 28,
+     "lo": 218,
+     "hi": 274
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "boys 10 to 12, /hVd/ word 'heed', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "i",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "female",
+   "n": 19,
+   "F1": {
+    "mean": 464,
+    "sd": 28,
+    "lo": 437,
+    "hi": 492
+   },
+   "F2": {
+    "mean": 3159,
+    "sd": 218,
+    "lo": 2940,
+    "hi": 3377
+   },
+   "F3": {
+    "mean": 3808,
+    "sd": 261,
+    "lo": 3547,
+    "hi": 4069
+   },
+   "F3_F2": {
+    "mean": 659,
+    "sd": 250,
+    "lo": 408,
+    "hi": 909
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 246,
+     "sd": 24,
+     "lo": 222,
+     "hi": 271
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "girls 10 to 12, /hVd/ word 'heed', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "i",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "male",
+   "n": 45,
+   "F1": {
+    "mean": 343,
+    "sd": 28,
+    "lo": 314,
+    "hi": 371
+   },
+   "F2": {
+    "mean": 2323,
+    "sd": 136,
+    "lo": 2186,
+    "hi": 2459
+   },
+   "F3": {
+    "mean": 3001,
+    "sd": 201,
+    "lo": 2800,
+    "hi": 3202
+   },
+   "F3_F2": {
+    "mean": 689,
+    "sd": 219,
+    "lo": 469,
+    "hi": 908
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 139,
+     "sd": 26,
+     "lo": 113,
+     "hi": 164
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "men, /hVd/ word 'heed', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "i",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "female",
+   "n": 48,
+   "F1": {
+    "mean": 437,
+    "sd": 41,
+    "lo": 397,
+    "hi": 478
+   },
+   "F2": {
+    "mean": 2761,
+    "sd": 147,
+    "lo": 2614,
+    "hi": 2909
+   },
+   "F3": {
+    "mean": 3373,
+    "sd": 237,
+    "lo": 3136,
+    "hi": 3610
+   },
+   "F3_F2": {
+    "mean": 617,
+    "sd": 201,
+    "lo": 416,
+    "hi": 818
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 227,
+     "sd": 24,
+     "lo": 203,
+     "hi": 252
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "women, /hVd/ word 'heed', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "i",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "any",
+   "n": 46,
+   "F1": {
+    "mean": 452,
+    "sd": 45,
+    "lo": 407,
+    "hi": 497
+   },
+   "F2": {
+    "mean": 3082,
+    "sd": 191,
+    "lo": 2890,
+    "hi": 3273
+   },
+   "F3": {
+    "mean": 3702,
+    "sd": 287,
+    "lo": 3416,
+    "hi": 3989
+   },
+   "F3_F2": {
+    "mean": 628,
+    "sd": 240,
+    "lo": 388,
+    "hi": 869
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 246,
+     "sd": 26,
+     "lo": 220,
+     "hi": 272
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "boys and girls 10 to 12 pooled by T3, /hVd/ word 'heed', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "i",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "any",
+   "n": 93,
+   "F1": {
+    "mean": 391,
+    "sd": 59,
+    "lo": 332,
+    "hi": 450
+   },
+   "F2": {
+    "mean": 2549,
+    "sd": 262,
+    "lo": 2287,
+    "hi": 2811
+   },
+   "F3": {
+    "mean": 3191,
+    "sd": 288,
+    "lo": 2903,
+    "hi": 3479
+   },
+   "F3_F2": {
+    "mean": 652,
+    "sd": 212,
+    "lo": 440,
+    "hi": 864
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 184,
+     "sd": 51,
+     "lo": 133,
+     "hi": 235
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "men and women pooled by T3, /hVd/ word 'heed', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɪ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "male",
+   "n": 27,
+   "F1": {
+    "mean": 518,
+    "sd": 39,
+    "lo": 479,
+    "hi": 557
+   },
+   "F2": {
+    "mean": 2498,
+    "sd": 150,
+    "lo": 2348,
+    "hi": 2647
+   },
+   "F3": {
+    "mean": 3335,
+    "sd": 173,
+    "lo": 3162,
+    "hi": 3508
+   },
+   "F3_F2": {
+    "mean": 837,
+    "sd": 174,
+    "lo": 663,
+    "hi": 1011
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 239,
+     "sd": 28,
+     "lo": 212,
+     "hi": 267
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "boys 10 to 12, /hVd/ word 'hid', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɪ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "female",
+   "n": 19,
+   "F1": {
+    "mean": 506,
+    "sd": 37,
+    "lo": 469,
+    "hi": 543
+   },
+   "F2": {
+    "mean": 2640,
+    "sd": 140,
+    "lo": 2500,
+    "hi": 2780
+   },
+   "F3": {
+    "mean": 3513,
+    "sd": 183,
+    "lo": 3330,
+    "hi": 3696
+   },
+   "F3_F2": {
+    "mean": 873,
+    "sd": 206,
+    "lo": 668,
+    "hi": 1079
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 242,
+     "sd": 17,
+     "lo": 225,
+     "hi": 259
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "girls 10 to 12, /hVd/ word 'hid', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɪ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "male",
+   "n": 45,
+   "F1": {
+    "mean": 429,
+    "sd": 31,
+    "lo": 398,
+    "hi": 461
+   },
+   "F2": {
+    "mean": 2034,
+    "sd": 122,
+    "lo": 1912,
+    "hi": 2156
+   },
+   "F3": {
+    "mean": 2687,
+    "sd": 129,
+    "lo": 2558,
+    "hi": 2816
+   },
+   "F3_F2": {
+    "mean": 653,
+    "sd": 97,
+    "lo": 556,
+    "hi": 750
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 136,
+     "sd": 22,
+     "lo": 114,
+     "hi": 157
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "men, /hVd/ word 'hid', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɪ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "female",
+   "n": 48,
+   "F1": {
+    "mean": 484,
+    "sd": 34,
+    "lo": 450,
+    "hi": 519
+   },
+   "F2": {
+    "mean": 2369,
+    "sd": 149,
+    "lo": 2220,
+    "hi": 2519
+   },
+   "F3": {
+    "mean": 3057,
+    "sd": 190,
+    "lo": 2867,
+    "hi": 3247
+   },
+   "F3_F2": {
+    "mean": 688,
+    "sd": 142,
+    "lo": 546,
+    "hi": 830
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 225,
+     "sd": 21,
+     "lo": 204,
+     "hi": 245
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "women, /hVd/ word 'hid', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɪ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "any",
+   "n": 46,
+   "F1": {
+    "mean": 513,
+    "sd": 38,
+    "lo": 475,
+    "hi": 552
+   },
+   "F2": {
+    "mean": 2556,
+    "sd": 161,
+    "lo": 2396,
+    "hi": 2717
+   },
+   "F3": {
+    "mean": 3409,
+    "sd": 196,
+    "lo": 3212,
+    "hi": 3605
+   },
+   "F3_F2": {
+    "mean": 852,
+    "sd": 186,
+    "lo": 666,
+    "hi": 1039
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 240,
+     "sd": 24,
+     "lo": 217,
+     "hi": 264
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "boys and girls 10 to 12 pooled by T3, /hVd/ word 'hid', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɪ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "any",
+   "n": 93,
+   "F1": {
+    "mean": 458,
+    "sd": 43,
+    "lo": 415,
+    "hi": 501
+   },
+   "F2": {
+    "mean": 2207,
+    "sd": 217,
+    "lo": 1990,
+    "hi": 2423
+   },
+   "F3": {
+    "mean": 2878,
+    "sd": 247,
+    "lo": 2631,
+    "hi": 3125
+   },
+   "F3_F2": {
+    "mean": 671,
+    "sd": 123,
+    "lo": 548,
+    "hi": 794
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 182,
+     "sd": 49,
+     "lo": 132,
+     "hi": 231
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "men and women pooled by T3, /hVd/ word 'hid', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "eɪ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "male",
+   "n": 27,
+   "F1": {
+    "mean": 563,
+    "sd": 61,
+    "lo": 502,
+    "hi": 624
+   },
+   "F2": {
+    "mean": 2608,
+    "sd": 135,
+    "lo": 2473,
+    "hi": 2744
+   },
+   "F3": {
+    "mean": 3286,
+    "sd": 177,
+    "lo": 3109,
+    "hi": 3463
+   },
+   "F3_F2": {
+    "mean": 684,
+    "sd": 147,
+    "lo": 537,
+    "hi": 830
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 236,
+     "sd": 28,
+     "lo": 208,
+     "hi": 264
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "boys 10 to 12, /hVd/ word 'hayed', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "eɪ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "female",
+   "n": 19,
+   "F1": {
+    "mean": 567,
+    "sd": 61,
+    "lo": 507,
+    "hi": 628
+   },
+   "F2": {
+    "mean": 2707,
+    "sd": 185,
+    "lo": 2522,
+    "hi": 2893
+   },
+   "F3": {
+    "mean": 3376,
+    "sd": 303,
+    "lo": 3073,
+    "hi": 3680
+   },
+   "F3_F2": {
+    "mean": 700,
+    "sd": 243,
+    "lo": 457,
+    "hi": 942
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 240,
+     "sd": 17,
+     "lo": 223,
+     "hi": 257
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "girls 10 to 12, /hVd/ word 'hayed', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "eɪ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "male",
+   "n": 45,
+   "F1": {
+    "mean": 476,
+    "sd": 41,
+    "lo": 435,
+    "hi": 517
+   },
+   "F2": {
+    "mean": 2090,
+    "sd": 140,
+    "lo": 1950,
+    "hi": 2229
+   },
+   "F3": {
+    "mean": 2692,
+    "sd": 155,
+    "lo": 2537,
+    "hi": 2847
+   },
+   "F3_F2": {
+    "mean": 601,
+    "sd": 134,
+    "lo": 467,
+    "hi": 735
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 129,
+     "sd": 21,
+     "lo": 109,
+     "hi": 150
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "men, /hVd/ word 'hayed', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "eɪ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "female",
+   "n": 48,
+   "F1": {
+    "mean": 535,
+    "sd": 63,
+    "lo": 473,
+    "hi": 598
+   },
+   "F2": {
+    "mean": 2526,
+    "sd": 154,
+    "lo": 2371,
+    "hi": 2680
+   },
+   "F3": {
+    "mean": 3050,
+    "sd": 181,
+    "lo": 2869,
+    "hi": 3231
+   },
+   "F3_F2": {
+    "mean": 533,
+    "sd": 140,
+    "lo": 393,
+    "hi": 673
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 220,
+     "sd": 23,
+     "lo": 197,
+     "hi": 242
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "women, /hVd/ word 'hayed', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "eɪ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "any",
+   "n": 46,
+   "F1": {
+    "mean": 565,
+    "sd": 60,
+    "lo": 505,
+    "hi": 625
+   },
+   "F2": {
+    "mean": 2649,
+    "sd": 163,
+    "lo": 2486,
+    "hi": 2813
+   },
+   "F3": {
+    "mean": 3323,
+    "sd": 238,
+    "lo": 3085,
+    "hi": 3561
+   },
+   "F3_F2": {
+    "mean": 690,
+    "sd": 189,
+    "lo": 501,
+    "hi": 879
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 238,
+     "sd": 24,
+     "lo": 214,
+     "hi": 262
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "boys and girls 10 to 12 pooled by T3, /hVd/ word 'hayed', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "eɪ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "any",
+   "n": 93,
+   "F1": {
+    "mean": 507,
+    "sd": 61,
+    "lo": 446,
+    "hi": 568
+   },
+   "F2": {
+    "mean": 2315,
+    "sd": 264,
+    "lo": 2051,
+    "hi": 2578
+   },
+   "F3": {
+    "mean": 2871,
+    "sd": 246,
+    "lo": 2625,
+    "hi": 3117
+   },
+   "F3_F2": {
+    "mean": 567,
+    "sd": 140,
+    "lo": 426,
+    "hi": 707
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 176,
+     "sd": 50,
+     "lo": 126,
+     "hi": 226
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "men and women pooled by T3, /hVd/ word 'hayed', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɛ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "male",
+   "n": 27,
+   "F1": {
+    "mean": 727,
+    "sd": 94,
+    "lo": 632,
+    "hi": 821
+   },
+   "F2": {
+    "mean": 2225,
+    "sd": 154,
+    "lo": 2071,
+    "hi": 2379
+   },
+   "F3": {
+    "mean": 3228,
+    "sd": 172,
+    "lo": 3056,
+    "hi": 3401
+   },
+   "F3_F2": {
+    "mean": 1003,
+    "sd": 201,
+    "lo": 802,
+    "hi": 1204
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 231,
+     "sd": 27,
+     "lo": 204,
+     "hi": 258
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "boys 10 to 12, /hVd/ word 'head', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɛ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "female",
+   "n": 19,
+   "F1": {
+    "mean": 758,
+    "sd": 101,
+    "lo": 657,
+    "hi": 859
+   },
+   "F2": {
+    "mean": 2355,
+    "sd": 126,
+    "lo": 2229,
+    "hi": 2482
+   },
+   "F3": {
+    "mean": 3395,
+    "sd": 205,
+    "lo": 3190,
+    "hi": 3600
+   },
+   "F3_F2": {
+    "mean": 1040,
+    "sd": 200,
+    "lo": 839,
+    "hi": 1240
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 229,
+     "sd": 16,
+     "lo": 213,
+     "hi": 245
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "girls 10 to 12, /hVd/ word 'head', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɛ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "male",
+   "n": 45,
+   "F1": {
+    "mean": 588,
+    "sd": 41,
+    "lo": 547,
+    "hi": 629
+   },
+   "F2": {
+    "mean": 1803,
+    "sd": 117,
+    "lo": 1686,
+    "hi": 1919
+   },
+   "F3": {
+    "mean": 2604,
+    "sd": 139,
+    "lo": 2466,
+    "hi": 2743
+   },
+   "F3_F2": {
+    "mean": 801,
+    "sd": 109,
+    "lo": 692,
+    "hi": 910
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 127,
+     "sd": 20,
+     "lo": 107,
+     "hi": 147
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "men, /hVd/ word 'head', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɛ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "female",
+   "n": 48,
+   "F1": {
+    "mean": 727,
+    "sd": 74,
+    "lo": 653,
+    "hi": 801
+   },
+   "F2": {
+    "mean": 2063,
+    "sd": 143,
+    "lo": 1920,
+    "hi": 2206
+   },
+   "F3": {
+    "mean": 2953,
+    "sd": 189,
+    "lo": 2764,
+    "hi": 3142
+   },
+   "F3_F2": {
+    "mean": 890,
+    "sd": 181,
+    "lo": 709,
+    "hi": 1071
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 213,
+     "sd": 19,
+     "lo": 194,
+     "hi": 232
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "women, /hVd/ word 'head', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɛ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "any",
+   "n": 46,
+   "F1": {
+    "mean": 740,
+    "sd": 97,
+    "lo": 643,
+    "hi": 837
+   },
+   "F2": {
+    "mean": 2279,
+    "sd": 156,
+    "lo": 2123,
+    "hi": 2434
+   },
+   "F3": {
+    "mean": 3297,
+    "sd": 202,
+    "lo": 3095,
+    "hi": 3499
+   },
+   "F3_F2": {
+    "mean": 1018,
+    "sd": 199,
+    "lo": 819,
+    "hi": 1218
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 230,
+     "sd": 23,
+     "lo": 207,
+     "hi": 253
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "boys and girls 10 to 12 pooled by T3, /hVd/ word 'head', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɛ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "any",
+   "n": 93,
+   "F1": {
+    "mean": 660,
+    "sd": 92,
+    "lo": 568,
+    "hi": 752
+   },
+   "F2": {
+    "mean": 1937,
+    "sd": 184,
+    "lo": 1753,
+    "hi": 2121
+   },
+   "F3": {
+    "mean": 2784,
+    "sd": 241,
+    "lo": 2543,
+    "hi": 3025
+   },
+   "F3_F2": {
+    "mean": 847,
+    "sd": 156,
+    "lo": 691,
+    "hi": 1003
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 171,
+     "sd": 47,
+     "lo": 124,
+     "hi": 219
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "men and women pooled by T3, /hVd/ word 'head', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "æ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "male",
+   "n": 27,
+   "F1": {
+    "mean": 704,
+    "sd": 80,
+    "lo": 624,
+    "hi": 784
+   },
+   "F2": {
+    "mean": 2472,
+    "sd": 156,
+    "lo": 2317,
+    "hi": 2628
+   },
+   "F3": {
+    "mean": 3206,
+    "sd": 168,
+    "lo": 3038,
+    "hi": 3374
+   },
+   "F3_F2": {
+    "mean": 741,
+    "sd": 142,
+    "lo": 599,
+    "hi": 884
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 227,
+     "sd": 25,
+     "lo": 202,
+     "hi": 252
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "boys 10 to 12, /hVd/ word 'had', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "æ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "female",
+   "n": 19,
+   "F1": {
+    "mean": 738,
+    "sd": 100,
+    "lo": 638,
+    "hi": 839
+   },
+   "F2": {
+    "mean": 2532,
+    "sd": 149,
+    "lo": 2383,
+    "hi": 2681
+   },
+   "F3": {
+    "mean": 3411,
+    "sd": 281,
+    "lo": 3129,
+    "hi": 3692
+   },
+   "F3_F2": {
+    "mean": 883,
+    "sd": 173,
+    "lo": 710,
+    "hi": 1056
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 233,
+     "sd": 20,
+     "lo": 213,
+     "hi": 253
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "girls 10 to 12, /hVd/ word 'had', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "æ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "male",
+   "n": 45,
+   "F1": {
+    "mean": 591,
+    "sd": 42,
+    "lo": 550,
+    "hi": 633
+   },
+   "F2": {
+    "mean": 1930,
+    "sd": 133,
+    "lo": 1797,
+    "hi": 2063
+   },
+   "F3": {
+    "mean": 2595,
+    "sd": 137,
+    "lo": 2458,
+    "hi": 2733
+   },
+   "F3_F2": {
+    "mean": 665,
+    "sd": 120,
+    "lo": 545,
+    "hi": 785
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 126,
+     "sd": 20,
+     "lo": 106,
+     "hi": 145
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "men, /hVd/ word 'had', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "æ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "female",
+   "n": 48,
+   "F1": {
+    "mean": 676,
+    "sd": 69,
+    "lo": 606,
+    "hi": 745
+   },
+   "F2": {
+    "mean": 2335,
+    "sd": 159,
+    "lo": 2176,
+    "hi": 2493
+   },
+   "F3": {
+    "mean": 2973,
+    "sd": 200,
+    "lo": 2773,
+    "hi": 3173
+   },
+   "F3_F2": {
+    "mean": 640,
+    "sd": 152,
+    "lo": 489,
+    "hi": 792
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 214,
+     "sd": 21,
+     "lo": 194,
+     "hi": 235
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "women, /hVd/ word 'had', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "æ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "any",
+   "n": 46,
+   "F1": {
+    "mean": 718,
+    "sd": 90,
+    "lo": 629,
+    "hi": 808
+   },
+   "F2": {
+    "mean": 2497,
+    "sd": 154,
+    "lo": 2343,
+    "hi": 2651
+   },
+   "F3": {
+    "mean": 3289,
+    "sd": 240,
+    "lo": 3049,
+    "hi": 3529
+   },
+   "F3_F2": {
+    "mean": 798,
+    "sd": 169,
+    "lo": 630,
+    "hi": 967
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 229,
+     "sd": 23,
+     "lo": 206,
+     "hi": 252
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "boys and girls 10 to 12 pooled by T3, /hVd/ word 'had', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "æ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "any",
+   "n": 93,
+   "F1": {
+    "mean": 635,
+    "sd": 71,
+    "lo": 564,
+    "hi": 706
+   },
+   "F2": {
+    "mean": 2139,
+    "sd": 250,
+    "lo": 1889,
+    "hi": 2389
+   },
+   "F3": {
+    "mean": 2788,
+    "sd": 256,
+    "lo": 2533,
+    "hi": 3044
+   },
+   "F3_F2": {
+    "mean": 652,
+    "sd": 137,
+    "lo": 516,
+    "hi": 789
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 171,
+     "sd": 49,
+     "lo": 123,
+     "hi": 220
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "men and women pooled by T3, /hVd/ word 'had', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɑ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "male",
+   "n": 27,
+   "F1": {
+    "mean": 959,
+    "sd": 113,
+    "lo": 845,
+    "hi": 1072
+   },
+   "F2": {
+    "mean": 1650,
+    "sd": 148,
+    "lo": 1502,
+    "hi": 1799
+   },
+   "F3": {
+    "mean": 2882,
+    "sd": 262,
+    "lo": 2620,
+    "hi": 3145
+   },
+   "F3_F2": {
+    "mean": 1243,
+    "sd": 249,
+    "lo": 994,
+    "hi": 1492
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 234,
+     "sd": 29,
+     "lo": 205,
+     "hi": 263
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "boys 10 to 12, /hVd/ word 'hod', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɑ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "female",
+   "n": 19,
+   "F1": {
+    "mean": 1039,
+    "sd": 138,
+    "lo": 901,
+    "hi": 1178
+   },
+   "F2": {
+    "mean": 1740,
+    "sd": 172,
+    "lo": 1567,
+    "hi": 1912
+   },
+   "F3": {
+    "mean": 3015,
+    "sd": 238,
+    "lo": 2777,
+    "hi": 3254
+   },
+   "F3_F2": {
+    "mean": 1276,
+    "sd": 239,
+    "lo": 1037,
+    "hi": 1515
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 227,
+     "sd": 18,
+     "lo": 209,
+     "hi": 245
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "girls 10 to 12, /hVd/ word 'hod', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɑ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "male",
+   "n": 45,
+   "F1": {
+    "mean": 756,
+    "sd": 62,
+    "lo": 694,
+    "hi": 819
+   },
+   "F2": {
+    "mean": 1309,
+    "sd": 111,
+    "lo": 1198,
+    "hi": 1420
+   },
+   "F3": {
+    "mean": 2535,
+    "sd": 149,
+    "lo": 2386,
+    "hi": 2684
+   },
+   "F3_F2": {
+    "mean": 1226,
+    "sd": 212,
+    "lo": 1014,
+    "hi": 1437
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 127,
+     "sd": 20,
+     "lo": 106,
+     "hi": 147
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "men, /hVd/ word 'hod', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɑ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "female",
+   "n": 48,
+   "F1": {
+    "mean": 921,
+    "sd": 97,
+    "lo": 824,
+    "hi": 1018
+   },
+   "F2": {
+    "mean": 1526,
+    "sd": 125,
+    "lo": 1401,
+    "hi": 1651
+   },
+   "F3": {
+    "mean": 2832,
+    "sd": 177,
+    "lo": 2655,
+    "hi": 3009
+   },
+   "F3_F2": {
+    "mean": 1297,
+    "sd": 206,
+    "lo": 1091,
+    "hi": 1502
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 212,
+     "sd": 22,
+     "lo": 190,
+     "hi": 235
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "women, /hVd/ word 'hod', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɑ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "any",
+   "n": 46,
+   "F1": {
+    "mean": 992,
+    "sd": 129,
+    "lo": 863,
+    "hi": 1121
+   },
+   "F2": {
+    "mean": 1689,
+    "sd": 163,
+    "lo": 1526,
+    "hi": 1852
+   },
+   "F3": {
+    "mean": 2937,
+    "sd": 259,
+    "lo": 2679,
+    "hi": 3196
+   },
+   "F3_F2": {
+    "mean": 1257,
+    "sd": 242,
+    "lo": 1015,
+    "hi": 1499
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 231,
+     "sd": 25,
+     "lo": 206,
+     "hi": 256
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "boys and girls 10 to 12 pooled by T3, /hVd/ word 'hod', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɑ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "any",
+   "n": 93,
+   "F1": {
+    "mean": 841,
+    "sd": 116,
+    "lo": 725,
+    "hi": 958
+   },
+   "F2": {
+    "mean": 1420,
+    "sd": 160,
+    "lo": 1259,
+    "hi": 1580
+   },
+   "F3": {
+    "mean": 2688,
+    "sd": 221,
+    "lo": 2467,
+    "hi": 2909
+   },
+   "F3_F2": {
+    "mean": 1262,
+    "sd": 210,
+    "lo": 1052,
+    "hi": 1473
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 171,
+     "sd": 48,
+     "lo": 123,
+     "hi": 219
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "men and women pooled by T3, /hVd/ word 'hod', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɔ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "male",
+   "n": 27,
+   "F1": {
+    "mean": 794,
+    "sd": 91,
+    "lo": 704,
+    "hi": 885
+   },
+   "F2": {
+    "mean": 1251,
+    "sd": 161,
+    "lo": 1090,
+    "hi": 1412
+   },
+   "F3": {
+    "mean": 2866,
+    "sd": 217,
+    "lo": 2649,
+    "hi": 3083
+   },
+   "F3_F2": {
+    "mean": 1623,
+    "sd": 259,
+    "lo": 1365,
+    "hi": 1882
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 230,
+     "sd": 27,
+     "lo": 203,
+     "hi": 257
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "boys 10 to 12, /hVd/ word 'hawed', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɔ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "female",
+   "n": 19,
+   "F1": {
+    "mean": 897,
+    "sd": 97,
+    "lo": 799,
+    "hi": 994
+   },
+   "F2": {
+    "mean": 1378,
+    "sd": 132,
+    "lo": 1246,
+    "hi": 1510
+   },
+   "F3": {
+    "mean": 3067,
+    "sd": 284,
+    "lo": 2783,
+    "hi": 3351
+   },
+   "F3_F2": {
+    "mean": 1680,
+    "sd": 295,
+    "lo": 1385,
+    "hi": 1975
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 235,
+     "sd": 22,
+     "lo": 213,
+     "hi": 256
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "girls 10 to 12, /hVd/ word 'hawed', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɔ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "male",
+   "n": 45,
+   "F1": {
+    "mean": 656,
+    "sd": 34,
+    "lo": 622,
+    "hi": 690
+   },
+   "F2": {
+    "mean": 1023,
+    "sd": 66,
+    "lo": 958,
+    "hi": 1089
+   },
+   "F3": {
+    "mean": 2521,
+    "sd": 179,
+    "lo": 2342,
+    "hi": 2701
+   },
+   "F3_F2": {
+    "mean": 1498,
+    "sd": 199,
+    "lo": 1299,
+    "hi": 1697
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 125,
+     "sd": 21,
+     "lo": 104,
+     "hi": 146
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "men, /hVd/ word 'hawed', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɔ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "female",
+   "n": 48,
+   "F1": {
+    "mean": 804,
+    "sd": 75,
+    "lo": 730,
+    "hi": 879
+   },
+   "F2": {
+    "mean": 1188,
+    "sd": 129,
+    "lo": 1059,
+    "hi": 1317
+   },
+   "F3": {
+    "mean": 2824,
+    "sd": 212,
+    "lo": 2612,
+    "hi": 3037
+   },
+   "F3_F2": {
+    "mean": 1631,
+    "sd": 247,
+    "lo": 1384,
+    "hi": 1878
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 214,
+     "sd": 20,
+     "lo": 194,
+     "hi": 234
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "women, /hVd/ word 'hawed', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɔ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "any",
+   "n": 46,
+   "F1": {
+    "mean": 836,
+    "sd": 106,
+    "lo": 731,
+    "hi": 942
+   },
+   "F2": {
+    "mean": 1303,
+    "sd": 161,
+    "lo": 1142,
+    "hi": 1464
+   },
+   "F3": {
+    "mean": 2951,
+    "sd": 264,
+    "lo": 2687,
+    "hi": 3215
+   },
+   "F3_F2": {
+    "mean": 1647,
+    "sd": 272,
+    "lo": 1375,
+    "hi": 1920
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 232,
+     "sd": 25,
+     "lo": 207,
+     "hi": 257
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "boys and girls 10 to 12 pooled by T3, /hVd/ word 'hawed', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɔ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "any",
+   "n": 93,
+   "F1": {
+    "mean": 733,
+    "sd": 95,
+    "lo": 638,
+    "hi": 827
+   },
+   "F2": {
+    "mean": 1108,
+    "sd": 132,
+    "lo": 976,
+    "hi": 1239
+   },
+   "F3": {
+    "mean": 2678,
+    "sd": 248,
+    "lo": 2429,
+    "hi": 2926
+   },
+   "F3_F2": {
+    "mean": 1566,
+    "sd": 234,
+    "lo": 1332,
+    "hi": 1799
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 171,
+     "sd": 49,
+     "lo": 122,
+     "hi": 220
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "men and women pooled by T3, /hVd/ word 'hawed', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "oʊ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "male",
+   "n": 27,
+   "F1": {
+    "mean": 606,
+    "sd": 47,
+    "lo": 559,
+    "hi": 653
+   },
+   "F2": {
+    "mean": 1136,
+    "sd": 118,
+    "lo": 1018,
+    "hi": 1253
+   },
+   "F3": {
+    "mean": 2935,
+    "sd": 187,
+    "lo": 2748,
+    "hi": 3122
+   },
+   "F3_F2": {
+    "mean": 1812,
+    "sd": 209,
+    "lo": 1602,
+    "hi": 2021
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 236,
+     "sd": 30,
+     "lo": 206,
+     "hi": 266
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "boys 10 to 12, /hVd/ word 'hoed', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "oʊ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "female",
+   "n": 19,
+   "F1": {
+    "mean": 589,
+    "sd": 86,
+    "lo": 504,
+    "hi": 675
+   },
+   "F2": {
+    "mean": 1145,
+    "sd": 203,
+    "lo": 942,
+    "hi": 1349
+   },
+   "F3": {
+    "mean": 3106,
+    "sd": 184,
+    "lo": 2922,
+    "hi": 3290
+   },
+   "F3_F2": {
+    "mean": 1961,
+    "sd": 238,
+    "lo": 1723,
+    "hi": 2199
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 242,
+     "sd": 19,
+     "lo": 223,
+     "hi": 260
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "girls 10 to 12, /hVd/ word 'hoed', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "oʊ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "male",
+   "n": 45,
+   "F1": {
+    "mean": 498,
+    "sd": 43,
+    "lo": 455,
+    "hi": 540
+   },
+   "F2": {
+    "mean": 910,
+    "sd": 98,
+    "lo": 812,
+    "hi": 1009
+   },
+   "F3": {
+    "mean": 2459,
+    "sd": 144,
+    "lo": 2315,
+    "hi": 2603
+   },
+   "F3_F2": {
+    "mean": 1549,
+    "sd": 165,
+    "lo": 1384,
+    "hi": 1714
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 130,
+     "sd": 20,
+     "lo": 110,
+     "hi": 150
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "men, /hVd/ word 'hoed', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "oʊ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "female",
+   "n": 48,
+   "F1": {
+    "mean": 555,
+    "sd": 81,
+    "lo": 475,
+    "hi": 636
+   },
+   "F2": {
+    "mean": 1036,
+    "sd": 123,
+    "lo": 913,
+    "hi": 1158
+   },
+   "F3": {
+    "mean": 2828,
+    "sd": 187,
+    "lo": 2641,
+    "hi": 3015
+   },
+   "F3_F2": {
+    "mean": 1793,
+    "sd": 220,
+    "lo": 1573,
+    "hi": 2013
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 218,
+     "sd": 22,
+     "lo": 196,
+     "hi": 240
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "women, /hVd/ word 'hoed', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "oʊ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "any",
+   "n": 46,
+   "F1": {
+    "mean": 599,
+    "sd": 65,
+    "lo": 534,
+    "hi": 664
+   },
+   "F2": {
+    "mean": 1140,
+    "sd": 158,
+    "lo": 982,
+    "hi": 1298
+   },
+   "F3": {
+    "mean": 3006,
+    "sd": 203,
+    "lo": 2803,
+    "hi": 3208
+   },
+   "F3_F2": {
+    "mean": 1876,
+    "sd": 232,
+    "lo": 1644,
+    "hi": 2108
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 238,
+     "sd": 26,
+     "lo": 212,
+     "hi": 264
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "boys and girls 10 to 12 pooled by T3, /hVd/ word 'hoed', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "oʊ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "any",
+   "n": 93,
+   "F1": {
+    "mean": 528,
+    "sd": 71,
+    "lo": 457,
+    "hi": 598
+   },
+   "F2": {
+    "mean": 975,
+    "sd": 127,
+    "lo": 848,
+    "hi": 1102
+   },
+   "F3": {
+    "mean": 2650,
+    "sd": 249,
+    "lo": 2400,
+    "hi": 2899
+   },
+   "F3_F2": {
+    "mean": 1675,
+    "sd": 230,
+    "lo": 1445,
+    "hi": 1905
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 175,
+     "sd": 49,
+     "lo": 126,
+     "hi": 224
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "men and women pooled by T3, /hVd/ word 'hoed', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ʊ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "male",
+   "n": 27,
+   "F1": {
+    "mean": 567,
+    "sd": 52,
+    "lo": 516,
+    "hi": 619
+   },
+   "F2": {
+    "mean": 1451,
+    "sd": 189,
+    "lo": 1262,
+    "hi": 1640
+   },
+   "F3": {
+    "mean": 2998,
+    "sd": 195,
+    "lo": 2803,
+    "hi": 3193
+   },
+   "F3_F2": {
+    "mean": 1547,
+    "sd": 248,
+    "lo": 1299,
+    "hi": 1794
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 239,
+     "sd": 28,
+     "lo": 212,
+     "hi": 267
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "boys 10 to 12, /hVd/ word 'hood', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ʊ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "female",
+   "n": 19,
+   "F1": {
+    "mean": 575,
+    "sd": 57,
+    "lo": 518,
+    "hi": 633
+   },
+   "F2": {
+    "mean": 1583,
+    "sd": 137,
+    "lo": 1446,
+    "hi": 1719
+   },
+   "F3": {
+    "mean": 3187,
+    "sd": 194,
+    "lo": 2993,
+    "hi": 3381
+   },
+   "F3_F2": {
+    "mean": 1604,
+    "sd": 199,
+    "lo": 1405,
+    "hi": 1803
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 246,
+     "sd": 21,
+     "lo": 225,
+     "hi": 267
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "girls 10 to 12, /hVd/ word 'hood', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ʊ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "male",
+   "n": 45,
+   "F1": {
+    "mean": 469,
+    "sd": 28,
+    "lo": 441,
+    "hi": 498
+   },
+   "F2": {
+    "mean": 1123,
+    "sd": 97,
+    "lo": 1026,
+    "hi": 1220
+   },
+   "F3": {
+    "mean": 2435,
+    "sd": 127,
+    "lo": 2307,
+    "hi": 2562
+   },
+   "F3_F2": {
+    "mean": 1312,
+    "sd": 168,
+    "lo": 1144,
+    "hi": 1480
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 133,
+     "sd": 21,
+     "lo": 112,
+     "hi": 154
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "men, /hVd/ word 'hood', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ʊ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "female",
+   "n": 48,
+   "F1": {
+    "mean": 519,
+    "sd": 41,
+    "lo": 477,
+    "hi": 560
+   },
+   "F2": {
+    "mean": 1229,
+    "sd": 145,
+    "lo": 1084,
+    "hi": 1373
+   },
+   "F3": {
+    "mean": 2829,
+    "sd": 183,
+    "lo": 2647,
+    "hi": 3012
+   },
+   "F3_F2": {
+    "mean": 1601,
+    "sd": 224,
+    "lo": 1376,
+    "hi": 1825
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 230,
+     "sd": 22,
+     "lo": 208,
+     "hi": 252
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "women, /hVd/ word 'hood', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ʊ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "any",
+   "n": 46,
+   "F1": {
+    "mean": 571,
+    "sd": 54,
+    "lo": 517,
+    "hi": 624
+   },
+   "F2": {
+    "mean": 1506,
+    "sd": 180,
+    "lo": 1326,
+    "hi": 1686
+   },
+   "F3": {
+    "mean": 3076,
+    "sd": 214,
+    "lo": 2862,
+    "hi": 3290
+   },
+   "F3_F2": {
+    "mean": 1570,
+    "sd": 228,
+    "lo": 1342,
+    "hi": 1799
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 242,
+     "sd": 25,
+     "lo": 217,
+     "hi": 267
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "boys and girls 10 to 12 pooled by T3, /hVd/ word 'hood', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ʊ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "any",
+   "n": 93,
+   "F1": {
+    "mean": 495,
+    "sd": 43,
+    "lo": 452,
+    "hi": 538
+   },
+   "F2": {
+    "mean": 1177,
+    "sd": 134,
+    "lo": 1043,
+    "hi": 1312
+   },
+   "F3": {
+    "mean": 2638,
+    "sd": 253,
+    "lo": 2385,
+    "hi": 2892
+   },
+   "F3_F2": {
+    "mean": 1461,
+    "sd": 246,
+    "lo": 1215,
+    "hi": 1707
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 183,
+     "sd": 53,
+     "lo": 130,
+     "hi": 236
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "men and women pooled by T3, /hVd/ word 'hood', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "u",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "male",
+   "n": 27,
+   "F1": {
+    "mean": 493,
+    "sd": 48,
+    "lo": 445,
+    "hi": 541
+   },
+   "F2": {
+    "mean": 1327,
+    "sd": 295,
+    "lo": 1031,
+    "hi": 1622
+   },
+   "F3": {
+    "mean": 2948,
+    "sd": 199,
+    "lo": 2749,
+    "hi": 3147
+   },
+   "F3_F2": {
+    "mean": 1609,
+    "sd": 370,
+    "lo": 1239,
+    "hi": 1979
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 247,
+     "sd": 32,
+     "lo": 215,
+     "hi": 279
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "boys 10 to 12, /hVd/ word 'who'd', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "u",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "female",
+   "n": 19,
+   "F1": {
+    "mean": 492,
+    "sd": 41,
+    "lo": 452,
+    "hi": 533
+   },
+   "F2": {
+    "mean": 1510,
+    "sd": 364,
+    "lo": 1146,
+    "hi": 1873
+   },
+   "F3": {
+    "mean": 3052,
+    "sd": 213,
+    "lo": 2839,
+    "hi": 3266
+   },
+   "F3_F2": {
+    "mean": 1543,
+    "sd": 348,
+    "lo": 1194,
+    "hi": 1891
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 246,
+     "sd": 28,
+     "lo": 218,
+     "hi": 275
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "girls 10 to 12, /hVd/ word 'who'd', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "u",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "male",
+   "n": 45,
+   "F1": {
+    "mean": 380,
+    "sd": 33,
+    "lo": 346,
+    "hi": 413
+   },
+   "F2": {
+    "mean": 992,
+    "sd": 113,
+    "lo": 879,
+    "hi": 1106
+   },
+   "F3": {
+    "mean": 2355,
+    "sd": 133,
+    "lo": 2222,
+    "hi": 2489
+   },
+   "F3_F2": {
+    "mean": 1363,
+    "sd": 173,
+    "lo": 1190,
+    "hi": 1536
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 144,
+     "sd": 27,
+     "lo": 117,
+     "hi": 171
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "men, /hVd/ word 'who'd', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "u",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "female",
+   "n": 48,
+   "F1": {
+    "mean": 460,
+    "sd": 39,
+    "lo": 421,
+    "hi": 498
+   },
+   "F2": {
+    "mean": 1106,
+    "sd": 205,
+    "lo": 900,
+    "hi": 1311
+   },
+   "F3": {
+    "mean": 2735,
+    "sd": 140,
+    "lo": 2595,
+    "hi": 2875
+   },
+   "F3_F2": {
+    "mean": 1630,
+    "sd": 238,
+    "lo": 1391,
+    "hi": 1868
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 236,
+     "sd": 25,
+     "lo": 210,
+     "hi": 261
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "women, /hVd/ word 'who'd', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "u",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "any",
+   "n": 46,
+   "F1": {
+    "mean": 493,
+    "sd": 45,
+    "lo": 448,
+    "hi": 538
+   },
+   "F2": {
+    "mean": 1404,
+    "sd": 335,
+    "lo": 1069,
+    "hi": 1739
+   },
+   "F3": {
+    "mean": 2992,
+    "sd": 209,
+    "lo": 2783,
+    "hi": 3202
+   },
+   "F3_F2": {
+    "mean": 1580,
+    "sd": 358,
+    "lo": 1222,
+    "hi": 1938
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 247,
+     "sd": 30,
+     "lo": 217,
+     "hi": 277
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "boys and girls 10 to 12 pooled by T3, /hVd/ word 'who'd', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "u",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "any",
+   "n": 93,
+   "F1": {
+    "mean": 421,
+    "sd": 54,
+    "lo": 367,
+    "hi": 475
+   },
+   "F2": {
+    "mean": 1051,
+    "sd": 176,
+    "lo": 875,
+    "hi": 1226
+   },
+   "F3": {
+    "mean": 2551,
+    "sd": 235,
+    "lo": 2317,
+    "hi": 2786
+   },
+   "F3_F2": {
+    "mean": 1501,
+    "sd": 248,
+    "lo": 1253,
+    "hi": 1748
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 191,
+     "sd": 53,
+     "lo": 138,
+     "hi": 244
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "men and women pooled by T3, /hVd/ word 'who'd', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ʌ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "male",
+   "n": 27,
+   "F1": {
+    "mean": 714,
+    "sd": 66,
+    "lo": 649,
+    "hi": 780
+   },
+   "F2": {
+    "mean": 1483,
+    "sd": 124,
+    "lo": 1359,
+    "hi": 1607
+   },
+   "F3": {
+    "mean": 3067,
+    "sd": 204,
+    "lo": 2863,
+    "hi": 3271
+   },
+   "F3_F2": {
+    "mean": 1568,
+    "sd": 202,
+    "lo": 1366,
+    "hi": 1771
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 232,
+     "sd": 28,
+     "lo": 204,
+     "hi": 260
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "boys 10 to 12, /hVd/ word 'hud', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ʌ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "female",
+   "n": 19,
+   "F1": {
+    "mean": 772,
+    "sd": 108,
+    "lo": 664,
+    "hi": 879
+   },
+   "F2": {
+    "mean": 1614,
+    "sd": 110,
+    "lo": 1504,
+    "hi": 1725
+   },
+   "F3": {
+    "mean": 3210,
+    "sd": 193,
+    "lo": 3017,
+    "hi": 3402
+   },
+   "F3_F2": {
+    "mean": 1596,
+    "sd": 185,
+    "lo": 1411,
+    "hi": 1781
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 236,
+     "sd": 17,
+     "lo": 220,
+     "hi": 253
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "girls 10 to 12, /hVd/ word 'hud', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ʌ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "male",
+   "n": 45,
+   "F1": {
+    "mean": 621,
+    "sd": 30,
+    "lo": 591,
+    "hi": 651
+   },
+   "F2": {
+    "mean": 1181,
+    "sd": 87,
+    "lo": 1094,
+    "hi": 1268
+   },
+   "F3": {
+    "mean": 2548,
+    "sd": 142,
+    "lo": 2405,
+    "hi": 2690
+   },
+   "F3_F2": {
+    "mean": 1366,
+    "sd": 168,
+    "lo": 1198,
+    "hi": 1534
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 129,
+     "sd": 20,
+     "lo": 109,
+     "hi": 149
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "men, /hVd/ word 'hud', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ʌ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "female",
+   "n": 48,
+   "F1": {
+    "mean": 760,
+    "sd": 58,
+    "lo": 703,
+    "hi": 818
+   },
+   "F2": {
+    "mean": 1416,
+    "sd": 115,
+    "lo": 1300,
+    "hi": 1531
+   },
+   "F3": {
+    "mean": 2901,
+    "sd": 173,
+    "lo": 2728,
+    "hi": 3074
+   },
+   "F3_F2": {
+    "mean": 1485,
+    "sd": 171,
+    "lo": 1314,
+    "hi": 1656
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 218,
+     "sd": 22,
+     "lo": 196,
+     "hi": 241
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "women, /hVd/ word 'hud', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ʌ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "any",
+   "n": 46,
+   "F1": {
+    "mean": 738,
+    "sd": 89,
+    "lo": 649,
+    "hi": 827
+   },
+   "F2": {
+    "mean": 1538,
+    "sd": 134,
+    "lo": 1404,
+    "hi": 1673
+   },
+   "F3": {
+    "mean": 3126,
+    "sd": 210,
+    "lo": 2916,
+    "hi": 3336
+   },
+   "F3_F2": {
+    "mean": 1580,
+    "sd": 193,
+    "lo": 1387,
+    "hi": 1773
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 234,
+     "sd": 24,
+     "lo": 210,
+     "hi": 258
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "boys and girls 10 to 12 pooled by T3, /hVd/ word 'hud', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ʌ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "any",
+   "n": 93,
+   "F1": {
+    "mean": 693,
+    "sd": 84,
+    "lo": 609,
+    "hi": 777
+   },
+   "F2": {
+    "mean": 1302,
+    "sd": 156,
+    "lo": 1146,
+    "hi": 1458
+   },
+   "F3": {
+    "mean": 2730,
+    "sd": 238,
+    "lo": 2492,
+    "hi": 2968
+   },
+   "F3_F2": {
+    "mean": 1428,
+    "sd": 179,
+    "lo": 1249,
+    "hi": 1606
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 175,
+     "sd": 50,
+     "lo": 126,
+     "hi": 225
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "men and women pooled by T3, /hVd/ word 'hud', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "male",
+   "n": 27,
+   "F1": {
+    "mean": 567,
+    "sd": 55,
+    "lo": 512,
+    "hi": 622
+   },
+   "F2": {
+    "mean": 1710,
+    "sd": 135,
+    "lo": 1576,
+    "hi": 1845
+   },
+   "F3": {
+    "mean": 2078,
+    "sd": 171,
+    "lo": 1908,
+    "hi": 2249
+   },
+   "F3_F2": {
+    "mean": 372,
+    "sd": 123,
+    "lo": 249,
+    "hi": 494
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 236,
+     "sd": 27,
+     "lo": 209,
+     "hi": 263
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "boys 10 to 12, /hVd/ word 'heard', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "female",
+   "n": 19,
+   "F1": {
+    "mean": 614,
+    "sd": 45,
+    "lo": 569,
+    "hi": 659
+   },
+   "F2": {
+    "mean": 1736,
+    "sd": 125,
+    "lo": 1611,
+    "hi": 1861
+   },
+   "F3": {
+    "mean": 2264,
+    "sd": 166,
+    "lo": 2098,
+    "hi": 2431
+   },
+   "F3_F2": {
+    "mean": 519,
+    "sd": 146,
+    "lo": 373,
+    "hi": 665
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 239,
+     "sd": 23,
+     "lo": 216,
+     "hi": 261
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "girls 10 to 12, /hVd/ word 'heard', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "male",
+   "n": 45,
+   "F1": {
+    "mean": 475,
+    "sd": 29,
+    "lo": 446,
+    "hi": 504
+   },
+   "F2": {
+    "mean": 1379,
+    "sd": 78,
+    "lo": 1301,
+    "hi": 1457
+   },
+   "F3": {
+    "mean": 1711,
+    "sd": 108,
+    "lo": 1603,
+    "hi": 1819
+   },
+   "F3_F2": {
+    "mean": 341,
+    "sd": 103,
+    "lo": 238,
+    "hi": 444
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 131,
+     "sd": 20,
+     "lo": 110,
+     "hi": 151
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "men, /hVd/ word 'heard', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "female",
+   "n": 48,
+   "F1": {
+    "mean": 524,
+    "sd": 45,
+    "lo": 479,
+    "hi": 569
+   },
+   "F2": {
+    "mean": 1588,
+    "sd": 126,
+    "lo": 1462,
+    "hi": 1714
+   },
+   "F3": {
+    "mean": 1930,
+    "sd": 131,
+    "lo": 1799,
+    "hi": 2061
+   },
+   "F3_F2": {
+    "mean": 340,
+    "sd": 97,
+    "lo": 244,
+    "hi": 437
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 218,
+     "sd": 25,
+     "lo": 193,
+     "hi": 243
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "women, /hVd/ word 'heard', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 155,
+   "sex": "any",
+   "n": 46,
+   "F1": {
+    "mean": 586,
+    "sd": 55,
+    "lo": 531,
+    "hi": 642
+   },
+   "F2": {
+    "mean": 1721,
+    "sd": 130,
+    "lo": 1591,
+    "hi": 1851
+   },
+   "F3": {
+    "mean": 2154,
+    "sd": 191,
+    "lo": 1964,
+    "hi": 2345
+   },
+   "F3_F2": {
+    "mean": 432,
+    "sd": 150,
+    "lo": 282,
+    "hi": 582
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 237,
+     "sd": 25,
+     "lo": 212,
+     "hi": 262
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "boys and girls 10 to 12 pooled by T3, /hVd/ word 'heard', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 1199,
+   "sex": "any",
+   "n": 93,
+   "F1": {
+    "mean": 500,
+    "sd": 45,
+    "lo": 455,
+    "hi": 546
+   },
+   "F2": {
+    "mean": 1487,
+    "sd": 149,
+    "lo": 1339,
+    "hi": 1636
+   },
+   "F3": {
+    "mean": 1820,
+    "sd": 163,
+    "lo": 1658,
+    "hi": 1983
+   },
+   "F3_F2": {
+    "mean": 341,
+    "sd": 99,
+    "lo": 241,
+    "hi": 440
+   },
+   "spread": "1sd",
+   "extra": {
+    "F0": {
+     "mean": 176,
+     "sd": 49,
+     "lo": 126,
+     "hi": 225
+    }
+   },
+   "source": "hillenbrand1995",
+   "verified": true,
+   "note": "men and women pooled by T3, /hVd/ word 'heard', steady-state point; n = speakers (one token each)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 60,
+   "age_max_months": 71,
+   "sex": "male",
+   "n": 26,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 797,
+    "sd": 343,
+    "lo": 454,
+    "hi": 1140
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 5. n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 60,
+   "age_max_months": 71,
+   "sex": "female",
+   "n": 20,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 643,
+    "sd": 210,
+    "lo": 433,
+    "hi": 853
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 5. n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 60,
+   "age_max_months": 71,
+   "sex": "any",
+   "n": 46,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 730,
+    "sd": 300,
+    "lo": 430,
+    "hi": 1030
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 5. n = tokens, not speakers (each cell from 6 to 23 speakers). Boys and girls pooled by T3 from the two published cells (exact pooled mean and SD from n, mean, SD)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 72,
+   "age_max_months": 83,
+   "sex": "male",
+   "n": 15,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 567,
+    "sd": 152,
+    "lo": 415,
+    "hi": 719
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 6. n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 72,
+   "age_max_months": 83,
+   "sex": "female",
+   "n": 25,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 644,
+    "sd": 346,
+    "lo": 298,
+    "hi": 990
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 6. n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 72,
+   "age_max_months": 83,
+   "sex": "any",
+   "n": 40,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 615,
+    "sd": 289,
+    "lo": 326,
+    "hi": 904
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 6. n = tokens, not speakers (each cell from 6 to 23 speakers). Boys and girls pooled by T3 from the two published cells (exact pooled mean and SD from n, mean, SD)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 84,
+   "age_max_months": 95,
+   "sex": "male",
+   "n": 19,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 616,
+    "sd": 138,
+    "lo": 478,
+    "hi": 754
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 7. n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 84,
+   "age_max_months": 95,
+   "sex": "female",
+   "n": 32,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 749,
+    "sd": 323,
+    "lo": 426,
+    "hi": 1072
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 7. n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 84,
+   "age_max_months": 95,
+   "sex": "any",
+   "n": 51,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 699,
+    "sd": 275,
+    "lo": 424,
+    "hi": 975
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 7. n = tokens, not speakers (each cell from 6 to 23 speakers). Boys and girls pooled by T3 from the two published cells (exact pooled mean and SD from n, mean, SD)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 96,
+   "age_max_months": 107,
+   "sex": "male",
+   "n": 38,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 517,
+    "sd": 175,
+    "lo": 342,
+    "hi": 692
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 8. n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 96,
+   "age_max_months": 107,
+   "sex": "female",
+   "n": 19,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 669,
+    "sd": 497,
+    "lo": 172,
+    "hi": 1166
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 8. n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 96,
+   "age_max_months": 107,
+   "sex": "any",
+   "n": 57,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 568,
+    "sd": 324,
+    "lo": 244,
+    "hi": 891
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 8. n = tokens, not speakers (each cell from 6 to 23 speakers). Boys and girls pooled by T3 from the two published cells (exact pooled mean and SD from n, mean, SD)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 108,
+   "age_max_months": 119,
+   "sex": "male",
+   "n": 33,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 527,
+    "sd": 145,
+    "lo": 382,
+    "hi": 672
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 9. n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 108,
+   "age_max_months": 119,
+   "sex": "female",
+   "n": 37,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 541,
+    "sd": 119,
+    "lo": 422,
+    "hi": 660
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 9. n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 108,
+   "age_max_months": 119,
+   "sex": "any",
+   "n": 70,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 534,
+    "sd": 131,
+    "lo": 403,
+    "hi": 666
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 9. n = tokens, not speakers (each cell from 6 to 23 speakers). Boys and girls pooled by T3 from the two published cells (exact pooled mean and SD from n, mean, SD)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 131,
+   "sex": "male",
+   "n": 40,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 527,
+    "sd": 169,
+    "lo": 358,
+    "hi": 696
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 10. n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 131,
+   "sex": "female",
+   "n": 24,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 531,
+    "sd": 221,
+    "lo": 310,
+    "hi": 752
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 10. n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 120,
+   "age_max_months": 131,
+   "sex": "any",
+   "n": 64,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 528,
+    "sd": 188,
+    "lo": 340,
+    "hi": 717
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 10. n = tokens, not speakers (each cell from 6 to 23 speakers). Boys and girls pooled by T3 from the two published cells (exact pooled mean and SD from n, mean, SD)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 132,
+   "age_max_months": 143,
+   "sex": "male",
+   "n": 40,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 474,
+    "sd": 170,
+    "lo": 304,
+    "hi": 644
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 11. n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 132,
+   "age_max_months": 143,
+   "sex": "female",
+   "n": 31,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 523,
+    "sd": 107,
+    "lo": 416,
+    "hi": 630
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 11. n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 132,
+   "age_max_months": 143,
+   "sex": "any",
+   "n": 71,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 495,
+    "sd": 147,
+    "lo": 348,
+    "hi": 642
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 11. n = tokens, not speakers (each cell from 6 to 23 speakers). Boys and girls pooled by T3 from the two published cells (exact pooled mean and SD from n, mean, SD)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 144,
+   "age_max_months": 155,
+   "sex": "male",
+   "n": 38,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 477,
+    "sd": 160,
+    "lo": 317,
+    "hi": 637
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 12. n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 144,
+   "age_max_months": 155,
+   "sex": "female",
+   "n": 34,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 585,
+    "sd": 363,
+    "lo": 222,
+    "hi": 948
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 12. n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 144,
+   "age_max_months": 155,
+   "sex": "any",
+   "n": 72,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 528,
+    "sd": 278,
+    "lo": 250,
+    "hi": 806
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 12. n = tokens, not speakers (each cell from 6 to 23 speakers). Boys and girls pooled by T3 from the two published cells (exact pooled mean and SD from n, mean, SD)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 156,
+   "age_max_months": 167,
+   "sex": "male",
+   "n": 23,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 533,
+    "sd": 116,
+    "lo": 417,
+    "hi": 649
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 13. n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 156,
+   "age_max_months": 167,
+   "sex": "female",
+   "n": 20,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 494,
+    "sd": 113,
+    "lo": 381,
+    "hi": 607
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 13. n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 156,
+   "age_max_months": 167,
+   "sex": "any",
+   "n": 43,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 515,
+    "sd": 115,
+    "lo": 400,
+    "hi": 630
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 13. n = tokens, not speakers (each cell from 6 to 23 speakers). Boys and girls pooled by T3 from the two published cells (exact pooled mean and SD from n, mean, SD)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 168,
+   "age_max_months": 179,
+   "sex": "male",
+   "n": 15,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 390,
+    "sd": 130,
+    "lo": 260,
+    "hi": 520
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 14. n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 168,
+   "age_max_months": 179,
+   "sex": "female",
+   "n": 17,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 476,
+    "sd": 143,
+    "lo": 333,
+    "hi": 619
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 14. n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 168,
+   "age_max_months": 179,
+   "sex": "any",
+   "n": 32,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 436,
+    "sd": 142,
+    "lo": 294,
+    "hi": 577
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 14. n = tokens, not speakers (each cell from 6 to 23 speakers). Boys and girls pooled by T3 from the two published cells (exact pooled mean and SD from n, mean, SD)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 180,
+   "age_max_months": 191,
+   "sex": "male",
+   "n": 16,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 418,
+    "sd": 137,
+    "lo": 281,
+    "hi": 555
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 15. n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 180,
+   "age_max_months": 191,
+   "sex": "female",
+   "n": 18,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 363,
+    "sd": 101,
+    "lo": 262,
+    "hi": 464
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 15. n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 180,
+   "age_max_months": 191,
+   "sex": "any",
+   "n": 34,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 389,
+    "sd": 121,
+    "lo": 268,
+    "hi": 510
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 15. n = tokens, not speakers (each cell from 6 to 23 speakers). Boys and girls pooled by T3 from the two published cells (exact pooled mean and SD from n, mean, SD)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 192,
+   "age_max_months": 203,
+   "sex": "male",
+   "n": 14,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 400,
+    "sd": 86,
+    "lo": 314,
+    "hi": 486
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 16. n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 192,
+   "age_max_months": 203,
+   "sex": "female",
+   "n": 19,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 428,
+    "sd": 112,
+    "lo": 316,
+    "hi": 540
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 16. n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 192,
+   "age_max_months": 203,
+   "sex": "any",
+   "n": 33,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 416,
+    "sd": 101,
+    "lo": 315,
+    "hi": 517
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 16. n = tokens, not speakers (each cell from 6 to 23 speakers). Boys and girls pooled by T3 from the two published cells (exact pooled mean and SD from n, mean, SD)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 204,
+   "age_max_months": 215,
+   "sex": "male",
+   "n": 10,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 420,
+    "sd": 115,
+    "lo": 305,
+    "hi": 535
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 17. n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 204,
+   "age_max_months": 215,
+   "sex": "female",
+   "n": 14,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 414,
+    "sd": 116,
+    "lo": 298,
+    "hi": 530
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 17. n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 204,
+   "age_max_months": 215,
+   "sex": "any",
+   "n": 24,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 416,
+    "sd": 113,
+    "lo": 303,
+    "hi": 530
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 17. n = tokens, not speakers (each cell from 6 to 23 speakers). Boys and girls pooled by T3 from the two published cells (exact pooled mean and SD from n, mean, SD)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 227,
+   "sex": "male",
+   "n": 13,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 343,
+    "sd": 122,
+    "lo": 221,
+    "hi": 465
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 18. n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 227,
+   "sex": "female",
+   "n": 18,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 489,
+    "sd": 86,
+    "lo": 403,
+    "hi": 575
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 18. n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 216,
+   "age_max_months": 227,
+   "sex": "any",
+   "n": 31,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 428,
+    "sd": 125,
+    "lo": 303,
+    "hi": 552
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', age 18. n = tokens, not speakers (each cell from 6 to 23 speakers). Boys and girls pooled by T3 from the two published cells (exact pooled mean and SD from n, mean, SD)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 228,
+   "age_max_months": 1199,
+   "sex": "male",
+   "n": 30,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 347,
+    "sd": 102,
+    "lo": 245,
+    "hi": 449
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', adults (Lee et al. adult group). n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 228,
+   "age_max_months": 1199,
+   "sex": "female",
+   "n": 39,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 404,
+    "sd": 114,
+    "lo": 290,
+    "hi": 518
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', adults (Lee et al. adult group). n = tokens, not speakers (each cell from 6 to 23 speakers)."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 228,
+   "age_max_months": 1199,
+   "sex": "any",
+   "n": 69,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": {
+    "mean": 379,
+    "sd": 112,
+    "lo": 267,
+    "hi": 491
+   },
+   "spread": "1sd",
+   "extra": {},
+   "source": "flipsen2001",
+   "verified": true,
+   "note": "Stressed /ɝ/ in 'bird', adults (Lee et al. adult group). n = tokens, not speakers (each cell from 6 to 23 speakers). Boys and girls pooled by T3 from the two published cells (exact pooled mean and SD from n, mean, SD)."
+  },
+  {
+   "phoneme": "ɹ",
+   "context": "prevocalic",
+   "age_min_months": 72,
+   "age_max_months": 141,
+   "sex": "any",
+   "n": 11,
+   "F1": null,
+   "F2": null,
+   "F3": {
+    "mean": 2266,
+    "sd": 451,
+    "lo": 1815,
+    "hi": 2716
+   },
+   "F3_F2": null,
+   "spread": "1sd",
+   "extra": {},
+   "source": "mcallisterbyun2012",
+   "verified": true,
+   "note": "Singleton onset /r/. 11 children aged 6;0 to 11;9 in treatment for /r/ errors; only their productions rated correct by at least 2 of 3 certified SLPs. Not a typical-development norm. F3 at the F3 minimum, 14 ms window. F2 not reported."
+  },
+  {
+   "phoneme": "ɹ",
+   "context": "cluster",
+   "age_min_months": 72,
+   "age_max_months": 141,
+   "sex": "any",
+   "n": 11,
+   "F1": null,
+   "F2": null,
+   "F3": {
+    "mean": 2604,
+    "sd": 558,
+    "lo": 2046,
+    "hi": 3162
+   },
+   "F3_F2": null,
+   "spread": "1sd",
+   "extra": {},
+   "source": "mcallisterbyun2012",
+   "verified": true,
+   "note": "/r/ in an onset cluster. Listeners were more lenient with short cluster /r/, so this F3 is higher. 11 children aged 6;0 to 11;9 in treatment for /r/ errors; only their productions rated correct by at least 2 of 3 certified SLPs. Not a typical-development norm. F3 at the F3 minimum, 14 ms window. F2 not reported."
+  },
+  {
+   "phoneme": "ɝ",
+   "context": "vocalic",
+   "age_min_months": 72,
+   "age_max_months": 141,
+   "sex": "any",
+   "n": 11,
+   "F1": null,
+   "F2": null,
+   "F3": {
+    "mean": 2164,
+    "sd": 564,
+    "lo": 1600,
+    "hi": 2729
+   },
+   "F3_F2": null,
+   "spread": "1sd",
+   "extra": {},
+   "source": "mcallisterbyun2012",
+   "verified": true,
+   "note": "Vocalic /r/. 11 children aged 6;0 to 11;9 in treatment for /r/ errors; only their productions rated correct by at least 2 of 3 certified SLPs. Not a typical-development norm. F3 at the F3 minimum, 14 ms window. F2 not reported."
+  },
+  {
+   "phoneme": "s",
+   "context": "prevocalic",
+   "age_min_months": 30,
+   "age_max_months": 42,
+   "sex": "any",
+   "n": 581,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": null,
+   "spread": "1sd",
+   "extra": {
+    "spectral_peak": {
+     "mean": 6769,
+     "sd": 1471,
+     "lo": 5298,
+     "hi": 8240
+    },
+    "spectral_mean": {
+     "mean": 6976,
+     "sd": 1687,
+     "lo": 5288,
+     "hi": 8663
+    }
+   },
+   "source": "wong2025",
+   "verified": true,
+   "note": "spectral_peak = highest peak between 3 and 9 kHz; spectral_mean = M1. 63 children aged 2;6 to 3;6 (31 boys, 32 girls), word-initial /s/ and /ʃ/ words. Tokens grouped by what trained transcribers heard, so this is 'what a clear [s] looked like', whichever sound the child aimed at. n = tokens. 44.1 kHz recordings. Noise peaks, not formants."
+  },
+  {
+   "phoneme": "ʃ",
+   "context": "prevocalic",
+   "age_min_months": 30,
+   "age_max_months": 42,
+   "sex": "any",
+   "n": 410,
+   "F1": null,
+   "F2": null,
+   "F3": null,
+   "F3_F2": null,
+   "spread": "1sd",
+   "extra": {
+    "spectral_peak": {
+     "mean": 4558,
+     "sd": 1351,
+     "lo": 3207,
+     "hi": 5909
+    },
+    "spectral_mean": {
+     "mean": 4913,
+     "sd": 1183,
+     "lo": 3730,
+     "hi": 6095
+    }
+   },
+   "source": "wong2025",
+   "verified": true,
+   "note": "spectral_peak = highest peak between 3 and 9 kHz; spectral_mean = M1. 63 children aged 2;6 to 3;6 (31 boys, 32 girls), word-initial /s/ and /ʃ/ words. Tokens grouped by what trained transcribers heard, so this is 'what a clear [ʃ] looked like', whichever sound the child aimed at. n = tokens. 44.1 kHz recordings. Noise peaks, not formants."
+  }
+ ],
+ "reference_points": [
+  {
+   "phoneme": "s",
+   "age": "NH children, mean 5;2 (SD 0;11), 21 children",
+   "measure": "spectral_mean",
+   "value": 7699,
+   "source": "todd2011",
+   "verified": true,
+   "note": "Correct word-initial /s/, middle 40 ms, 200 to 11025 Hz. No SD reported."
+  },
+  {
+   "phoneme": "ʃ",
+   "age": "NH children, mean 5;2 (SD 0;11), 21 children",
+   "measure": "spectral_mean",
+   "value": 5223,
+   "source": "todd2011",
+   "verified": true,
+   "note": "Correct word-initial /ʃ/. No SD reported."
+  },
+  {
+   "phoneme": "s",
+   "age": "NH children, mean 4;3 (SD 1;0), 32 children",
+   "measure": "spectral_mean",
+   "value": 7338,
+   "source": "todd2011",
+   "verified": true,
+   "note": "Hearing-age comparison group."
+  },
+  {
+   "phoneme": "ʃ",
+   "age": "NH children, mean 4;3 (SD 1;0), 32 children",
+   "measure": "spectral_mean",
+   "value": 5460,
+   "source": "todd2011",
+   "verified": true,
+   "note": "Hearing-age comparison group."
+  },
+  {
+   "phoneme": "s",
+   "age": "one 6;0 girl, before e and before ɪ",
+   "measure": "spectral_peak",
+   "value": [
+    9410,
+    5727
+   ],
+   "source": "todd2011",
+   "verified": true,
+   "note": "Example tokens: same child, same sound, peak 3.7 kHz apart depending on the vowel."
+  },
+  {
+   "phoneme": "ʃ",
+   "age": "one 6;0 girl, before i and before u",
+   "measure": "spectral_peak",
+   "value": [
+    3919,
+    2627
+   ],
+   "source": "todd2011",
+   "verified": true,
+   "note": "Example tokens."
+  },
+  {
+   "phoneme": "s",
+   "age": "12 adolescents, 10 to 15 years",
+   "measure": "spectral_peak",
+   "value": [
+    5742,
+    6320
+   ],
+   "source": "koenig2013",
+   "verified": false,
+   "note": "Range of condition means in non-rounded contexts (4401 to 4843 Hz next to rounded sounds), as quoted by Wong and Munson (2025); Koenig et al. not read directly."
+  },
+  {
+   "phoneme": "ɹ",
+   "age": "3 to 4 years, correct word-initial /r/",
+   "measure": "F3",
+   "value": 2500,
+   "source": "dalston1975",
+   "verified": false,
+   "note": "About 2500 Hz, as summarised by McGowan et al. (2004); Dalston's own tables not read."
+  },
+  {
+   "phoneme": "w",
+   "age": "3 to 4 years, word-initial",
+   "measure": "F3",
+   "value": 3500,
+   "source": "dalston1975",
+   "verified": false,
+   "note": "About 3500 Hz, as summarised by McGowan et al. (2004)."
+  },
+  {
+   "phoneme": "l",
+   "age": "3 to 4 years, word-initial",
+   "measure": "F3",
+   "value": 3500,
+   "source": "dalston1975",
+   "verified": false,
+   "note": "About 3500 Hz, as summarised by McGowan et al. (2004)."
+  },
+  {
+   "phoneme": "w",
+   "age": "adults (2 men, 2 women), prevocalic",
+   "measure": "F1/F2/F3",
+   "value": {
+    "F1": 381,
+    "F2": 848,
+    "F3": 2320,
+    "F3_F2": 1472
+   },
+   "source": "espywilson1992",
+   "verified": true,
+   "note": "Means across speakers, no SD. F3_F2 computed by T3 from the published F2 and F3."
+  },
+  {
+   "phoneme": "l",
+   "age": "adults (2 men, 2 women), prevocalic",
+   "measure": "F1/F2/F3",
+   "value": {
+    "F1": 399,
+    "F2": 1074,
+    "F3": 2553,
+    "F3_F2": 1479
+   },
+   "source": "espywilson1992",
+   "verified": true,
+   "note": "Means across speakers, no SD. F3_F2 computed by T3 from the published F2 and F3."
+  },
+  {
+   "phoneme": "ɹ",
+   "age": "adults (2 men, 2 women), prevocalic",
+   "measure": "F1/F2/F3",
+   "value": {
+    "F1": 419,
+    "F2": 1285,
+    "F3": 1779,
+    "F3_F2": 494
+   },
+   "source": "espywilson1992",
+   "verified": true,
+   "note": "Means across speakers, no SD. F3_F2 computed by T3 from the published F2 and F3."
+  },
+  {
+   "phoneme": "j",
+   "age": "adults (2 men, 2 women), prevocalic",
+   "measure": "F1/F2/F3",
+   "value": {
+    "F1": 317,
+    "F2": 2142,
+    "F3": 2827,
+    "F3_F2": 685
+   },
+   "source": "espywilson1992",
+   "verified": true,
+   "note": "Means across speakers, no SD. F3_F2 computed by T3 from the published F2 and F3."
+  },
+  {
+   "phoneme": "w",
+   "age": "adults (2 men, 2 women), intervocalic",
+   "measure": "F1/F2/F3",
+   "value": {
+    "F1": 349,
+    "F2": 771,
+    "F3": 2340,
+    "F3_F2": 1569
+   },
+   "source": "espywilson1992",
+   "verified": true,
+   "note": "Means across speakers, no SD. F3_F2 computed by T3 from the published F2 and F3."
+  },
+  {
+   "phoneme": "l",
+   "age": "adults (2 men, 2 women), intervocalic",
+   "measure": "F1/F2/F3",
+   "value": {
+    "F1": 445,
+    "F2": 1060,
+    "F3": 2640,
+    "F3_F2": 1580
+   },
+   "source": "espywilson1992",
+   "verified": true,
+   "note": "Means across speakers, no SD. F3_F2 computed by T3 from the published F2 and F3."
+  },
+  {
+   "phoneme": "ɹ",
+   "age": "adults (2 men, 2 women), intervocalic",
+   "measure": "F1/F2/F3",
+   "value": {
+    "F1": 460,
+    "F2": 1240,
+    "F3": 1720,
+    "F3_F2": 480
+   },
+   "source": "espywilson1992",
+   "verified": true,
+   "note": "Means across speakers, no SD. F3_F2 computed by T3 from the published F2 and F3."
+  },
+  {
+   "phoneme": "j",
+   "age": "adults (2 men, 2 women), intervocalic",
+   "measure": "F1/F2/F3",
+   "value": {
+    "F1": 361,
+    "F2": 2270,
+    "F3": 2920,
+    "F3_F2": 650
+   },
+   "source": "espywilson1992",
+   "verified": true,
+   "note": "Means across speakers, no SD. F3_F2 computed by T3 from the published F2 and F3."
+  },
+  {
+   "phoneme": "l",
+   "age": "adults (2 men, 2 women), postvocalic",
+   "measure": "F1/F2/F3",
+   "value": {
+    "F1": 465,
+    "F2": 898,
+    "F3": 2630,
+    "F3_F2": 1732
+   },
+   "source": "espywilson1992",
+   "verified": true,
+   "note": "Means across speakers, no SD. F3_F2 computed by T3 from the published F2 and F3."
+  },
+  {
+   "phoneme": "ɹ",
+   "age": "adults (2 men, 2 women), postvocalic",
+   "measure": "F1/F2/F3",
+   "value": {
+    "F1": 503,
+    "F2": 1300,
+    "F3": 1830,
+    "F3_F2": 530
+   },
+   "source": "espywilson1992",
+   "verified": true,
+   "note": "Means across speakers, no SD. F3_F2 computed by T3 from the published F2 and F3."
+  }
+ ],
+ "gaps": [
+  "Ages 0 to 59 months (under 5) for every vowel and for r: no verified table with means and SDs was reachable. Lee et al. (1999) starts at 5; Assmann and Katz (2000, ages 3, 5, 7) full text not reachable; Vorperian and Kent (2007) give these ages in figures only.",
+  "Vowels F1/F2/F3 at ages 5;0 to 9;11 and 13;0 to 17;11: Lee et al. (1999) has them by year and sex, but the raw values are behind the publisher's bot check. Only the r-vowel F3-F2 from its tokens (Flipsen et al. 2001) is in the file.",
+  "Consonant r (ɹ) F2 and F3-F2 for children: no published typical-child table with SDs found. The only child bands are F3 from children in treatment whose tokens were rated correct (McAllister Byun and Hitchcock 2012, ages 6;0 to 11;9). Intervocalic and postvocalic consonant r have no child band at all.",
+  "ɚ (unstressed r vowel, as in butter): no separate published values; only ɝ (stressed, as in bird/heard) is covered.",
+  "w, l, j in children: only Dalston's rough F3 (about 2500 vs 3500 Hz at 3 to 4 years, secondhand) and adult means (Espy-Wilson 1992). No child bands.",
+  "s and ʃ above age 3;6: Todd et al. (2011, about age 5) give means without SDs; Nissen and Fox (2005, ages 3 to 6) full text not reachable; Koenig et al. (2013, adolescents) known only secondhand. So the only s/ʃ bands are for 2;6 to 3;6.",
+  "Every other consonant (stops, nasals, f, v, θ, ð, z, ʒ, h, affricates): no age-banded spectral norms collected in this pass.",
+  "Diphthongs aɪ, aʊ, ɔɪ: Lee, Potamianos and Narayanan (2014, doi 10.1121/1.4894799) has developmental data, but its values were not read. eɪ and oʊ are covered only at their Hillenbrand steady-state point.",
+  "ə (schwa): no values.",
+  "Peterson and Barney (1952) children: the group's ages are not documented in the data source, so it is left out.",
+  "Adult age bands (Hillenbrand men/women, Lee adults) have open upper ends; the app's children never reach them."
+ ]
+}

@@ -1,0 +1,17 @@
+.DS_Store
+.venv/
+venv/
+__pycache__/
+*.pyc
+node_modules/
+.env
+*.wav
+*.mp3
+*.m4a
+*.flac
+data/
+!speakup/data/
+recordings/
+models/*.bin
+models/*
+*.db

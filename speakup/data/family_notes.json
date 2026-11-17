@@ -1,0 +1,11 @@
+{
+  "_about": "The fixed family practice note (#39). It shows when Qwen is off, times out, or its note fails the check. Code fills {tried} (the number of words tried), {sound} (the sound tested, such as r) and {words} (the words to practice, comma separated). Lexi checks this wording. Use no other numbers and no words such as diagnose, disorder, pass or refer: tests/test_family.py fails if you do.",
+  "en": {
+    "practice": "Words your child said today with the {sound} sound: {tried}. Please practice these words at home, slowly and for fun: {words}.",
+    "none": "Words your child said today with the {sound} sound: {tried}. Keep talking and reading together at home."
+  },
+  "es": {
+    "practice": "Palabras con el sonido {sound} que su hijo o hija dijo hoy: {tried}. Practiquen estas palabras en casa, despacio y jugando: {words}.",
+    "none": "Palabras con el sonido {sound} que su hijo o hija dijo hoy: {tried}. Sigan hablando y leyendo juntos en casa."
+  }
+}

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Speak Up mockup #6, c-chart: the session log, light dashboard with a flags-per-session chart</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 0 24px 80px; background: #f6f6f4; color: #1b1b18;
+         font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; font-variant-numeric: tabular-nums; }
+  .label { max-width: 1080px; margin: 40px auto 8px; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #8b8b80; }
+  .screen { max-width: 1080px; margin: 0 auto; background: #fff; border: 1px solid #e2e2da; border-radius: 16px; overflow: hidden; }
+  .bar-top { display: flex; justify-content: space-between; align-items: center; padding: 14px 24px; border-bottom: 1px solid #ececE4; }
+  .crumbs { color: #8b8b80; display: flex; gap: 10px; }
+  .crumbs a { color: #4a4a43; text-decoration: none; }
+  .crumbs b { color: #1b1b18; font-weight: 500; }
+  .seg { display: inline-flex; background: #f3f3ef; border: 1px solid #e2e2da; border-radius: 10px; padding: 3px; }
+  .seg a { color: #6d6d63; text-decoration: none; padding: 4px 12px; border-radius: 7px; }
+  .seg a.on { background: #fff; color: #1b1b18; box-shadow: 0 0 0 1px #e2e2da; }
+  .body { padding: 32px 64px 48px; }
+  .big { font-size: 44px; font-weight: 600; letter-spacing: .01em; line-height: 1.1; color: #1b1b18; }
+  .sub { color: #6d6d63; font-size: 14px; margin-top: 4px; }
+  h2 { font-size: 15px; font-weight: 600; color: #1b1b18; margin: 40px 0 14px; }
+  .totals { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .totals span { display: block; color: #6d6d63; font-size: 13px; }
+  .totals strong { font-size: 18px; font-weight: 500; color: #1b1b18; }
+  .hero { display: grid; grid-template-columns: 280px 1fr; gap: 40px; align-items: start; }
+  table { width: 100%; border-collapse: collapse; }
+  th { text-align: left; font-size: 13px; font-weight: 400; color: #8b8b80; padding: 8px 12px 8px 0; border-bottom: 1px solid #d6d6cc; }
+  td { padding: 14px 12px 12px 0; border-bottom: 1px solid #ececE4; vertical-align: top; }
+  th.n, td.n { text-align: right; }
+  td.rank { color: #8b8b80; width: 28px; font-size: 13px; padding-top: 16px; }
+  td.when { white-space: nowrap; }
+  .time { color: #8b8b80; margin-left: 6px; }
+  td.hot { color: #8b2b10; font-weight: 600; }
+  .share { display: block; height: 2px; background: #c4532f; margin-top: 8px; min-width: 8px; }
+  a.id { color: #1b1b18; text-decoration: none; border-bottom: 1px solid #b5b5aa; }
+  .chips { display: flex; flex-wrap: wrap; gap: 4px; }
+  .chip { font-size: 13px; padding: 1px 10px; border-radius: 999px; border: 1px solid #d6d6cc; color: #9a9a8f; }
+  .chip.ok { background: #e7f1e4; border-color: #c4dcbe; color: #2e5a26; }
+  .chip.normal { background: #f3efe0; border-color: #e2d9b8; color: #6b5a1c; }
+  .chip.flag { background: #f8dfd6; border-color: #eab9a8; color: #8b2b10; font-weight: 600; }
+  .legend { margin: 0 0 10px; }
+  .chart { display: block; width: 100%; height: auto; }
+  .chart text { font-size: 12px; fill: #6d6d63; }
+  .chart .grid-line { stroke: #ececE4; }
+  .chart .line { fill: none; stroke: #c4532f; stroke-width: 2; }
+  .chart .area { fill: #f8dfd6; fill-opacity: .6; }
+  .chart circle { fill: #c4532f; }
+</style>
+</head>
+<body>
+<div id="out"></div>
+<script>
+const DATA = {
+  words: ["rabbit", "rain", "ring", "rocket", "carrot", "cherry", "giraffe", "car", "door", "bear"],
+  flagFrom: { gliding: 84, distortion: 96 },
+  child: "S-014",
+  sessions: [
+    { child: "S-014", date: "2026-09-14 10:05", age: 86, errors: { rabbit: "gliding", rain: "gliding", ring: "gliding", giraffe: "gliding", carrot: "distortion" } },
+    { child: "S-014", date: "2026-10-12 10:10", age: 87, errors: { rabbit: "gliding", giraffe: "gliding", carrot: "distortion" } },
+    { child: "S-021", date: "2026-11-03 09:40", age: 80, errors: { rabbit: "gliding" } },
+    { child: "S-007", date: "2026-11-04 13:20", age: 97, errors: { carrot: "distortion", cherry: "distortion" } },
+    { child: "S-014", date: "2026-11-05 10:15", age: 88, errors: { rabbit: "gliding", carrot: "distortion" } },
+  ],
+};
+
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const day = d => `${MONTHS[+d.slice(5, 7) - 1]} ${+d.slice(8, 10)}, ${d.slice(0, 4)}`;
+const when = d => `${day(d)}<span class="time">${d.slice(11, 16)}</span>`;
+const age = m => `${Math.floor(m / 12)} yr ${m % 12} mo`;
+const flagged = (s, w) => s.errors[w] !== undefined && s.age >= DATA.flagFrom[s.errors[w]];
+const state = (s, w) => flagged(s, w) ? "flag" : s.errors[w] ? "normal" : "ok";
+const flags = s => DATA.words.filter(w => flagged(s, w)).length;
+const childSessions = DATA.sessions.filter(s => s.child === DATA.child);
+const maxFlags = Math.max(...DATA.sessions.map(flags), 1);
+const share = s => `<span class="share" style="width:${flags(s) / maxFlags * 100}%"></span>`;
+
+const screen = (label, crumbs, body) => `<div class="label">${label}</div><div class="screen">
+  <div class="bar-top"><div class="crumbs">${crumbs}</div><div class="seg"><a class="on" href="#">Past sessions</a><a href="#">New session</a></div></div>
+  <div class="body">${body}</div></div>`;
+
+const listScreen = () => {
+  const children = new Set(DATA.sessions.map(s => s.child)).size;
+  const total = DATA.sessions.reduce((n, s) => n + flags(s), 0);
+  return screen("Sessions list (/sessions)", `<a href="#">Speak Up</a><span>/</span><b>Past sessions</b>`, `
+  <div class="big">${DATA.sessions.length}</div><div class="sub">sessions saved on this board</div>
+  <h2>Totals</h2>
+  <div class="totals">
+    <div><span>Sessions</span><strong>${DATA.sessions.length}</strong></div>
+    <div><span>Children</span><strong>${children}</strong></div>
+    <div><span>Flags</span><strong>${total}</strong></div>
+    <div><span>Sessions with a flag</span><strong>${DATA.sessions.filter(flags).length}</strong></div>
+  </div>
+  <h2>Sessions, newest first</h2>
+  <table>
+    <tr><th></th><th>Date</th><th>Child ID</th><th>Age</th><th class="n">Flags</th></tr>
+    ${[...DATA.sessions].reverse().map((s, i) => `<tr><td class="rank">${i + 1}</td><td class="when">${when(s.date)}${share(s)}</td>
+      <td><a class="id" href="#">${s.child}</a></td><td>${age(s.age)}</td><td class="n ${flags(s) ? "hot" : ""}">${flags(s)}</td></tr>`).join("")}
+  </table>`);
+};
+
+const childScreen = () => {
+  const first = childSessions[0], last = childSessions[childSessions.length - 1];
+  const W = 640, H = 240, top = 20, base = 196, left = 28, right = 600;
+  const max = Math.max(...childSessions.map(flags), 1);
+  const pts = childSessions.map((s, i) => [left + i * (right - left) / Math.max(childSessions.length - 1, 1), base - flags(s) / max * (base - top)]);
+  let line = `M${pts[0][0]},${pts[0][1]}`;
+  for (let i = 1; i < pts.length; i++) {
+    const mx = (pts[i - 1][0] + pts[i][0]) / 2;
+    line += ` C${mx},${pts[i - 1][1]} ${mx},${pts[i][1]} ${pts[i][0]},${pts[i][1]}`;
+  }
+  const area = `${line} L${pts[pts.length - 1][0]},${base} L${pts[0][0]},${base} Z`;
+  const ticks = [0, Math.ceil(max / 2), max].map(t => {
+    const y = base - t / max * (base - top);
+    return `<line class="grid-line" x1="${left}" y1="${y}" x2="${right}" y2="${y}"></line><text x="0" y="${y + 4}">${t}</text>`;
+  }).join("");
+  const anchor = i => i === 0 ? "start" : i === pts.length - 1 ? "end" : "middle";
+  const labels = childSessions.map((s, i) => `<circle cx="${pts[i][0]}" cy="${pts[i][1]}" r="4"></circle>
+    <text x="${pts[i][0]}" y="${base + 20}" text-anchor="${anchor(i)}">${day(s.date)}</text>
+    <text x="${pts[i][0]}" y="${base + 36}" text-anchor="${anchor(i)}">${age(s.age)}</text>`).join("");
+  return screen("Child page (/child/S-014)", `<a href="#">Speak Up</a><span>/</span><a href="#">Past sessions</a><span>/</span><b>${DATA.child}</b>`, `
+  <div class="hero">
+    <div><div class="big">${flags(last)}</div>
+      <div class="sub">flags in the last session (${day(last.date)}, age ${age(last.age)}), down from ${flags(first)} in the first</div></div>
+    <div><h2 style="margin-top:0">Flags per session</h2>
+      <svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Flags per session">${ticks}<path class="area" d="${area}"></path><path class="line" d="${line}"></path>${labels}</svg></div>
+  </div>
+  <h2>Sessions, oldest first</h2>
+  <div class="chips legend"><span class="chip ok">correct</span><span class="chip normal">wrong, normal for age</span><span class="chip flag">flagged</span></div>
+  <table>
+    <tr><th></th><th>Date</th><th>Age</th><th class="n">Flags</th><th>Words</th></tr>
+    ${childSessions.map((s, i) => `<tr><td class="rank">${i + 1}</td><td class="when">${when(s.date)}${share(s)}</td><td style="white-space:nowrap">${age(s.age)}</td>
+      <td class="n ${flags(s) ? "hot" : ""}">${flags(s)}</td>
+      <td><div class="chips">${DATA.words.map(w => `<span class="chip ${state(s, w)}">${w}</span>`).join("")}</div></td></tr>`).join("")}
+  </table>`);
+};
+
+document.getElementById("out").innerHTML = listScreen() + childScreen();
+</script>
+</body>
+</html>

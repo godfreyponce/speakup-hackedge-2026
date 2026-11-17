@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SLP view, variant A: side panel</title>
+<!-- Shape A: today's three-column word page. The "Your call" card becomes a tall panel of three big
+     stacked buttons beside Arti's card. Fake data. Try the keys A, D, L, and the Unsure toggle. -->
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f3f5f8; color: #16202c; font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .banner { display: flex; gap: 22px; align-items: center; background: #fff; border-bottom: 1px solid #d9dfe7; padding: 10px 24px; }
+  .brand { font-weight: 700; color: #1d4f91; }
+  .banner small { color: #6b7785; text-transform: uppercase; font-size: 11px; letter-spacing: .06em; display: block; }
+  .shell { display: grid; grid-template-columns: 190px 1fr 260px; gap: 18px; padding: 18px 24px; max-width: 1400px; margin: 0 auto; }
+  .card { background: #fff; border: 1px solid #d9dfe7; border-radius: 8px; padding: 14px 16px; }
+  .card + .card { margin-top: 14px; }
+  h3 { margin: 0 0 8px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: #6b7785; }
+  .wrow { display: flex; justify-content: space-between; padding: 7px 10px; border-radius: 6px; }
+  .wrow.cur { background: #e8eef7; font-weight: 600; box-shadow: inset 3px 0 0 #1d4f91; }
+  .pill { font-size: 11px; padding: 1px 7px; border-radius: 10px; background: #eef1f5; color: #6b7785; }
+  .tword { font-size: 40px; font-weight: 700; }
+  .grid { display: grid; grid-template-columns: 1fr 240px; gap: 14px; margin-top: 14px; }
+  .call { font-size: 22px; font-weight: 700; color: #9b2c13; }
+  .unsure { display: none; margin-top: 10px; padding: 10px 12px; border-radius: 6px; background: #fff4d6; color: #6b4a00; font-weight: 700; border: 1px solid #f0d58a; }
+  body.is-unsure .unsure { display: block; }
+  .panel { display: grid; gap: 10px; }
+  .big { font: inherit; font-size: 18px; font-weight: 700; min-height: 72px; border-radius: 10px; border: 2px solid #cfd7e2;
+         background: #fff; cursor: pointer; display: flex; justify-content: space-between; align-items: center; padding: 0 16px; }
+  .big kbd { font: 600 13px ui-monospace, monospace; border: 1px solid #b9c3d0; border-bottom-width: 3px; border-radius: 5px; padding: 2px 7px; color: #44505e; }
+  .big.agree.on { background: #e3f2e6; border-color: #23633a; }
+  .big.disagree.on { background: #fbe3dd; border-color: #9b2c13; }
+  .big.listen { border-style: dashed; }
+  .saved { color: #6b7785; font-size: 13px; min-height: 2.8em; }
+  audio { width: 100%; margin-top: 10px; }
+  .note { color: #6b7785; font-size: 13px; }
+  .toggle { position: fixed; right: 12px; bottom: 12px; font-size: 13px; background: #fff; border: 1px solid #ccc; padding: 6px 10px; border-radius: 6px; }
+</style>
+</head>
+<body>
+<div class="banner"><span class="brand">Speak Up</span><div><small>Student</small><b>S-104</b></div><div><small>Age</small><b>7 yr 3 mo</b></div><div><small>Now</small><b>Word 3 of 8</b></div></div>
+<main class="shell">
+  <aside class="card"><h3>Words</h3>
+    <div class="wrow"><span>red</span><span class="pill">right ✓</span></div>
+    <div class="wrow"><span>rabbit</span><span class="pill">flag ✓</span></div>
+    <div class="wrow cur"><span>carrot</span><span class="pill">off</span></div>
+    <div class="wrow"><span>tiger</span><span class="pill">not yet</span></div>
+  </aside>
+  <section>
+    <div class="card"><div class="tword">carrot</div><div class="note">r in the middle, word 3 of 8</div>
+      <audio id="clip" controls src=""></audio></div>
+    <div class="grid">
+      <div class="card"><h3>Arti suggests</h3>
+        <div class="call">The r sounded off</div>
+        <div class="note">62% sure. Heard: not a clear r.</div>
+        <div class="unsure">Unsure, SLP please listen</div>
+      </div>
+      <div class="card"><h3>Your call</h3>
+        <div class="panel">
+          <button class="big agree" data-k="a">Agree <kbd>A</kbd></button>
+          <button class="big disagree" data-k="d">Disagree <kbd>D</kbd></button>
+          <button class="big listen" data-k="l">Listen again <kbd>L</kbd></button>
+        </div>
+        <p class="saved" id="saved">Not checked yet. Next keeps Arti's call.</p>
+      </div>
+    </div>
+  </section>
+  <aside><div class="card"><h3>Last time</h3><p>Oct 30: the r sounded off (checked by the SLP).</p></div>
+    <div class="card"><h3>Notes</h3><input placeholder="Typing here: keys do nothing" style="width:100%;padding:6px"></div></aside>
+</main>
+<label class="toggle"><input type="checkbox" id="u"> Show the Unsure state</label>
+<script>
+  const said = { a: "You agreed: the r sounded off.", d: "You disagreed: the r sounded right.", l: "Playing the clip again." };
+  function act(k) {
+    if (k === "l") { document.getElementById("saved").textContent = said.l; return; }
+    document.querySelectorAll(".big").forEach(b => b.classList.toggle("on", b.dataset.k === k));
+    document.getElementById("saved").textContent = said[k] + " Saved. Press the other key to change it.";
+  }
+  document.querySelectorAll(".big").forEach(b => b.addEventListener("click", () => act(b.dataset.k)));
+  document.addEventListener("keydown", e => {
+    if (e.target.closest("input, textarea, select, [contenteditable]") || e.ctrlKey || e.metaKey || e.altKey) return;
+    const k = e.key.toLowerCase(); if ("adl".includes(k) && k.length === 1) { e.preventDefault(); act(k); }
+  });
+  document.getElementById("u").addEventListener("change", e => document.body.classList.toggle("is-unsure", e.target.checked));
+</script>
+</body>
+</html>

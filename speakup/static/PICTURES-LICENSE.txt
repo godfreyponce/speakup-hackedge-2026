@@ -1,0 +1,2 @@
+Word pictures in pics/ are from OpenMoji (https://openmoji.org), the open-source emoji project of HfG Schwäbisch Gmünd.
+License: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/). Attribution: "OpenMoji, CC BY-SA 4.0".

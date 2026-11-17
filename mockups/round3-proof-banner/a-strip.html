@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Proof banner A: strip, Speak Up</title>
+<!-- Mockup for #38, shape A: one thin strip under the header, every value inline. FAKE DATA. -->
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f3f5f8; color: #16202c;
+         font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-variant-numeric: tabular-nums; }
+  a { color: #1d4f91; }
+  .banner { display: flex; align-items: center; gap: 22px; background: #fff; border-bottom: 1px solid #d9dfe7; padding: 10px 24px; }
+  .brand { font-weight: 700; color: #1d4f91; }
+  .who { display: flex; gap: 22px; flex: 1; }
+  .who div { display: grid; }
+  .who small { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: #6b7785; }
+  .who b { font-size: 15px; font-weight: 600; }
+  .links { display: flex; gap: 14px; font-size: 13px; }
+  .shell { display: grid; grid-template-columns: 210px 1fr 300px; gap: 18px; padding: 18px 24px 40px; max-width: 1500px; margin: 0 auto; }
+  .card { background: #fff; border: 1px solid #d9dfe7; border-radius: 8px; padding: 14px 16px; }
+  .card + .card { margin-top: 14px; }
+  .card h3 { margin: 0 0 8px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: #6b7785; font-weight: 600; }
+  .ghost { height: 120px; background: repeating-linear-gradient(45deg, #f7f9fb, #f7f9fb 10px, #eef1f5 10px, #eef1f5 20px); border-radius: 6px; }
+  .fake { position: fixed; right: 12px; bottom: 12px; background: #16202c; color: #fff; font-size: 12px; padding: 4px 10px; border-radius: 4px; }
+
+  /* the proof strip */
+  .proof { position: sticky; top: 0; z-index: 2; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 22px;
+           background: #16202c; color: #e8edf3; padding: 7px 24px; font-size: 13px; }
+  .proof .lab { color: #8fa0b3; text-transform: uppercase; font-size: 11px; letter-spacing: .06em; margin-right: 6px; }
+  .proof b { color: #fff; font-weight: 650; }
+  .proof .dim { color: #8fa0b3; }
+  .proof .none { color: #8fa0b3; font-style: italic; }
+  .proof .off { color: #7fd99a; font-weight: 650; }
+  .proof .on { color: #ffb4a3; font-weight: 650; }
+  .proof form { display: inline-flex; align-items: center; gap: 6px; margin: 0; }
+  .proof input { width: 64px; font: inherit; padding: 2px 6px; border-radius: 4px; border: 1px solid #44505e; background: #24303e; color: #fff; }
+  .proof button { font: inherit; font-size: 12px; padding: 2px 8px; border-radius: 4px; border: 1px solid #44505e; background: #24303e; color: #e8edf3; cursor: pointer; }
+  .proof .src { color: #8fa0b3; font-size: 11px; }
+</style>
+</head>
+<body>
+<header class="banner">
+  <span class="brand">Speak Up</span>
+  <div class="who">
+    <div><small>Student</small><b>S-1042</b></div>
+    <div><small>Age</small><b>7 y 4 m</b></div>
+    <div><small>Now</small><b>Word 4 of 12</b></div>
+  </div>
+  <nav class="links"><a href="#">Sound book</a><a href="#">Child screen</a><a href="#">Past sessions</a><a href="#">New</a></nav>
+</header>
+<div class="proof" aria-label="Measured on this machine">
+  <span><span class="lab">Arti</span><b>61 ms</b> <span class="dim">last word, median 64 ms over 3</span></span>
+  <span><span class="lab">Qwen</span><span class="none">not measured yet</span></span>
+  <span><span class="lab">RAM</span><b>812 MB</b> <span class="dim">of 1.9 GB used, app peak 214 MB</span></span>
+  <span><span class="lab">Network</span><span class="off">offline</span> <span class="dim">no default route</span></span>
+  <span><span class="lab">Watts</span><form><input placeholder="blank" inputmode="decimal"><button>Set</button></form>
+    <span class="src">typed from the USB-C meter</span></span>
+</div>
+<main class="shell">
+  <div class="card"><h3>Words</h3><div class="ghost"></div></div>
+  <section><div class="card"><h3>red</h3><div class="ghost" style="height:260px"></div></div></section>
+  <aside><div class="card"><h3>This session</h3><div class="ghost"></div></div></aside>
+</main>
+<div class="fake">Mockup A, fake data</div>
+</body>
+</html>

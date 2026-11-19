@@ -114,7 +114,7 @@ class SlpViewTest(unittest.TestCase):
         for key, half in (("a", "agree"), ("d", "disagree")):
             self.assertIn(f'class="half {half}" data-key="{key}"', page)
         self.assertIn('action="/verify"', page)
-        self.assertNotIn('class="listen"', page)  # no clip on disk in this test: no Listen circle
+        self.assertNotIn('class="listen"', page)
         self.assertIn('<script id="slp-keys">', page)
         self.assertIn('<details class="evidence" open>', page)
 
@@ -219,17 +219,17 @@ class SlpViewTest(unittest.TestCase):
         self.assertIn('class="half agree"', page)
         self.assertIn("You disagreed with Arti: the r sounded right.", page)
 
-    def test_listen_again_plays_the_clip(self):
+    def test_l_key_plays_the_evidence_box(self):
         self.clip_on_disk = True
         self.recorded()
         page = self.request("GET", "/word")[2]
-        self.assertIn('data-key="l" data-clip="/audio/s0.wav"', page)
+        self.assertNotIn('class="listen"', page)  # no circle: Listen to the box does it
+        self.assertIn('getElementById("sel-listen")', page)
 
     def test_starting_a_practice_keeps_the_open_screenings_clip(self):  # #54
         self.clip_on_disk = True
         self.recorded()
         self.request("POST", "/start", {"student_id": "S-014", "birth_date": birth_date_for(8, 0), "mode": "practice"})
-        self.assertIn('data-key="l" data-clip="/audio/s0.wav"', self.request("GET", "/word")[2])
         self.assertEqual(self.audio_status("/audio/s0.wav"), 200)
 
     def test_starting_a_screening_keeps_the_open_practices_clip(self):  # #54
@@ -237,7 +237,6 @@ class SlpViewTest(unittest.TestCase):
         self.request("POST", "/start", {"student_id": "S-014", "birth_date": birth_date_for(8, 0), "mode": "practice"})
         self.request("POST", "/practice/record", {})
         self.request("POST", "/start", {"student_id": "S-014", "birth_date": birth_date_for(8, 0)})
-        self.assertIn('data-key="l" data-clip="/audio/p0.wav"', self.request("GET", "/practice")[2])
         self.assertEqual(self.audio_status("/audio/p0.wav"), 200)
 
     def test_practice_page_has_the_question_card(self):
@@ -259,17 +258,6 @@ class SlpViewTest(unittest.TestCase):
         self.assertEqual((kid["word"], kid["tried"]), ("carrot", False))
         self.assertTrue("carrot" in self.request("GET", "/word")[2])
 
-
-
-class ListenStyleTest(unittest.TestCase):
-    def test_end_screen_listen_rule_skips_the_word_page_listen_button(self):
-        """/word's Listen circle is <button class="listen">; the end screen's line is <p class="listen"> (#42).
-        Every SLP_CSS selector naming .listen must be for the <p>, or it shifts and restyles the button."""
-        selectors = [part.strip() for rule in re.findall(r"([^{}]*)\{", pages.SLP_CSS)
-                     for part in rule.split(",") if re.search(r"\.listen\b", part)]
-        self.assertTrue(selectors)
-        for selector in selectors:
-            self.assertRegex(selector, r"^p\.listen\b")
 
 
 if __name__ == "__main__":

@@ -147,25 +147,25 @@ LIVE = Proof()
 # The owner's pick of three shapes (mockups/round3-proof-banner/c-tile-bar.html): five tiles fixed to the bottom of
 # the screen. BAR_JS keeps the page's bottom padding equal to the bar's height, so the bar never covers anything.
 BAR_CSS = """
-  body { padding-bottom: 124px; }  /* four tiles at 1280 px wide (#49), in case BAR_JS does not run */
+  body { padding-bottom: 80px; }  /* four tiles at 1280 px wide (#49), in case BAR_JS does not run */
   .proof { position: fixed; left: 0; right: 0; bottom: 0; z-index: 3; background: #fff; border-top: 2px solid #1d4f91;
-           box-shadow: 0 -2px 10px rgba(22, 32, 44, .08); padding: 10px 24px; }
-  .proof .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; max-width: 1500px; margin: 0 auto; }
-  .proof .tile { border: 1px solid #d9dfe7; border-radius: 8px; padding: 8px 12px; min-width: 0; }
-  .proof small { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: #6b7785; font-weight: 600; }
-  .proof .big { font-size: 30px; font-weight: 750; line-height: 1.1; padding: 0; }  /* not the page's .big button */
-  .proof .big span { font-size: 15px; font-weight: 600; color: #44505e; margin-left: 3px; }
-  .proof .sub { font-size: 12px; color: #6b7785; }
+           box-shadow: 0 -2px 10px rgba(22, 32, 44, .08); padding: 6px 24px; }
+  .proof .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; max-width: 1200px; margin: 0 auto; }
+  .proof .tile { border: 1px solid #d9dfe7; border-radius: 8px; padding: 4px 10px; min-width: 0; text-align: center; }
+  .proof small { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: .06em; color: #6b7785; font-weight: 600; }
+  .proof .big { font-size: 20px; font-weight: 750; line-height: 1.1; padding: 0; }  /* not the page's .big button */
+  .proof .big span { font-size: 12px; font-weight: 600; color: #44505e; margin-left: 3px; }
+  .proof .sub { font-size: 11px; color: #6b7785; }
   .proof .tile.off { background: #e3f2e6; border-color: #9fd0ae; }
   .proof .tile.off .big { color: #23633a; }
   .proof .tile.on { background: #fbe3dd; border-color: #e7a99a; }
   .proof .tile.on .big { color: #9b2c13; }
   .proof:not(:has(.tiles)) { border-top-width: 1px; border-top-color: #d9dfe7; box-shadow: none; padding: 6px 24px; }
-  .proof .unmeasured { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; max-width: 1500px;
+  .proof .unmeasured { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; justify-content: center; max-width: 1200px;
                        margin: 0 auto; font-size: 13px; color: #6b7785; }
   .proof .tiles + .unmeasured { margin-top: 6px; }
   .proof .unmeasured b { font-weight: 600; color: #44505e; }
-  @media (max-width: 900px) { .proof .tiles { grid-template-columns: repeat(3, 1fr); gap: 8px; } .proof .big { font-size: 24px; } }
+  @media (max-width: 900px) { .proof .tiles { grid-template-columns: repeat(3, 1fr); gap: 8px; } .proof .big { font-size: 18px; } }
 """
 
 BAR_JS = r"""

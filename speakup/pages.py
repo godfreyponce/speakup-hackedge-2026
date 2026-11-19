@@ -655,7 +655,9 @@ def _rail(session: Session) -> str:
 def _recording_card(view: WordView, base: str = "") -> str:
     c = view.check
     if c is None:
-        body = '<div class="rec"><span class="dot"></span><div><b>No clip on this machine</b>No recording to check (laptop test mode).</div></div>'
+        body = ('<div class="rec"><span class="dot"></span><div><b>No clip on this machine</b>No recording to check (laptop test mode), so this page leaves out '
+                'Listen again, the recording check, the waveform, the measured F3-F2 gap and the sound picture. '
+                'To see them, start the app with <code style="white-space:nowrap">--sample-clip rabbit.wav</code> (see the README).</div></div>')
     elif c.ok:
         body = (f'<div class="rec"><span class="dot good"></span><div><b>Recording OK</b>{c.speech_seconds:.1f} s of speech, '
                 f"loudest point {c.peak:,} of 32,767.</div></div>")
@@ -703,14 +705,13 @@ QUESTION_CSS = """
             border-radius: 50%; border: 4px solid #fff; padding: 0; background: #1d4f91; color: #fff; line-height: 1.1;
             box-shadow: 0 6px 18px rgba(0,0,0,.18); touch-action: manipulation; }
   .listen small { display: block; font-weight: 500; font-size: 12px; opacity: .85; }
-  .listen:disabled { background: #9aa5b1; cursor: default; }
   /* Upright iPad: the card can be 400 px wide, so the circle shrinks and each half's words move away from it. */
   @media (max-width: 900px) {
     .listen { width: 76px; height: 76px; font-size: 13px; }
     .half small { font-size: 13px; }
     .half.disagree { padding-right: 40px; } .half.agree { padding-left: 40px; }
   }
-  .unsure-on .listen:not(:disabled) { animation: pulse 1.4s infinite; }
+  .unsure-on .listen { animation: pulse 1.4s infinite; }
   @keyframes pulse { 50% { box-shadow: 0 0 0 14px rgba(29,79,145,.18); } }
   .saved { text-align: center; color: #44505e; padding: 10px; border-top: 1px solid #d9dfe7; margin: 0; }
   .q .next { margin: 0; padding: 0 16px 16px; }
@@ -793,9 +794,10 @@ def _question_card(owner, attempt: Attempt, i: int, view: WordView, base: str, n
                 f'{label}<small>{says[0].upper()}{says[1:]} ({key.upper()})</small></button></form>')
 
     if view.clip and view.key:
-        listen = f'<button type="button" class="listen" data-key="l" data-clip="/audio/{view.key}.wav">'
+        listen = (f'<button type="button" class="listen" data-key="l" data-clip="/audio/{view.key}.wav">'
+                  'Listen<br>again<small>L</small></button>')
     else:
-        listen = '<button type="button" class="listen" data-key="l" disabled title="No clip on this machine">'
+        listen = ""  # nothing to play: no circle (the evidence card says what is missing)
     if agreed is None:
         state = "Not checked yet. Next keeps Arti's call."
     elif agreed:
@@ -814,7 +816,7 @@ def _question_card(owner, attempt: Attempt, i: int, view: WordView, base: str, n
   <div class="choose">
     {half("disagree", "correct" if off else "wrong", "d", "Disagree", other, agreed is False)}
     {half("agree", "wrong" if off else "correct", "a", "Agree", heard, agreed is True)}
-    {listen}Listen<br>again<small>L</small></button>
+    {listen}
   </div>
   <p class="saved">{state}</p>
   <form class="next" method="post" action="{base}/next"><button class="primary big wide">{escape(next_label)} →</button></form>

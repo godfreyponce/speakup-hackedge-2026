@@ -114,7 +114,7 @@ class SlpViewTest(unittest.TestCase):
         for key, half in (("a", "agree"), ("d", "disagree")):
             self.assertIn(f'class="half {half}" data-key="{key}"', page)
         self.assertIn('action="/verify"', page)
-        self.assertIn('data-key="l" disabled', page)  # no clip on disk in this test: nothing to play
+        self.assertNotIn('class="listen"', page)  # no clip on disk in this test: no Listen circle
         self.assertIn('<script id="slp-keys">', page)
         self.assertIn('<details class="evidence" open>', page)
 

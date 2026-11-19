@@ -175,8 +175,7 @@ format from #3".
 
 ### llama.cpp and the end screen's note (#9)
 
-On the laptop, pack the llama.cpp source without its git history and copy it to the board. On
-Godfrey's Mac the source is `/Users/geovponce/Developer/hackedge/vendor/llama.cpp`.
+On the laptop, pack the llama.cpp source without its git history and copy it to the board.
 
 ```bash
 tar -czf /tmp/llama.cpp.tgz --exclude=.git -C <folder that holds llama.cpp> llama.cpp && scp /tmp/llama.cpp.tgz <board>:

@@ -4,6 +4,8 @@
 
 Project page with screens from the app and how it works: https://godfreyponce.github.io/speakup-hackedge-2026/
 
+The report we submitted: [docs/SpeakUp_Report.pdf](docs/SpeakUp_Report.pdf)
+
 Speak Up is an offline speech screening aid for school speech-language pathologists (SLPs), and it runs on a Texas Instruments SK-AM62B board. A child says short words with the /r/ sound, a small model on the board (Arti) judges each r, and the SLP checks every call. At the end the SLP gets a tally and a short note written by a language model on the same board. There is no network and no cloud, and no audio leaves the board. Speak Up screens and monitors, it never diagnoses, and the SLP makes every decision.
 
 Event: UTD HackEdge 2026 (UT Dallas ECE and Texas Instruments), Track 3: Edge AI Assistant
@@ -44,8 +46,13 @@ Demo mode answers from a fixed script instead of the model and the microphone, s
 git clone https://github.com/godfreyponce/speakup-hackedge-2026.git
 cd speakup-hackedge-2026
 python3 -m pip install numpy
-python3 -m speakup --demo
+python3 -c "from speakup import synth, synth_book; open('rabbit.wav','wb').write(synth.wav_bytes(synth_book.audio('w-rabbit','girl10')))"
+python3 -m speakup --demo --sample-clip rabbit.wav
 ```
+
+The second line makes `rabbit.wav` with the app's own speech synthesizer (`speakup/synth.py`): a computer-made "rabbit", not a recording of anyone. With it, each word gets the full SLP view: the measured F3-F2 gap, the waveform, the sound picture and Listen again. The r call itself still comes from the demo script, not from Arti, so only the sound analysis is real. Plain `python3 -m speakup --demo` also works, without the sound analysis.
+
+On Windows, use `py` in place of `python3`.
 
 Then open these in a browser:
 
@@ -54,8 +61,10 @@ Then open these in a browser:
 | http://localhost:8000/ | The SLP view: start a session, see each call, agree or disagree (keys A, D, L to listen again) |
 | http://localhost:8000/kid | The child view with the buddy, the word and its picture (on the board this is the HDMI screen) |
 | http://localhost:8000/sessions | Finished sessions |
+| http://localhost:8000/book | The Sound Book: computer-made example sounds and their pictures |
+| http://localhost:8000/look | Choose the child view's look |
 
-Enter an age of 8 years or more so every scripted error gets flagged. To try the sound analysis (formants, the F3-F2 gap) on a real recording instead of the script, run `python3 -m speakup --sample-clip path/to/word.wav`.
+Enter a date of birth at least 8 years ago so every scripted error gets flagged. To try the sound analysis on your own recording, pass any WAV file to `--sample-clip`.
 
 ## Dependencies
 
@@ -73,8 +82,8 @@ Without onnxruntime the app still runs in demo mode, and without llama.cpp the e
 ## Results
 
 - Arti v2 (soft labels, the model we ship) agrees with trained listeners on 268 of 300 clips (89%) from 55 children it never saw in training. Arti v0 got 258 and the F3-F2 gap alone got 214.
-- On all 21,591 clips from those children, Spearman with the listener share is 0.624 (v0: 0.593), and Platt scaling cuts calibration error from 0.107 to 0.026.
-- On the board Arti v2 takes 46.7 ms per clip on one thread and 72 MB of memory. The language model runs at 4.6 tokens per second, so the app builds the note from approved sentences and code checks every number in it.
+- On all 21,591 clips from those children, Spearman with the listener share is 0.624 (v0: 0.593), and in an offline check Platt scaling cut calibration error from 0.107 to 0.026 (not applied in this build: the app uses a fixed 0.5 cut).
+- On the board Arti v2 takes 46.7 ms per clip on one thread and 72 MB of memory. The app runs it on one thread: with four threads on a busy board (language model and child view running) it took 109 ms. The language model runs at 4.6 tokens per second, so the app builds the note from approved sentences and code checks every number in it.
 - In practice mode, after a miss the next word comes from the r position the child misses most, and the child sees a tip for the error the SLP marked (gliding, distortion) or for the r position. Qwen rewords the approved tips and code checks every rewording. The tips stay drafts until Lexi approves them.
 
 Details are in [docs/test-set.md](docs/test-set.md), [docs/model-timing.md](docs/model-timing.md) and [docs/architecture-comparison.md](docs/architecture-comparison.md).
@@ -108,6 +117,7 @@ Copy the app and the model from the laptop (see [Models](#models) for the model 
 ssh <board> mkdir -p speakup-app/models
 scp -r speakup scripts <board>:speakup-app/
 scp models/arti-v2-soft.onnx <board>:speakup-app/models/
+scp models/qwen2.5-0.5b-instruct-q4_k_m.gguf <board>:speakup-app/models/   # optional, for the note
 ```
 
 For the end-of-session note (optional), build llama.cpp on the board and download the Qwen model as in [docs/model-timing.md, "llama.cpp and the end screen's note"](docs/model-timing.md#llamacpp-and-the-end-screens-note-9).
@@ -152,7 +162,7 @@ uv run --managed-python --with huggingface_hub hf download Qwen/Qwen2.5-0.5B-Ins
     qwen2.5-0.5b-instruct-q4_k_m.gguf --local-dir models
 ```
 
-How Arti is built and why (input, layers, training, export) is in [docs/model-timing.md](docs/model-timing.md#how-arti-was-trained).
+Arti's input is 1.5 s of 16 kHz audio as 40 log-mel bands (25 ms windows, 10 ms hop). How the shipped model was chosen is in [docs/arti-v2-experiment.md](docs/arti-v2-experiment.md); the first version (v0) and its training are in [docs/model-timing.md](docs/model-timing.md#how-arti-was-trained).
 
 ## Tests
 
@@ -161,7 +171,7 @@ python3 -m pip install numpy
 python3 -m unittest discover -s tests
 ```
 
-A few tests fake `arecord` and `llama-completion` with shell scripts, so they only pass on Linux or macOS.
+A few tests fake `arecord` and `llama-completion` with shell scripts, so they only pass on Linux or macOS. On Windows those (about 13) show as errors.
 
 ## Data and privacy rules
 

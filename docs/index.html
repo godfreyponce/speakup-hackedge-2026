@@ -874,6 +874,13 @@ footer .he-link:focus-visible .he-logo{scale:1.1;rotate:2deg;translate:0 -4px}
   .clip .co.co-play .shaft{animation:co-draw 380ms var(--ease-out) both;animation-delay:calc(var(--k) * 260ms + 150ms)}
   .clip .co.co-play .head{animation:co-fade 160ms ease-out both;animation-delay:calc(var(--k) * 260ms + 450ms)}}
 @media (prefers-reduced-motion:reduce){.path li,.clip .co,.clip .co-list li,.co-at::after{transition:none}}
+
+.clip::after{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;opacity:0;
+  box-shadow:0 18px 32px -6px var(--shade),0 4px 12px var(--shade)}
+.clip.clip-pop::after{animation:clip-lift 640ms}
+@media (prefers-reduced-motion:no-preference){.clip.clip-pop{animation:clip-pop 640ms}}
+@keyframes clip-pop{0%{animation-timing-function:cubic-bezier(0.23,1,0.32,1)}40%{scale:1.025;animation-timing-function:cubic-bezier(0.65,0,0.35,1)}}
+@keyframes clip-lift{0%{animation-timing-function:ease-out}40%{opacity:1;animation-timing-function:ease-in-out}}
 </style>
 <section class="hero">
   <div class="world" aria-hidden="true"><div class="world-box">
@@ -1500,5 +1507,38 @@ footer .he-link:focus-visible .he-logo{scale:1.1;rotate:2deg;translate:0 -4px}
     if (r.top < 0 || r.bottom > innerHeight) first.scrollIntoView({ block: "center", behavior: smooth() });
   }
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && clip.classList.contains("co-pick")) pick(-1); });
+})();
+</script>
+<script>
+(() => {
+  const rail = document.getElementById("rail"), clip = document.querySelector("article.clip"), head = document.getElementById("clip-h");
+  if (!rail || !clip || !head) return;
+  const laptop = clip.querySelector(".clip-laptop");
+  let run = 0;
+  rail.addEventListener("click", (e) => {
+    const b = e.target.closest("button");
+    if (!b || !b.textContent.includes("The SLP checks the call")) return;
+    const me = ++run, calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // the card's notes play on arrival, so its scroll reveal has nothing left to do (as a path pick does)
+    clip.classList.remove("rv-wait", "rv-go");
+    // the heading and the whole laptop, centred when they fit on screen, else the heading just under the top edge
+    const top = head.getBoundingClientRect().top, room = innerHeight - (laptop.getBoundingClientRect().bottom - top);
+    const y = Math.min(Math.max(0, scrollY + top - (room >= 0 ? room / 2 : 8)), document.documentElement.scrollHeight - innerHeight);
+    let done = false, idle;
+    const arrive = () => {
+      if (done) return;
+      done = true; clearTimeout(idle);
+      removeEventListener("scrollend", arrive); removeEventListener("scroll", wait);
+      if (me !== run) return;
+      clip.classList.remove("clip-pop"); void clip.offsetWidth; clip.classList.add("clip-pop");
+      clip.getAnimations({ subtree: true }).forEach((a) => { if (/^co-/.test(a.animationName)) { a.cancel(); a.play(); } });
+    };
+    // scrollend where the browser has it; elsewhere 200 ms without a scroll event (a guess, a few frames of slack)
+    const wait = () => { clearTimeout(idle); idle = setTimeout(arrive, 200); };
+    if (Math.abs(y - scrollY) < 2) return arrive();
+    addEventListener("scrollend", arrive); addEventListener("scroll", wait, { passive: true });
+    wait();
+    scrollTo({ top: y, behavior: calm ? "auto" : "smooth" });
+  });
 })();
 </script>

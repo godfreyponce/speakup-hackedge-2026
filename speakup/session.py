@@ -141,6 +141,7 @@ class Session:
         self.started_at = datetime.now().astimezone().isoformat(timespec="seconds")
         self.index = 0
         self._slots: list[Attempt | None] = [None] * len(words)
+        self.saved_id: int | None = None  # its row once Finish saved it; finishing again replaces that row
 
     @property
     def done(self) -> bool:
@@ -214,6 +215,11 @@ class Session:
     def finish(self) -> None:
         """End early: words never recorded are left out of the tally and the save."""
         self.index = len(self.words)
+
+    def resume(self) -> None:
+        """Back from the summary: reopen at the first word not yet recorded (the last word if all are)."""
+        empty = [i for i, a in enumerate(self._slots) if a is None]
+        self.index = empty[0] if empty else len(self.words) - 1
 
 
 def tally(attempts: list[Attempt]) -> dict[str, int]:

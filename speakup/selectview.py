@@ -84,7 +84,7 @@ SELECT_JS = r"""
   const label = document.getElementById("sel-label"), times = document.getElementById("sel-times");
   const err = document.getElementById("sel-err");
   const H = 110, MIN = 0.05;
-  let s = D.start, e = D.end, drag = null, head = null, busy = false;
+  let s = D.start, e = D.end, drag = null, head = null, busy = false, pending = null, seq = 0;
   let actx = null, buf = null, src = null, t0 = 0, from = 0, to = 0;
 
   const W = () => cv.clientWidth || 1;
@@ -135,10 +135,18 @@ SELECT_JS = r"""
   }
   function px(ev) { return ev.clientX - cv.getBoundingClientRect().left; }
 
+  function cancel() {  // drop the rescore (and the reload) still running for an earlier move
+    if (!busy) return;
+    seq++;
+    if (pending) pending.abort();
+    pending = null; busy = false;
+    window.stop();
+    label.textContent = "Moved by you"; label.className = "sel-label moved";
+  }
   cv.addEventListener("pointerdown", ev => {
-    if (busy) return;
     const x = px(ev), kind = hit(x, ev.pointerType === "touch");
     if (!kind) return;
+    cancel();
     drag = { kind, x0: x, s0: s, e0: e };
     cv.setPointerCapture(ev.pointerId);
     ev.preventDefault();
@@ -171,7 +179,8 @@ SELECT_JS = r"""
 
   let keyTimer = null;
   cv.addEventListener("keydown", ev => {
-    if (busy || (ev.key !== "ArrowLeft" && ev.key !== "ArrowRight")) return;
+    if (ev.key !== "ArrowLeft" && ev.key !== "ArrowRight") return;
+    cancel();
     const step = (ev.shiftKey ? 0.05 : 0.01) * (ev.key === "ArrowLeft" ? -1 : 1), len = e - s;
     s = clamp(s + step, 0, D.dur - len); e = s + len;
     showTimes(); draw(); ev.preventDefault();
@@ -180,13 +189,19 @@ SELECT_JS = r"""
 
   function commit() {
     busy = true; stop();
-    label.textContent = "Moved by you, Arti is listening again";
+    const me = ++seq;
+    pending = new AbortController();
+    label.textContent = "Moved by you, Arti is listening again (drag again any time)";
     label.className = "sel-label busy"; err.textContent = "";
     const body = "start=" + s.toFixed(3) + "&end=" + e.toFixed(3);
-    fetch(D.post, { method: "POST", body, headers: { "Content-Type": "application/x-www-form-urlencoded", "X-Select": "json" } })
+    fetch(D.post, { method: "POST", body, signal: pending.signal,
+                    headers: { "Content-Type": "application/x-www-form-urlencoded", "X-Select": "json" } })
       .then(r => r.json())
-      .then(j => { if (j.ok) location.reload(); else fail(j.error || "Arti could not score that part."); })
-      .catch(() => fail("The board did not answer. Try again."));
+      .then(j => {
+        if (me !== seq) return;  // a newer move replaced this one
+        if (j.ok) location.reload(); else fail(j.error || "Arti could not score that part.");
+      })
+      .catch(() => { if (me === seq) fail("The board did not answer. Try again."); });
   }
   function fail(msg) {
     busy = false; err.textContent = msg;

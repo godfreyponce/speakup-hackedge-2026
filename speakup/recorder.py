@@ -268,4 +268,4 @@ class VoiceRecorder(Stoppable):
             w.setnchannels(1)
             w.setsampwidth(2)
             w.setframerate(self.rate)
-            w.writeframes(dehum(b"".join(frames[first:last]), self.rate))
+            w.writeframes(b"".join(frames[first:last]))  # raw: Arti was trained on unfiltered audio (Nov 12)

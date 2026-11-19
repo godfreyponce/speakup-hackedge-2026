@@ -328,7 +328,7 @@ SLP_CSS = """
   .verdict { font-size: 22px; font-weight: 700; margin: 0 0 6px; }
   .verdict.refer { color: #9b2c13; }
   .checked { margin: 4px 0 0; }
-  p.listen { color: #7a4b00; font-weight: 600; margin: 8px 0 0; }  /* the end screen only: the word page has a Listen button (#45) */
+  p.listen { color: #7a4b00; font-weight: 600; margin: 8px 0 0; }  /* the end screen only (#45) */
   .aid { font-size: 12px; color: #6b7785; }
   .bigpic svg, .pair svg { width: 100%; height: auto; border: 1px solid #d9dfe7; border-radius: 6px; }
   .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
@@ -656,7 +656,7 @@ def _recording_card(view: WordView, base: str = "") -> str:
     c = view.check
     if c is None:
         body = ('<div class="rec"><span class="dot"></span><div><b>No clip on this machine</b>No recording to check (laptop test mode), so this page leaves out '
-                'Listen again, the recording check, the waveform, the measured F3-F2 gap and the sound picture. '
+                'Listen to the box, the recording check, the waveform, the measured F3-F2 gap and the sound picture. '
                 'To see them, start the app with <code style="white-space:nowrap">--sample-clip rabbit.wav</code> (see the README).</div></div>')
     elif c.ok:
         body = (f'<div class="rec"><span class="dot good"></span><div><b>Recording OK</b>{c.speech_seconds:.1f} s of speech, '
@@ -679,7 +679,7 @@ def _unsure(view: WordView) -> bool:
 
 
 # Round 3 (#37), the owner's pick from mockups/round3-slp-view/c-question-card.html: one card asks whether the SLP
-# agrees with Arti. Disagree and Agree fill its halves for an iPad without a keyboard; Listen again sits between them.
+# agrees with Arti. Disagree and Agree are two buttons; L plays the evidence box (Listen to the box).
 QUESTION_CSS = """
   .q { padding: 0; overflow: hidden; margin-top: 14px; }
   .qhead { text-align: center; padding: 14px 20px 0; }
@@ -693,27 +693,16 @@ QUESTION_CSS = """
   .measured.differs { background: #fff4d6; color: #6b4a00; }
   .unsure { margin: 12px auto 0; max-width: 420px; background: #fff4d6; color: #6b4a00; font-weight: 700;
             padding: 8px 12px; border-radius: 999px; border: 1px solid #f0d58a; }
-  .choose { position: relative; display: grid; grid-template-columns: 1fr 1fr; margin-top: 16px; border-top: 1px solid #d9dfe7; }
-  .choose form { display: grid; }
-  .half { border: 0; border-radius: 0; height: 170px; font-size: 26px; font-weight: 700; display: grid;
-          place-content: center; gap: 4px; touch-action: manipulation; }
-  .half small { font-size: 14px; font-weight: 500; color: #44505e; }
-  .half.disagree { background: #fdf0ec; color: #9b2c13; border-right: 1px solid #d9dfe7; }
-  .half.agree { background: #eef7f0; color: #23633a; }
-  .half.on { box-shadow: inset 0 0 0 5px currentColor; }
-  .listen { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 112px; height: 112px;
-            border-radius: 50%; border: 4px solid #fff; padding: 0; background: #1d4f91; color: #fff; line-height: 1.1;
-            box-shadow: 0 6px 18px rgba(0,0,0,.18); touch-action: manipulation; }
-  .listen small { display: block; font-weight: 500; font-size: 12px; opacity: .85; }
-  /* Upright iPad: the card can be 400 px wide, so the circle shrinks and each half's words move away from it. */
-  @media (max-width: 900px) {
-    .listen { width: 76px; height: 76px; font-size: 13px; }
-    .half small { font-size: 13px; }
-    .half.disagree { padding-right: 40px; } .half.agree { padding-left: 40px; }
-  }
-  .unsure-on .listen { animation: pulse 1.4s infinite; }
-  @keyframes pulse { 50% { box-shadow: 0 0 0 14px rgba(29,79,145,.18); } }
-  .saved { text-align: center; color: #44505e; padding: 10px; border-top: 1px solid #d9dfe7; margin: 0; }
+  .choose { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 16px 0; }
+  .choose form { display: grid; margin: 0; }
+  .half { border: 2px solid; border-radius: 12px; background: #fff; padding: 12px 8px; font-size: 20px; font-weight: 700;
+          touch-action: manipulation; }
+  .half small { display: block; font-size: 12px; font-weight: 500; color: #44505e; }
+  .half.disagree { color: #9b2c13; border-color: #e7a99a; }
+  .half.agree { color: #23633a; border-color: #9fd0ae; }
+  .half.disagree.on { background: #fbe3dd; border-color: #9b2c13; }
+  .half.agree.on { background: #e3f2e6; border-color: #23633a; }
+  .saved { text-align: center; color: #44505e; padding: 10px; margin: 0; }
   .q .next { margin: 0; padding: 0 16px 16px; }
   .evidence { margin-top: 14px; }
   .evidence > summary { cursor: pointer; font-size: 12px; text-transform: uppercase; letter-spacing: .06em;
@@ -721,26 +710,19 @@ QUESTION_CSS = """
   .evidence > .card:first-of-type { margin-top: 8px; }
 """
 
-# A agrees, D disagrees, L plays the clip again. Not while typing, not with ctrl, cmd or alt (the browser's own
+# A agrees, D disagrees, L presses Listen to the box. Not while typing, not with ctrl, cmd or alt (the browser's own
 # shortcuts), not on a held key, and not while the full sound analysis is open over the page.
 SLP_KEYS_JS = r"""
 (function () {
   const card = document.getElementById("slp-q");
   if (!card) return;
-  const say = card.querySelector(".saved"), listen = card.querySelector('[data-key="l"]');
-  let clip = null;
-  if (listen && listen.dataset.clip) listen.addEventListener("click", () => {
-    if (!clip) clip = new Audio(listen.dataset.clip);
-    clip.currentTime = 0;
-    clip.play().then(() => { say.textContent = "Playing the clip again."; },
-                     () => { say.textContent = "The clip did not play. Try the player under Evidence."; });
-  });
   document.addEventListener("keydown", e => {
     if (e.ctrlKey || e.metaKey || e.altKey || e.repeat || e.defaultPrevented || !/^[adl]$/i.test(e.key)) return;
     const t = e.target;
     if (t.isContentEditable || (t.closest && t.closest("input, textarea, select"))) return;
     if (window.FullView && window.FullView.isOpen()) return;
-    const b = card.querySelector('[data-key="' + e.key.toLowerCase() + '"]');
+    const k = e.key.toLowerCase();
+    const b = k === "l" ? document.getElementById("sel-listen") : card.querySelector('[data-key="' + k + '"]');
     if (!b || b.disabled) return;
     e.preventDefault();
     b.click();
@@ -750,7 +732,7 @@ SLP_KEYS_JS = r"""
 
 
 def _question_card(owner, attempt: Attempt, i: int, view: WordView, base: str, next_label: str) -> str:
-    """Arti's call as a yes or no question, the SLP's two answers, Listen again, and Next."""
+    """Arti's call as a yes or no question, the SLP's two answers, and Next."""
     arti = attempt.arti or attempt.result
     off = arti.error_type is not None
     bad_clip = view.check is not None and not view.check.ok
@@ -793,11 +775,6 @@ def _question_card(owner, attempt: Attempt, i: int, view: WordView, base: str, n
                 f'<button type="submit" class="half {kind}{" on" if on else ""}" data-key="{key}">'
                 f'{label}<small>{says[0].upper()}{says[1:]} ({key.upper()})</small></button></form>')
 
-    if view.clip and view.key:
-        listen = (f'<button type="button" class="listen" data-key="l" data-clip="/audio/{view.key}.wav">'
-                  'Listen<br>again<small>L</small></button>')
-    else:
-        listen = ""  # nothing to play: no circle (the evidence card says what is missing)
     if agreed is None:
         state = "Not checked yet. Next keeps Arti's call."
     elif agreed:
@@ -816,7 +793,6 @@ def _question_card(owner, attempt: Attempt, i: int, view: WordView, base: str, n
   <div class="choose">
     {half("disagree", "correct" if off else "wrong", "d", "Disagree", other, agreed is False)}
     {half("agree", "wrong" if off else "correct", "a", "Agree", heard, agreed is True)}
-    {listen}
   </div>
   <p class="saved">{state}</p>
   <form class="next" method="post" action="{base}/next"><button class="primary big wide">{escape(next_label)} →</button></form>

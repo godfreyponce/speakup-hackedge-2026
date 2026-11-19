@@ -422,7 +422,7 @@ class ServerTest(unittest.TestCase):
         self.assertIn("laptop test mode", body)
         self.assertNotIn("/audio/", body)
         self.assertNotIn('class="listen"', body)
-        self.assertIn("leaves out Listen again", body)
+        self.assertIn("leaves out Listen to the box", body)
 
     def test_word_page_shows_last_time_for_this_child(self):
         self.outcomes["rabbit"] = "gliding"

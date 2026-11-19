@@ -102,7 +102,8 @@ def main() -> None:
             server.bank = bank.fill(generate, words, server.bank)
 
         threading.Thread(target=fill_bank, daemon=True).start()
-    print(f"Speak Up on http://{args.host}:{args.port}", flush=True)
+    host = "localhost" if args.host in ("0.0.0.0", "") else args.host  # 0.0.0.0 listens everywhere but can't be opened
+    print(f"Speak Up on http://{host}:{args.port} (the child view is /kid)", flush=True)
     try:
         server.serve_forever()
     except KeyboardInterrupt:

@@ -729,6 +729,114 @@ footer .he-link:focus-visible .he-logo{scale:1.1;rotate:2deg;translate:0 -4px}
 .hard .hard-need{font:800 clamp(1.2rem,1.9vw,1.45rem)/1.4 var(--round);color:var(--banner-ink)}
 @media (max-width:640px){.hard-in{grid-template-columns:minmax(0,1fr)}.hard{padding-block:52px}}
 
+
+/* ---- revision 10: the pipeline's sketches ---- */
+.sk{display:block;width:100%;max-width:300px;height:auto;margin:2px 0 6px;overflow:visible}
+.sk .sh{fill:rgba(60,40,20,.2)}
+.sk .fp{fill:var(--purple)}.sk .fr{fill:var(--red)}.sk .fy{fill:var(--yellow)}.sk .fw{fill:var(--paper-hi)}
+.sk .st{fill:none;stroke:rgba(255,255,255,.55);stroke-width:1;stroke-dasharray:3 2}
+.sk .sd{fill:none;stroke:var(--pstitch);stroke-width:1;stroke-dasharray:3 2}
+.sk .ln,.sk .lh{fill:none;stroke:var(--purple);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.sk .ln{stroke-dasharray:4 3}
+.sk .lr{fill:none;stroke:var(--watch-ink);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.sk text{font-family:var(--round);font-weight:800}
+.sk .tl{font-size:12px;fill:var(--pmuted)}
+.sk .tr{font-size:12px;fill:var(--watch-ink)}
+.sk .ti{font-size:11px;fill:var(--pink)}
+.sk .tb{font-size:15px;fill:var(--pink)}
+.sk .tw{font-size:15px;fill:#fff}
+.sk .tx{font-size:11px;fill:#fff}
+.sk .tp{font-size:11.5px;fill:var(--purple)}
+:root{--watch-ink:#b23040}
+
+/* ---- the stitched thread, one piece per step, so it can be drawn from each badge toward the next ---- */
+.flow::before{content:none}
+.flow .th{position:absolute;overflow:hidden;pointer-events:none;top:25px;height:3px;left:calc(50% + 31px);width:calc(100% + 26px - 62px)}
+.flow li:last-child .th{width:calc(50% - 31px - 15px)}
+.flow .th::before{content:"";position:absolute;inset:0;border-top:3px dashed var(--thread);opacity:.85}
+@media (max-width:1180px){
+  .flow .th{top:58px;left:25px;width:3px;height:calc(100% - 58px + 20px - 4px)}
+  .flow li:last-child .th{width:3px;height:calc(100% - 58px - 25px)}
+  .flow .th::before{border-top:0;border-left:3px dashed var(--thread)}}
+
+/* ---- the scroll reveal. Hidden states exist only after the script marks a group that starts below the screen,
+   and never under reduced motion, so the page is complete without the script. ---- */
+@media (prefers-reduced-motion:no-preference){
+  .flow.rv-wait .n,.flow.rv-wait .paper,.flow.rv-wait::after,.rv-wait .co,.rv-wait .co-list li{opacity:0}
+  .flow.rv-wait .th::before{translate:-101% 0}
+  .flow.rv-go .n{animation:rv-pop 480ms var(--ease-out) both;animation-delay:calc(var(--i) * 480ms)}
+  .flow.rv-go .paper{animation:rv-rise 560ms var(--ease-out) both;animation-delay:calc(var(--i) * 480ms + 90ms)}
+  .flow.rv-go .th::before{animation:rv-draw-x 280ms cubic-bezier(0.77,0,0.175,1) both;animation-delay:calc(var(--i) * 480ms + 200ms)}
+  .flow.rv-go::after{animation:rv-fade 200ms ease-out both;animation-delay:2400ms}
+  /* the clip card's notes: the same animations and delays as walkthrough step 5, from fully hidden */
+  .rv-go .co,.rv-go .co-list li{--co-from:0;animation:co-in 520ms var(--ease-out) both;animation-delay:calc(var(--i) * 450ms + 250ms)}
+  .rv-go .co .co-n{animation:co-pop 600ms var(--ease-out) both;animation-delay:calc(var(--i) * 450ms + 250ms)}
+  .rv-go .co .shaft{animation:co-draw 380ms var(--ease-out) both;animation-delay:calc(var(--i) * 450ms + 420ms)}
+  .rv-go .co .head{animation:co-fade 160ms ease-out both;animation-delay:calc(var(--i) * 450ms + 720ms)}
+  @media (max-width:1180px){
+    .flow.rv-wait .th::before{translate:0 -101%}
+    .flow.rv-go .th::before{animation-name:rv-draw-y}}}
+@keyframes co-in{from{opacity:var(--co-from,.15);translate:0 6px}}
+@keyframes rv-pop{0%{opacity:0;scale:.7}60%{opacity:1;scale:1.12}100%{opacity:1;scale:1}}
+@keyframes rv-rise{from{opacity:0;translate:0 22px}}
+@keyframes rv-rise-s{from{opacity:0;translate:0 8px}}
+@keyframes rv-draw-x{from{translate:-101% 0}}
+@keyframes rv-draw-y{from{translate:0 -101%}}
+@keyframes rv-fade{from{opacity:0}}
+
+
+/* the report link sits beside the code link in the hero bar */
+.bar-links{display:flex;flex-wrap:wrap;gap:10px 12px;justify-content:flex-end}
+.bar .paper-btn.rep{display:inline-flex;align-items:center;gap:9px}
+.bar .paper-btn.rep svg{width:20px;height:20px;flex:none}
+@media (max-width:640px){.bar-links{justify-content:flex-start}}
+
+/* practice mode and the Sound Book: two paper cards on the band */
+.built>.wrap{display:grid;gap:22px}
+.built-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;align-items:start}
+.built-card{position:relative;display:grid;gap:12px;padding:34px 28px 28px;min-width:0;align-content:start}
+.built-card:nth-child(1){rotate:-.6deg}.built-card:nth-child(2){rotate:.5deg}
+.built-card h3{font-size:1.5rem;color:var(--purple)}
+.built-card p{font-size:1.0625rem;max-width:62ch}
+.built-card code{font-family:var(--mono);font-size:.92em}
+.built-key{font:800 1.08rem/1.45 var(--round);color:var(--pink)}
+.built-tag{position:absolute;top:-13px;left:24px;font:800 .92rem var(--round);color:#fff;background-color:var(--purple);background-image:var(--grain-felt);background-blend-mode:soft-light;
+  padding:3px 14px;border-radius:10px;outline:1.5px dashed rgba(255,255,255,.55);outline-offset:-4px;rotate:-2deg;box-shadow:0 3px 5px var(--shade)}
+/* the coach panel, drawn after the child screen's panel (speakup/static, kid view) */
+.coach{position:relative;justify-self:start;display:grid;justify-items:center;gap:6px;width:min(100%,330px);margin:8px 0 4px;padding:16px 16px 14px;
+  background:var(--paper-hi);border-radius:16px;outline:2px dashed var(--lilac-stitch);outline-offset:-6px;box-shadow:0 4px 8px -2px var(--shade)}
+.coach-ex{position:absolute;top:-12px;right:12px;font-size:.85rem;padding:2px 11px}
+.coach-steps{display:flex;gap:6px}
+.coach-steps i{font:700 .8rem var(--round);font-style:normal;padding:2px 12px;border-radius:999px;background:var(--lilac);color:var(--lilac-ink)}
+.coach-steps i.on{background:var(--purple);color:#fff}
+.coach-word{font:900 2.4rem/1.1 var(--round);color:var(--purple)}
+.coach-word em{font-style:normal;color:var(--red)}
+.coach-where{font:700 .9rem var(--round);color:var(--pmuted)}
+.coach-tip{justify-self:stretch;font:700 .98rem/1.4 var(--round);color:var(--pink);background:var(--paper);border-radius:10px;padding:9px 12px}
+.book-parts{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px 10px;counter-reset:bp}
+.book-parts li{counter-increment:bp;display:flex;align-items:center;gap:7px;font:800 .95rem/1.2 var(--round);color:var(--pink);background-color:var(--paper-hi);
+  padding:5px 12px 5px 5px;border-radius:999px;outline:1.5px dashed var(--pstitch);outline-offset:-3px}
+.book-parts li::before{content:counter(bp);display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--yellow);color:var(--purple);font:900 .8rem var(--round)}
+.unv{font:700 .78em var(--app);color:#9b2c13;background:#fbe3dd;border-radius:3px;padding:0 4px;letter-spacing:.02em}
+@media (max-width:900px){.built-row{grid-template-columns:minmax(0,1fr)}}
+
+/* results: the three numbers lead, the older tiles follow smaller */
+.tiles.big3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.tiles.big3 b{font-size:clamp(2.2rem,3.6vw,2.9rem)}
+.tiles.big3 span{color:var(--pink);font-size:1.1rem}
+.tiles.big3 small{font-size:.98rem;color:var(--pmuted)}
+.tiles.small3{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:2px}
+.tiles.small3 li{padding:16px 20px 18px;rotate:0deg}
+.tiles.small3 b{font-size:1.45rem}
+.tiles.small3 span{font-size:1rem}
+@media (max-width:980px){.tiles.big3,.tiles.small3{grid-template-columns:minmax(0,1fr)}}
+
+/* future work: the camera and the AM62A fill the first row; the long idea shares the second row with progress */
+.ideas li.std{grid-column:auto;grid-template-columns:minmax(0,1fr);gap:10px;padding:34px 26px 28px;rotate:-.8deg}
+.ideas li.wide{grid-column:span 2;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 32px;padding:34px 34px 30px;rotate:.4deg}
+.ideas li.wide h3,.ideas li.wide .for{grid-column:1/-1}
+@media (max-width:900px){.ideas li.wide{grid-column:auto;grid-template-columns:minmax(0,1fr)}}
+
 </style>
 <section class="hero">
   <div class="world" aria-hidden="true"><div class="world-box">
@@ -759,7 +867,8 @@ footer .he-link:focus-visible .he-logo{scale:1.1;rotate:2deg;translate:0 -4px}
   </div></div>
   <div class="wrap bar">
     <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 80" role="img" aria-label="Speak Up"><path fill="currentColor" d="M16.9 44.4Q15.2 44.4 13.5 44.2Q11.7 43.9 10.2 43.4Q8.6 43 7.4 42.3Q6.5 41.8 6.1 41Q5.8 40.2 5.9 39.4Q6 38.6 6.5 38Q7 37.4 7.7 37.2Q8.5 37 9.5 37.5Q11.1 38.4 13 38.8Q15 39.3 16.9 39.3Q19.8 39.3 21.1 38.4Q22.3 37.5 22.3 36.1Q22.3 35 21.4 34.3Q20.6 33.6 18.4 33.1L13.8 32.2Q10 31.4 8.2 29.4Q6.3 27.5 6.3 24.3Q6.3 22.3 7.1 20.7Q7.9 19 9.5 17.8Q11 16.7 13.1 16Q15.2 15.4 17.7 15.4Q20 15.4 22.1 15.9Q24.3 16.4 25.9 17.5Q26.7 17.9 27 18.7Q27.3 19.4 27.2 20.2Q27.1 20.9 26.6 21.5Q26.1 22.1 25.4 22.2Q24.6 22.3 23.5 21.9Q22.2 21.2 20.7 20.9Q19.2 20.5 17.7 20.5Q16 20.5 14.8 21Q13.6 21.4 13 22.2Q12.4 23 12.4 24.1Q12.4 25.2 13.2 25.9Q14.1 26.7 16.2 27.1L20.7 28Q24.6 28.9 26.5 30.7Q28.4 32.6 28.4 35.6Q28.4 37.6 27.6 39.3Q26.8 40.9 25.3 42Q23.8 43.2 21.7 43.8Q19.6 44.4 16.9 44.4ZM34.2 51.5Q32.7 51.5 32 50.8Q31.2 50 31.2 48.5V27.1Q31.2 25.6 31.9 24.8Q32.7 24 34.1 24Q35.6 24 36.4 24.8Q37.1 25.6 37.1 27.1V29.8L36.7 28.2Q37.3 26.3 39.1 25.1Q40.9 24 43.3 24Q45.8 24 47.8 25.2Q49.7 26.4 50.8 28.7Q51.9 31 51.9 34.2Q51.9 37.3 50.8 39.6Q49.7 41.9 47.8 43.2Q45.9 44.4 43.3 44.4Q41 44.4 39.2 43.3Q37.4 42.1 36.7 40.3H37.2V48.5Q37.2 50 36.4 50.8Q35.6 51.5 34.2 51.5ZM41.5 39.9Q42.8 39.9 43.7 39.3Q44.7 38.7 45.3 37.4Q45.8 36.1 45.8 34.2Q45.8 31.2 44.6 29.9Q43.4 28.5 41.5 28.5Q40.2 28.5 39.2 29.1Q38.2 29.7 37.7 31Q37.1 32.2 37.1 34.2Q37.1 37.1 38.3 38.5Q39.5 39.9 41.5 39.9ZM65 44.4Q61.5 44.4 59 43.2Q56.5 41.9 55.1 39.6Q53.8 37.3 53.8 34.2Q53.8 31.1 55.1 28.9Q56.4 26.6 58.7 25.3Q60.9 24 63.9 24Q66 24 67.7 24.7Q69.4 25.3 70.7 26.7Q71.9 28 72.6 29.8Q73.2 31.7 73.2 34Q73.2 34.7 72.7 35.1Q72.2 35.5 71.3 35.5H58.8V32.4H68.8L68.2 32.9Q68.2 31.3 67.7 30.2Q67.3 29.1 66.4 28.5Q65.5 28 64.1 28Q62.7 28 61.6 28.6Q60.6 29.3 60 30.6Q59.5 31.9 59.5 33.7V34Q59.5 37.1 60.9 38.5Q62.3 39.9 65.1 39.9Q66.1 39.9 67.3 39.7Q68.5 39.4 69.6 38.9Q70.5 38.5 71.2 38.6Q71.9 38.8 72.3 39.3Q72.7 39.8 72.8 40.5Q72.9 41.2 72.5 41.8Q72.2 42.5 71.3 42.9Q69.9 43.7 68.2 44.1Q66.5 44.4 65 44.4ZM82.6 44.4Q80.4 44.4 78.7 43.6Q77 42.8 76 41.3Q75.1 39.9 75.1 38.1Q75.1 35.9 76.2 34.7Q77.3 33.4 79.8 32.9Q82.3 32.3 86.5 32.3H88.6V35.4H86.5Q84.5 35.4 83.2 35.7Q82 35.9 81.4 36.4Q80.9 36.9 80.9 37.8Q80.9 39 81.7 39.7Q82.5 40.4 83.9 40.4Q85.1 40.4 86 39.9Q86.9 39.3 87.4 38.4Q87.9 37.5 87.9 36.2V31.6Q87.9 29.9 87.1 29.1Q86.3 28.4 84.4 28.4Q83.3 28.4 82.1 28.7Q80.8 28.9 79.3 29.5Q78.4 29.9 77.7 29.7Q77 29.5 76.7 28.9Q76.3 28.3 76.3 27.6Q76.3 26.9 76.7 26.2Q77.1 25.6 78 25.3Q79.9 24.5 81.6 24.2Q83.2 24 84.6 24Q87.7 24 89.7 24.9Q91.7 25.8 92.7 27.6Q93.7 29.5 93.7 32.4V41.3Q93.7 42.8 92.9 43.6Q92.2 44.3 90.9 44.3Q89.5 44.3 88.8 43.6Q88 42.8 88 41.3V39.8L88.3 40.1Q88.1 41.4 87.3 42.4Q86.5 43.3 85.3 43.9Q84.1 44.4 82.6 44.4ZM100.4 44.3Q99 44.3 98.2 43.6Q97.4 42.8 97.4 41.3V18.5Q97.4 17 98.2 16.2Q99 15.5 100.4 15.5Q101.9 15.5 102.7 16.2Q103.5 17 103.5 18.5V32.5H103.5L109.3 26.1Q110.2 25.1 110.9 24.5Q111.7 24 112.9 24Q114.2 24 114.8 24.7Q115.5 25.3 115.5 26.2Q115.5 27.1 114.7 28.1L108.6 34.9V32.6L115.4 40.4Q116.2 41.4 116.1 42.3Q116 43.2 115.2 43.8Q114.5 44.3 113.4 44.3Q112 44.3 111.2 43.8Q110.4 43.3 109.5 42.3L103.5 35.5H103.5V41.3Q103.5 44.3 100.4 44.3ZM141.9 44.4Q138.9 44.4 136.6 43.7Q134.3 42.9 132.7 41.4Q131.2 39.8 130.4 37.5Q129.6 35.2 129.6 32.2V18.6Q129.6 17 130.4 16.2Q131.2 15.5 132.7 15.5Q134.2 15.5 135 16.2Q135.8 17 135.8 18.6V32.2Q135.8 35.7 137.4 37.4Q138.9 39.2 141.9 39.2Q144.8 39.2 146.4 37.4Q147.9 35.7 147.9 32.2V18.6Q147.9 17 148.7 16.2Q149.5 15.5 151 15.5Q152.5 15.5 153.3 16.2Q154.1 17 154.1 18.6V32.2Q154.1 36.2 152.7 39Q151.3 41.7 148.6 43.1Q145.9 44.4 141.9 44.4ZM161.2 51.5Q159.8 51.5 159 50.8Q158.2 50 158.2 48.5V27.1Q158.2 25.6 159 24.8Q159.8 24 161.2 24Q162.6 24 163.4 24.8Q164.2 25.6 164.2 27.1V29.8L163.7 28.2Q164.3 26.3 166.1 25.1Q168 24 170.3 24Q172.9 24 174.8 25.2Q176.8 26.4 177.9 28.7Q178.9 31 178.9 34.2Q178.9 37.3 177.9 39.6Q176.8 41.9 174.8 43.2Q172.9 44.4 170.3 44.4Q168 44.4 166.2 43.3Q164.4 42.1 163.8 40.3H164.3V48.5Q164.3 50 163.5 50.8Q162.7 51.5 161.2 51.5ZM168.5 39.9Q169.8 39.9 170.8 39.3Q171.8 38.7 172.3 37.4Q172.9 36.1 172.9 34.2Q172.9 31.2 171.7 29.9Q170.4 28.5 168.5 28.5Q167.2 28.5 166.2 29.1Q165.3 29.7 164.7 31Q164.2 32.2 164.2 34.2Q164.2 37.1 165.4 38.5Q166.6 39.9 168.5 39.9Z"/><path d="M6 62 C18.4 54,28.7 70,41.1 62 S63.7 54,76.1 62 S98.8 70,111.2 62 S135.9 56,154.5 60 S187.5 58,206.1 30" fill="none" stroke="#4f7cff" stroke-width="5" stroke-linecap="round"/><circle cx="210.2" cy="22" r="6" fill="#4f7cff"/></svg>
-    <a class="paper-btn bub gh" href="https://github.com/godfreyponce/speakup-hackedge-2026"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span>Code on GitHub</span></a>
+    <span class="bar-links"><a class="paper-btn bub rep" href="SpeakUp_Report.pdf"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2.5h8l4.5 4.5v14.5H6z"/><path d="M14 2.5V7h4.5"/><path d="M9 12h6M9 15.5h6M9 19h3.5"/></svg><span>Read the report (PDF)</span></a>
+    <a class="paper-btn bub gh" href="https://github.com/godfreyponce/speakup-hackedge-2026"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span>Code on GitHub</span></a></span>
   </div>
   <div class="wrap copy">
     <h1>A little board that listens for the <em>r</em> sound</h1>
@@ -910,7 +1019,7 @@ footer .he-link:focus-visible .he-logo{scale:1.1;rotate:2deg;translate:0 -4px}
 </div>
 </div>
 <div class="wrap clipwrap">
-<article class="clip paper" aria-labelledby="clip-h">
+<article class="clip paper" data-rv="3300" aria-labelledby="clip-h">
   <span class="tag-ex clip-ex">Example</span>
   <div class="clip-stage">
   <div class="clip-laptop">
@@ -953,17 +1062,53 @@ footer .he-link:focus-visible .he-logo{scale:1.1;rotate:2deg;translate:0 -4px}
 </article>
 </div>
 
+<section class="band built" id="built" aria-labelledby="built-h">
+  <div class="wrap">
+    <h2 id="built-h">Practice mode and the Sound Book</h2>
+    <div class="say"><span class="who" aria-hidden="true"></span><p class="bub">Two more parts of the app, both built. One is for the child between screenings. The other helps the SLP read the evidence.</p></div>
+    <div class="built-row">
+      <article class="paper built-card">
+        <span class="built-tag">Built</span>
+        <h3>Practice mode, with a coach</h3>
+        <p>The child says practice words. After a miss, the coach stays on the child's weakest r position, at the start, middle or end of the word, and shows a short tip.</p>
+        <div class="coach" role="img" aria-label="Example of the coach panel: the word rain with its r in red, the r at the start, and a draft tip.">
+          <span class="tag-ex coach-ex">Example</span>
+          <span class="coach-steps"><i class="on">word</i><i>phrase</i><i>sentence</i></span>
+          <b class="coach-word"><em>r</em>ain</b>
+          <span class="coach-where">The r is at the start</span>
+          <span class="coach-tip">Get your tongue ready before you start. Pull it back and say rrr first.</span>
+        </div>
+        <p>Tips come from our SLP side and need approval before a child sees them. Qwen, the small language model on the board, only rewords those tips. Code checks every rewording, and if one fails, the child gets the approved tip.</p>
+        <p class="built-key">The child's screen never shows a score or a result. The SLP checks every call.</p>
+      </article>
+      <article class="paper built-card">
+        <span class="built-tag">Built, draft content</span>
+        <h3>The Sound Book</h3>
+        <p>A reference guide for SLPs inside the app, at <code>/book</code>. It explains each part of the SLP screen: the waveform, the spectrogram, the formant dots, pitch, intensity and the F3-F2 gap.</p>
+        <p>Then it has one entry per English sound, each with the same four parts:</p>
+        <ol class="book-parts"><li>What it should look like</li><li>Why</li><li>Typical values, with sources</li><li>Common errors</li></ol>
+        <p>It is a draft. Numbers we could not confirm are tagged <span class="unv">UNVERIFIED</span>, and the example pictures are computer-made from published averages, not recordings of children.</p>
+        <p class="built-key">The finished version would be reviewed by a licensed SLP, use real child recordings collected with consent, and come as a printable booklet plus an in-app guide.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
 <section class="band" id="results">
   <div class="wrap">
     <h2>We tested Arti on children it never heard</h2>
     <div class="say"><span class="who" aria-hidden="true"></span><p class="bub">We kept 300 clips from 55 children out of training. Then we checked Arti's calls on them against trained listeners.</p></div>
-    <ul class="tiles">
-      <li class="paper lead"><b>268 of 300</b><span>clips where Arti v2 agrees with trained listeners, from 55 children never seen in training</span></li>
+    <ul class="tiles big3">
+      <li class="paper"><b>268 / 300</b><span>Arti v2 agreed with the human listener majority on 268 of 300 clear test clips from 55 held-out children.</span><small>Our first model, v0: 258. The F3-F2 acoustic rule: 214.</small></li>
+      <li class="paper"><b>46.5 ms</b><span>per word on the TI SK-AM62B, fully offline.</span><small>Idle board, one thread.</small></li>
+      <li class="paper"><b>+0.338</b><span>Raising F3 inside the r with Praat raised Arti's error score by +0.338. Outside the r, the control, it moved +0.005.</span><small>Arti reacts to the real r cue.</small></li>
+    </ul>
+    <ul class="tiles small3" aria-label="More detail">
       <li class="paper"><b>125 of 150</b><span>wrong r sounds caught</span></li>
       <li class="paper"><b>7 of 150</b><span>correct r sounds flagged by mistake</span></li>
-      <li class="paper"><b>1.27 MB</b><span>about 81,000 parameters, and 0.047 s per clip on the board</span></li>
+      <li class="paper"><b>1.27 MB</b><span>the model file, about 81,000 parameters</span></li>
     </ul>
-    <p class="fine prose">Arti v2 replaced our first model, v0, which agreed on 258 of the same 300 clips. The test clips come from TalkBank's PERCEPT-R corpus. The children were 6 to 11, and the listeners mostly agreed on these clips. The session in the walkthrough is an example, and so is its p_wrong value.</p>
+    <p class="fine prose">The test clips come from TalkBank's PERCEPT-R corpus. The children were 6 to 11, and the listeners mostly agreed on these clips. The session in the walkthrough is an example, and so is its p_wrong value.</p>
     <div class="donts">
       <h3>What it doesn't do</h3>
       <ul>
@@ -987,11 +1132,14 @@ footer .he-link:focus-visible .he-logo{scale:1.1;rotate:2deg;translate:0 -4px}
     <ul class="ideas">
       <li class="paper"><h3>More sounds</h3><p class="for">For children no SLP has had time to screen yet</p>
         <p>Today Arti checks one sound, r. Next we want more, starting with /s/, and we want Arti to name the kind of error, such as gliding or a lisp. First we need recordings that trained listeners have rated. Almost no public child speech has its errors marked.</p></li>
-      <li class="paper"><h3>Tips, not just another word</h3><p class="for">For a child practicing between sessions</p>
-        <p>Practice mode gives the next word or phrase. Our next goal is to tell the child how to improve the sound, not just give another word to repeat.</p><span class="pin">Our next goal</span></li>
-      <li class="paper"><h3>Progress the SLP can see</h3><p class="for">For the school SLP</p>
+      <li class="paper"><h3>A camera that watches the mouth</h3><p class="for">For the SLP, when a recording is hard to judge by ear</p>
+        <p>A Raspberry Pi 5 camera tracks mouth landmarks during each word: lip rounding, lip spread and jaw opening. It keeps only those numbers, never video frames.</p>
+        <p>Paired with Arti, that is a second, independent signal. When the two agree, the call is more trustworthy. When they disagree, or Arti is unsure, the clip is flagged for the SLP to watch and listen to first. The SLP decides everything.</p></li>
+      <li class="paper"><h3>One board for sound and camera</h3><p class="for">For running both models at once, with no internet</p>
+        <p>TI's AM62A board has about 2 TOPS of AI acceleration. It would run the audio model and the camera model side by side on one board, in real time, fully offline.</p></li>
+      <li class="paper std"><h3>Progress the SLP can see</h3><p class="for">For the school SLP</p>
         <p>Next, flagged recordings reach the SLP securely, and the SLP can follow each child's progress across sessions. The screening keeps working with no internet.</p></li>
-      <li class="paper"><h3>Speech tools that learn each person</h3><p class="for">For people a one-size setting fits badly, like an older adult who pauses longer mid-sentence</p>
+      <li class="paper wide"><h3>Speech tools that learn each person</h3><p class="for">For people a one-size setting fits badly, like an older adult who pauses longer mid-sentence</p>
         <p>Many voice assistants decide you're done after a pause of set length. Older speakers tend to pause more, so an assistant can cut them off.</p>
         <p>Siri and Alexa already let you set a longer wait by hand. Apple's Listen for Atypical Speech and Google's Project Relate already adapt speech recognition to one person's speech.</p>
         <p>Our angle is the habit behind our /s/ check: compare a person with their own speech. A small offline board could learn your pauses that way.</p></li>
@@ -1031,16 +1179,16 @@ footer .he-link:focus-visible .he-logo{scale:1.1;rotate:2deg;translate:0 -4px}
     </div>
     </div>
     <h3 class="flow-h">The pipeline we would need to build</h3>
-    <ol class="flow">
-      <li><span class="n felt">1</span><div class="paper"><h4>Input that keeps the detail</h4>
+    <ol class="flow" data-rv="2700">
+      <li style="--i:0"><span class="th" aria-hidden="true"></span><span class="n felt">1</span><div class="paper"><h4>Input that keeps the detail</h4><svg class="sk" viewBox="0 0 200 92" role="img" aria-label="Sketch: a voice sample turned into a picture that keeps both timing and frequency."><rect class="sh" x="5.5" y="16.5" width="70" height="50" rx="7"/><rect class="fp" x="4" y="14" width="70" height="50" rx="7"/><rect class="st" x="7" y="17" width="64" height="44" rx="4"/><rect class="fw" x="10.0" y="35.0" width="2.6" height="8" rx="1.3"/><rect class="fw" x="14.6" y="32.0" width="2.6" height="14" rx="1.3"/><rect class="fw" x="19.2" y="28.0" width="2.6" height="22" rx="1.3"/><rect class="fw" x="23.8" y="24.0" width="2.6" height="30" rx="1.3"/><rect class="fw" x="28.4" y="30.0" width="2.6" height="18" rx="1.3"/><rect class="fw" x="33.0" y="26.0" width="2.6" height="26" rx="1.3"/><rect class="fw" x="37.6" y="22.0" width="2.6" height="34" rx="1.3"/><rect class="fw" x="42.2" y="33.0" width="2.6" height="12" rx="1.3"/><rect class="fw" x="46.8" y="37.0" width="2.6" height="4" rx="1.3"/><rect class="fw" x="51.4" y="25.0" width="2.6" height="28" rx="1.3"/><rect class="fw" x="56.0" y="29.0" width="2.6" height="20" rx="1.3"/><rect class="fw" x="60.6" y="34.0" width="2.6" height="10" rx="1.3"/><rect class="fw" x="65.2" y="36.0" width="2.6" height="6" rx="1.3"/><path class="ln" d="M80 39 Q92.0 39.0 104 39"/><path class="lh" d="M98.9,35.9 L104 39 L98.9,42.1"/><rect class="sh" x="110.5" y="10.5" width="86" height="56" rx="5"/><rect class="fw" x="109" y="8" width="86" height="56" rx="5"/><rect class="fp" x="112" y="10" width="6.4" height="8.4" rx="1.2" opacity="0.11"/><rect class="fp" x="112" y="19" width="6.4" height="8.4" rx="1.2" opacity="0.30"/><rect class="fp" x="112" y="28" width="6.4" height="8.4" rx="1.2" opacity="0.48"/><rect class="fp" x="112" y="37" width="6.4" height="8.4" rx="1.2" opacity="0.30"/><rect class="fp" x="112" y="46" width="6.4" height="8.4" rx="1.2" opacity="0.68"/><rect class="fp" x="112" y="55" width="6.4" height="8.4" rx="1.2" opacity="0.74"/><rect class="fp" x="119" y="10" width="6.4" height="8.4" rx="1.2" opacity="0.13"/><rect class="fp" x="119" y="19" width="6.4" height="8.4" rx="1.2" opacity="0.25"/><rect class="fp" x="119" y="28" width="6.4" height="8.4" rx="1.2" opacity="0.55"/><rect class="fp" x="119" y="37" width="6.4" height="8.4" rx="1.2" opacity="0.25"/><rect class="fp" x="119" y="46" width="6.4" height="8.4" rx="1.2" opacity="0.76"/><rect class="fp" x="119" y="55" width="6.4" height="8.4" rx="1.2" opacity="0.85"/><rect class="fp" x="126" y="10" width="6.4" height="8.4" rx="1.2" opacity="0.15"/><rect class="fp" x="126" y="19" width="6.4" height="8.4" rx="1.2" opacity="0.28"/><rect class="fp" x="126" y="28" width="6.4" height="8.4" rx="1.2" opacity="0.45"/><rect class="fp" x="126" y="37" width="6.4" height="8.4" rx="1.2" opacity="0.28"/><rect class="fp" x="126" y="46" width="6.4" height="8.4" rx="1.2" opacity="0.63"/><rect class="fp" x="126" y="55" width="6.4" height="8.4" rx="1.2" opacity="0.95"/><rect class="fp" x="133" y="10" width="6.4" height="8.4" rx="1.2" opacity="0.12"/><rect class="fp" x="133" y="19" width="6.4" height="8.4" rx="1.2" opacity="0.32"/><rect class="fp" x="133" y="28" width="6.4" height="8.4" rx="1.2" opacity="0.52"/><rect class="fp" x="133" y="37" width="6.4" height="8.4" rx="1.2" opacity="0.23"/><rect class="fp" x="133" y="46" width="6.4" height="8.4" rx="1.2" opacity="0.72"/><rect class="fp" x="133" y="55" width="6.4" height="8.4" rx="1.2" opacity="0.79"/><rect class="fp" x="140" y="10" width="6.4" height="8.4" rx="1.2" opacity="0.14"/><rect class="fp" x="140" y="19" width="6.4" height="8.4" rx="1.2" opacity="0.26"/><rect class="fp" x="140" y="28" width="6.4" height="8.4" rx="1.2" opacity="0.58"/><rect class="fp" x="140" y="37" width="6.4" height="8.4" rx="1.2" opacity="0.26"/><rect class="fp" x="140" y="46" width="6.4" height="8.4" rx="1.2" opacity="0.59"/><rect class="fp" x="140" y="55" width="6.4" height="8.4" rx="1.2" opacity="0.90"/><rect class="fp" x="147" y="10" width="6.4" height="8.4" rx="1.2" opacity="0.05"/><rect class="fp" x="147" y="19" width="6.4" height="8.4" rx="1.2" opacity="0.05"/><rect class="fp" x="147" y="28" width="6.4" height="8.4" rx="1.2" opacity="0.05"/><rect class="fp" x="147" y="37" width="6.4" height="8.4" rx="1.2" opacity="0.05"/><rect class="fp" x="147" y="46" width="6.4" height="8.4" rx="1.2" opacity="0.05"/><rect class="fp" x="147" y="55" width="6.4" height="8.4" rx="1.2" opacity="0.05"/><rect class="fp" x="154" y="10" width="6.4" height="8.4" rx="1.2" opacity="0.50"/><rect class="fp" x="154" y="19" width="6.4" height="8.4" rx="1.2" opacity="0.50"/><rect class="fp" x="154" y="28" width="6.4" height="8.4" rx="1.2" opacity="0.50"/><rect class="fp" x="154" y="37" width="6.4" height="8.4" rx="1.2" opacity="0.50"/><rect class="fp" x="154" y="46" width="6.4" height="8.4" rx="1.2" opacity="0.50"/><rect class="fp" x="154" y="55" width="6.4" height="8.4" rx="1.2" opacity="0.50"/><rect class="fp" x="161" y="10" width="6.4" height="8.4" rx="1.2" opacity="0.15"/><rect class="fp" x="161" y="19" width="6.4" height="8.4" rx="1.2" opacity="0.28"/><rect class="fp" x="161" y="28" width="6.4" height="8.4" rx="1.2" opacity="0.45"/><rect class="fp" x="161" y="37" width="6.4" height="8.4" rx="1.2" opacity="0.28"/><rect class="fp" x="161" y="46" width="6.4" height="8.4" rx="1.2" opacity="0.63"/><rect class="fp" x="161" y="55" width="6.4" height="8.4" rx="1.2" opacity="0.95"/><rect class="fp" x="168" y="10" width="6.4" height="8.4" rx="1.2" opacity="0.12"/><rect class="fp" x="168" y="19" width="6.4" height="8.4" rx="1.2" opacity="0.32"/><rect class="fp" x="168" y="28" width="6.4" height="8.4" rx="1.2" opacity="0.52"/><rect class="fp" x="168" y="37" width="6.4" height="8.4" rx="1.2" opacity="0.23"/><rect class="fp" x="168" y="46" width="6.4" height="8.4" rx="1.2" opacity="0.72"/><rect class="fp" x="168" y="55" width="6.4" height="8.4" rx="1.2" opacity="0.79"/><rect class="fp" x="175" y="10" width="6.4" height="8.4" rx="1.2" opacity="0.14"/><rect class="fp" x="175" y="19" width="6.4" height="8.4" rx="1.2" opacity="0.26"/><rect class="fp" x="175" y="28" width="6.4" height="8.4" rx="1.2" opacity="0.58"/><rect class="fp" x="175" y="37" width="6.4" height="8.4" rx="1.2" opacity="0.26"/><rect class="fp" x="175" y="46" width="6.4" height="8.4" rx="1.2" opacity="0.59"/><rect class="fp" x="175" y="55" width="6.4" height="8.4" rx="1.2" opacity="0.90"/><rect class="fp" x="182" y="10" width="6.4" height="8.4" rx="1.2" opacity="0.11"/><rect class="fp" x="182" y="19" width="6.4" height="8.4" rx="1.2" opacity="0.30"/><rect class="fp" x="182" y="28" width="6.4" height="8.4" rx="1.2" opacity="0.48"/><rect class="fp" x="182" y="37" width="6.4" height="8.4" rx="1.2" opacity="0.30"/><rect class="fp" x="182" y="46" width="6.4" height="8.4" rx="1.2" opacity="0.68"/><rect class="fp" x="182" y="55" width="6.4" height="8.4" rx="1.2" opacity="0.74"/><rect class="fp" x="189" y="10" width="6.4" height="8.4" rx="1.2" opacity="0.13"/><rect class="fp" x="189" y="19" width="6.4" height="8.4" rx="1.2" opacity="0.25"/><rect class="fp" x="189" y="28" width="6.4" height="8.4" rx="1.2" opacity="0.55"/><rect class="fp" x="189" y="37" width="6.4" height="8.4" rx="1.2" opacity="0.25"/><rect class="fp" x="189" y="46" width="6.4" height="8.4" rx="1.2" opacity="0.76"/><rect class="fp" x="189" y="55" width="6.4" height="8.4" rx="1.2" opacity="0.85"/><text x="39" y="84" text-anchor="middle" class="tl">voice sample</text><text x="198" y="84" text-anchor="end" class="tl">timing + frequency</text></svg>
         <p>A voice sample has to become something a model can read. Standard speech recognition keeps what it needs to find the words. We need the sounds, frequencies and tones in the waveform, and most of all, representations that keep timing and spectral detail.</p></div></li>
-      <li><span class="n felt">2</span><div class="paper"><h4>Encoders that look for what went wrong</h4>
+      <li style="--i:1"><span class="th" aria-hidden="true"></span><span class="n felt">2</span><div class="paper"><h4>Encoders that look for what went wrong</h4><svg class="sk" viewBox="0 0 200 92" role="img" aria-label="Example sketch for the word rabbit. A typical encoder gives the word. Ours also marks the sound that went wrong, here the r."><rect class="fr" x="146" y="0" width="52" height="16" rx="5"/><text x="172" y="11.5" text-anchor="middle" class="tx">Example</text><text x="4" y="27" class="tl">typical</text><rect class="sh" x="55" y="16" width="64" height="18" rx="6"/><rect class="fw" x="54" y="14" width="64" height="18" rx="6"/><rect class="sd" x="56.5" y="16.5" width="59" height="13" rx="4"/><text x="86.0" y="26.6" text-anchor="middle" class="ti">rabbit</text><text x="4" y="59" class="tl">ours</text><rect class="sh" x="55.5" y="44.5" width="23" height="25" rx="6"/><rect class="fr" x="54" y="42" width="23" height="25" rx="6"/><rect class="st" x="57" y="45" width="17" height="19" rx="3"/><text x="65.5" y="59" text-anchor="middle" class="tw">r</text><rect class="sh" x="82.5" y="44.5" width="23" height="25" rx="6"/><rect class="fw" x="81" y="42" width="23" height="25" rx="6"/><rect class="sd" x="83.5" y="44.5" width="18" height="20" rx="4"/><text x="92.5" y="59" text-anchor="middle" class="tb">a</text><rect class="sh" x="109.5" y="44.5" width="23" height="25" rx="6"/><rect class="fw" x="108" y="42" width="23" height="25" rx="6"/><rect class="sd" x="110.5" y="44.5" width="18" height="20" rx="4"/><text x="119.5" y="59" text-anchor="middle" class="tb">b</text><rect class="sh" x="136.5" y="44.5" width="23" height="25" rx="6"/><rect class="fw" x="135" y="42" width="23" height="25" rx="6"/><rect class="sd" x="137.5" y="44.5" width="18" height="20" rx="4"/><text x="146.5" y="59" text-anchor="middle" class="tb">i</text><rect class="sh" x="163.5" y="44.5" width="23" height="25" rx="6"/><rect class="fw" x="162" y="42" width="23" height="25" rx="6"/><rect class="sd" x="164.5" y="44.5" width="18" height="20" rx="4"/><text x="173.5" y="59" text-anchor="middle" class="tb">t</text><path class="ln" d="M80 86 Q75.0 77.0 70 72"/><path class="lh" d="M71.4,77.8 L70 72 L75.8,73.4"/><text x="84" y="89" class="tr">the r sounded off</text></svg>
         <p>Typical encoders are built for transcription. They turn sound into a good guess of the words. Ours would also find patterns in how a sound goes wrong, so the system can transcribe more accurately or describe what is wrong with the sound.</p></div></li>
-      <li><span class="n felt">3</span><div class="paper"><h4>Finer time slices where it counts</h4>
+      <li style="--i:2"><span class="th" aria-hidden="true"></span><span class="n felt">3</span><div class="paper"><h4>Finer time slices where it counts</h4><svg class="sk" viewBox="0 0 200 92" role="img" aria-label="Sketch: audio cut into slices of about 20 ms, with much finer slices only around a quick burst of energy."><rect class="fp" x="6" y="12" width="19.2" height="54" opacity="0.12"/><rect class="fp" x="26" y="12" width="19.2" height="54" opacity="0.05"/><rect class="fp" x="46" y="12" width="19.2" height="54" opacity="0.12"/><rect class="fp" x="66" y="12" width="19.2" height="54" opacity="0.05"/><rect class="fp" x="86" y="12" width="19.2" height="54" opacity="0.12"/><rect class="fr" x="106" y="12" width="4.2" height="54" opacity="0.1"/><rect class="fr" x="111" y="12" width="4.2" height="54" opacity="0.22"/><rect class="fr" x="116" y="12" width="4.2" height="54" opacity="0.1"/><rect class="fr" x="121" y="12" width="4.2" height="54" opacity="0.22"/><rect class="fr" x="126" y="12" width="4.2" height="54" opacity="0.1"/><rect class="fr" x="131" y="12" width="4.2" height="54" opacity="0.22"/><rect class="fr" x="136" y="12" width="4.2" height="54" opacity="0.1"/><rect class="fr" x="141" y="12" width="4.2" height="54" opacity="0.22"/><rect class="fp" x="146" y="12" width="19.2" height="54" opacity="0.05"/><rect class="fp" x="166" y="12" width="19.2" height="54" opacity="0.12"/><rect class="fp" x="186" y="12" width="19.2" height="54" opacity="0.05"/><rect class="fp" x="9" y="29" width="2.4" height="20" rx="1.2"/><rect class="fp" x="13" y="33" width="2.4" height="12" rx="1.2"/><rect class="fp" x="17" y="30" width="2.4" height="18" rx="1.2"/><rect class="fp" x="21" y="34" width="2.4" height="10" rx="1.2"/><rect class="fp" x="25" y="31" width="2.4" height="16" rx="1.2"/><rect class="fp" x="29" y="28" width="2.4" height="22" rx="1.2"/><rect class="fp" x="33" y="32" width="2.4" height="14" rx="1.2"/><rect class="fp" x="37" y="29" width="2.4" height="20" rx="1.2"/><rect class="fp" x="41" y="33" width="2.4" height="12" rx="1.2"/><rect class="fp" x="45" y="30" width="2.4" height="18" rx="1.2"/><rect class="fp" x="49" y="34" width="2.4" height="10" rx="1.2"/><rect class="fp" x="53" y="31" width="2.4" height="16" rx="1.2"/><rect class="fp" x="57" y="28" width="2.4" height="22" rx="1.2"/><rect class="fp" x="61" y="32" width="2.4" height="14" rx="1.2"/><rect class="fp" x="65" y="29" width="2.4" height="20" rx="1.2"/><rect class="fp" x="69" y="33" width="2.4" height="12" rx="1.2"/><rect class="fp" x="73" y="30" width="2.4" height="18" rx="1.2"/><rect class="fp" x="77" y="34" width="2.4" height="10" rx="1.2"/><rect class="fp" x="81" y="31" width="2.4" height="16" rx="1.2"/><rect class="fp" x="85" y="28" width="2.4" height="22" rx="1.2"/><rect class="fp" x="89" y="32" width="2.4" height="14" rx="1.2"/><rect class="fp" x="93" y="29" width="2.4" height="20" rx="1.2"/><rect class="fp" x="97" y="33" width="2.4" height="12" rx="1.2"/><rect class="fp" x="101" y="30" width="2.4" height="18" rx="1.2"/><rect class="fp" x="105" y="34" width="2.4" height="10" rx="1.2"/><rect class="fp" x="109" y="31" width="2.4" height="16" rx="1.2"/><rect class="fr" x="113" y="28" width="2.4" height="22" rx="1.2"/><rect class="fr" x="117" y="26" width="2.4" height="26" rx="1.2"/><rect class="fr" x="121" y="17" width="2.4" height="44" rx="1.2"/><rect class="fr" x="125" y="17" width="2.4" height="44" rx="1.2"/><rect class="fr" x="129" y="26" width="2.4" height="26" rx="1.2"/><rect class="fp" x="133" y="34" width="2.4" height="10" rx="1.2"/><rect class="fp" x="137" y="31" width="2.4" height="16" rx="1.2"/><rect class="fp" x="141" y="28" width="2.4" height="22" rx="1.2"/><rect class="fp" x="145" y="32" width="2.4" height="14" rx="1.2"/><rect class="fp" x="149" y="29" width="2.4" height="20" rx="1.2"/><rect class="fp" x="153" y="33" width="2.4" height="12" rx="1.2"/><rect class="fp" x="157" y="30" width="2.4" height="18" rx="1.2"/><rect class="fp" x="161" y="34" width="2.4" height="10" rx="1.2"/><rect class="fp" x="165" y="31" width="2.4" height="16" rx="1.2"/><rect class="fp" x="169" y="28" width="2.4" height="22" rx="1.2"/><rect class="fp" x="173" y="32" width="2.4" height="14" rx="1.2"/><rect class="fp" x="177" y="29" width="2.4" height="20" rx="1.2"/><rect class="fp" x="181" y="33" width="2.4" height="12" rx="1.2"/><rect class="fp" x="185" y="30" width="2.4" height="18" rx="1.2"/><rect class="fp" x="189" y="34" width="2.4" height="10" rx="1.2"/><path class="lh" d="M26 72v4h20v-4"/><text x="36" y="88" text-anchor="middle" class="tl">about 20 ms</text><text x="122" y="9" text-anchor="middle" class="tr">burst</text><path class="lr" d="M106 72v4h39v-4"/><text x="126" y="88" text-anchor="middle" class="tr">finer slices</text></svg>
         <p>Speech systems usually cut audio into slices of about 20 ms. Quick transitions that release a burst of energy need smaller slices to see clearly. Adaptive resolution uses smaller slices only around those bursts, so the rest stays efficient.</p></div></li>
-      <li><span class="n felt">4</span><div class="paper"><h4>A richer prediction objective</h4>
+      <li style="--i:3"><span class="th" aria-hidden="true"></span><span class="n felt">4</span><div class="paper"><h4>A richer prediction objective</h4><svg class="sk" viewBox="0 0 200 94" role="img" aria-label="Sketch: the model predicts four things at once: the sounds made, acoustic features, the intended meaning, and recurring deviations."><path class="ln" d="M52 46 C60 46 60 11.5 68 11.5"/><path class="ln" d="M52 46 C60 46 60 34.5 68 34.5"/><path class="ln" d="M52 46 C60 46 60 57.5 68 57.5"/><path class="ln" d="M52 46 C60 46 60 80.5 68 80.5"/><rect class="sh" x="3.5" y="31.5" width="50" height="34" rx="7"/><rect class="fp" x="2" y="29" width="50" height="34" rx="7"/><rect class="st" x="5" y="32" width="44" height="28" rx="4"/><text x="27" y="50" text-anchor="middle" class="tx">model</text><rect class="sh" x="69" y="4" width="130" height="19" rx="6"/><rect class="fw" x="68" y="2" width="130" height="19" rx="6"/><rect class="sd" x="70.5" y="4.5" width="125" height="14" rx="4"/><text x="133.0" y="15.1" text-anchor="middle" class="ti">sounds made</text><rect class="sh" x="69" y="27" width="130" height="19" rx="6"/><rect class="fw" x="68" y="25" width="130" height="19" rx="6"/><rect class="sd" x="70.5" y="27.5" width="125" height="14" rx="4"/><text x="133.0" y="38.1" text-anchor="middle" class="ti">acoustic features</text><rect class="sh" x="69" y="50" width="130" height="19" rx="6"/><rect class="fw" x="68" y="48" width="130" height="19" rx="6"/><rect class="sd" x="70.5" y="50.5" width="125" height="14" rx="4"/><text x="133.0" y="61.1" text-anchor="middle" class="ti">intended meaning</text><rect class="sh" x="69" y="73" width="130" height="19" rx="6"/><rect class="fw" x="68" y="71" width="130" height="19" rx="6"/><rect class="sd" x="70.5" y="73.5" width="125" height="14" rx="4"/><text x="133.0" y="84.1" text-anchor="middle" class="ti">recurring deviations</text></svg>
         <p>This is what the model tries to produce from everything before it. Most systems aim for the intended words. Ours would predict the sounds made, their acoustic features, the intended meaning, and the deviations that keep coming back. With all four, the system could adjust to fit each user.</p></div></li>
-      <li><span class="n felt">5</span><div class="paper"><h4>Training with several losses</h4>
+      <li style="--i:4"><span class="th" aria-hidden="true"></span><span class="n felt">5</span><div class="paper"><h4>Training with several losses</h4><svg class="sk" viewBox="0 0 200 94" role="img" aria-label="Sketch: four losses, phonetic accuracy, how far a sound strays, acoustic behavior and timing, all train the model at once."><path class="ln" d="M124 11.5 C134 11.5 136 46 148 46"/><path class="ln" d="M124 34.5 C134 34.5 136 46 148 46"/><path class="ln" d="M124 57.5 C134 57.5 136 46 148 46"/><path class="ln" d="M124 80.5 C134 80.5 136 46 148 46"/><rect class="sh" x="3" y="4" width="122" height="19" rx="6"/><rect class="fw" x="2" y="2" width="122" height="19" rx="6"/><rect class="sd" x="4.5" y="4.5" width="117" height="14" rx="4"/><text x="63.0" y="15.1" text-anchor="middle" class="ti">phonetic accuracy</text><rect class="sh" x="3" y="27" width="122" height="19" rx="6"/><rect class="fw" x="2" y="25" width="122" height="19" rx="6"/><rect class="sd" x="4.5" y="27.5" width="117" height="14" rx="4"/><text x="63.0" y="38.1" text-anchor="middle" class="ti">how far it strays</text><rect class="sh" x="3" y="50" width="122" height="19" rx="6"/><rect class="fw" x="2" y="48" width="122" height="19" rx="6"/><rect class="sd" x="4.5" y="50.5" width="117" height="14" rx="4"/><text x="63.0" y="61.1" text-anchor="middle" class="ti">acoustic behavior</text><rect class="sh" x="3" y="73" width="122" height="19" rx="6"/><rect class="fw" x="2" y="71" width="122" height="19" rx="6"/><rect class="sd" x="4.5" y="73.5" width="117" height="14" rx="4"/><text x="63.0" y="84.1" text-anchor="middle" class="ti">timing</text><rect class="sh" x="149.5" y="31.5" width="50" height="34" rx="7"/><rect class="fy" x="148" y="29" width="50" height="34" rx="7"/><rect class="st" x="151" y="32" width="44" height="28" rx="4"/><text x="173" y="50" text-anchor="middle" class="tp">model</text></svg>
         <p>Most systems train for one thing, fewer transcription errors. We can aim higher. Several losses at once can measure phonetic accuracy, how far a sound strays from its usual form, its acoustic behavior, and its timing.</p></div></li>
     </ol>
   </div>
@@ -1068,7 +1216,7 @@ footer .he-link:focus-visible .he-logo{scale:1.1;rotate:2deg;translate:0 -4px}
   <g class="gl"><circle cx="8" cy="8.2" r="1.6"/><rect x="6.6" y="10.6" width="2.8" height="6.8" rx=".9"/><path d="M11.2 10.6h2.6v1.1c.5-.8 1.5-1.3 2.6-1.3 1.9 0 3 1.2 3 3.5v3.5h-2.8v-3.3c0-.9-.4-1.4-1.2-1.4s-1.4.5-1.4 1.4v3.3h-2.8z"/></g></svg></a><a class="ic" href="https://rafaelamador.com/" target="_blank" rel="noopener noreferrer" aria-label="Rafael Amador's portfolio site"><svg viewBox="0 0 24 24" aria-hidden="true"><rect class="tile" x="1.5" y="1.5" width="21" height="21" rx="6"/><rect class="st" x="3.6" y="3.6" width="16.8" height="16.8" rx="4.2"/>
   <g class="gl-line"><circle cx="12" cy="12" r="5.6"/><ellipse cx="12" cy="12" rx="2.4" ry="5.6"/><path d="M6.4 12h11.2M7.3 9h9.4M7.3 15h9.4"/></g></svg></a></span></li><li class="mate"><span>Alexis "Lexi" Marsh</span><span class="ics"><a class="ic" href="https://www.linkedin.com/in/alexis-marsh-372a75367/" target="_blank" rel="noopener noreferrer" aria-label="Alexis Marsh on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><rect class="tile" x="1.5" y="1.5" width="21" height="21" rx="6"/><rect class="st" x="3.6" y="3.6" width="16.8" height="16.8" rx="4.2"/>
   <g class="gl"><circle cx="8" cy="8.2" r="1.6"/><rect x="6.6" y="10.6" width="2.8" height="6.8" rx=".9"/><path d="M11.2 10.6h2.6v1.1c.5-.8 1.5-1.3 2.6-1.3 1.9 0 3 1.2 3 3.5v3.5h-2.8v-3.3c0-.9-.4-1.4-1.2-1.4s-1.4.5-1.4 1.4v3.3h-2.8z"/></g></svg></a></span></li></ul>
-    <ul><li><strong>Code and demo</strong></li><li><a class="gh" href="https://github.com/godfreyponce/speakup-hackedge-2026"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span>github.com/godfreyponce/speakup-hackedge-2026</span></a></li><li>Try it on a laptop, no model needed:</li><li><code>python3 -m speakup --demo</code></li></ul>
+    <ul><li><strong>Code and demo</strong></li><li><a class="gh" href="https://github.com/godfreyponce/speakup-hackedge-2026"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span>github.com/godfreyponce/speakup-hackedge-2026</span></a></li><li>Try it on a laptop, no model needed:</li><li><code>python3 -m speakup --demo</code></li><li><a href="SpeakUp_Report.pdf">Read the report (PDF)</a></li></ul>
   </div>
 </footer>
 <script>
@@ -1224,5 +1372,34 @@ footer .he-link:focus-visible .he-logo{scale:1.1;rotate:2deg;translate:0 -4px}
   };
   new MutationObserver(sync).observe(rail, { subtree: true, childList: true, attributes: true, attributeFilter: ["aria-current"] });
   sync();
+})();
+</script>
+<script>
+(() => {
+  if (!window.requestAnimationFrame || !matchMedia("(prefers-reduced-motion: no-preference)").matches) return;
+  let wait = [...document.querySelectorAll("[data-rv]")].filter(g => g.getBoundingClientRect().top > innerHeight);
+  wait.forEach(g => g.classList.add("rv-wait"));
+  let queued = false;
+  const check = () => {
+    queued = false;
+    wait = wait.filter(g => {
+      const r = g.getBoundingClientRect();
+      if (r.bottom <= 0) { g.classList.remove("rv-wait"); return false; }
+      if (r.top < innerHeight * 0.8) {
+        g.classList.replace("rv-wait", "rv-go");
+        setTimeout(() => g.classList.remove("rv-go"), +g.dataset.rv);
+        // on step 5 the notes already ran their animation; start it over so they still arrive in order
+        if (document.body.classList.contains("slp-live"))
+          requestAnimationFrame(() => g.getAnimations({ subtree: true }).forEach(a => { if (a.animationName) { a.cancel(); a.play(); } }));
+        return false;
+      }
+      return true;
+    });
+    if (!wait.length) { removeEventListener("scroll", onMove); removeEventListener("resize", onMove); }
+  };
+  const onMove = () => { if (!queued) { queued = true; requestAnimationFrame(check); } };
+  addEventListener("scroll", onMove, { passive: true });
+  addEventListener("resize", onMove, { passive: true });
+  onMove();
 })();
 </script>

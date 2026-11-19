@@ -570,7 +570,7 @@ def _banner(owner, what: str, view: WordView | None = None, word: str | None = N
     <div><small>Now</small><b>{escape(what)}</b></div>
     <div><small>Voice</small><b>{voice_tag}</b></div>{_mode_tag(view.mode if view is not None else mode)}
   </div>
-  <nav class="links"><a href="{escape(_book_link(owner, what, word))}" data-book>Sound book</a><a href="/kid" target="_blank">Child screen</a><a href="/sessions">Past sessions</a><a href="/">New</a></nav>
+  <nav class="links"><a href="{escape(_book_link(owner, what, word))}" data-book>Sound book</a><a href="/kid" target="_blank">Child screen</a><a href="/sessions">Past sessions</a><a href="/">New</a><form method="post" action="/reset" style="display:inline;margin:0"><button style="font:inherit;color:#b42318;background:none;border:1px solid #b42318;border-radius:6px;padding:2px 10px;cursor:pointer" title="Demo only: clears the open session and goes home">Reset demo</button></form></nav>
 </header>
 <script>{BOOKLINK_JS}</script>"""
 
@@ -1203,9 +1203,12 @@ def _family_card(notes: dict[str, tuple[str, bool]]) -> str:
     return f'<div class="card family">\n  <h3>Practice note for the family</h3>\n  {"".join(paras)}\n</div>'
 
 
+PRACTICE_AGAIN = '<form method="post" action="/practice-again"><button class="primary">Practice with this student</button></form>'
+
+
 def summary_page(session: Session, save_error: str | None = None, note: str | None = None,
                  note_pending: bool = False, family: dict[str, tuple[str, bool]] | None = None,
-                 mode: str | None = None) -> str:
+                 mode: str | None = None, practice: bool = False) -> str:
     attempts = session.attempts
     counts = tally(attempts)
     verdict = pass_or_refer([a.result for a in attempts], session.age_months)
@@ -1245,6 +1248,10 @@ def summary_page(session: Session, save_error: str | None = None, note: str | No
   {listen_line}
   {note_line}
   <p class="meta">Flagged: {_flag_counts(counts)}{f". {skipped} word(s) not recorded." if skipped else ""}</p>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+  <form method="post" action="/resume"><button class="secondary">&larr; Back to screening</button></form>
+  {PRACTICE_AGAIN if practice else ""}
+  </div>
 </div>
 {_family_card(family) if family is not None else ""}
 <div class="card">
@@ -1305,8 +1312,30 @@ def _state(s: SavedSession, r: Result) -> str:
     return "flag" if s.is_flagged(r) else "normal" if r.error_type else "ok"
 
 
-def _word_chips(s: SavedSession) -> str:
-    return "".join(f'<span class="chip {_state(s, r)}">{escape(r.word)}</span>' for r in s.results)
+def _word_chips(s: SavedSession, playable: bool = False) -> str:
+    if not playable:
+        return "".join(f'<span class="chip {_state(s, r)}">{escape(r.word)}</span>' for r in s.results)
+    return "".join(f'<button type="button" class="chip play {_state(s, r)}" data-clip="/saved/{s.id}/{i}.wav" '
+                   f'title="Play this recording">&#9654; {escape(r.word)}</button>' for i, r in enumerate(s.results))
+
+
+# Past sessions: click a word to hear it; click again to stop.
+PLAY_JS = """<style>.chip.play { cursor: pointer; font: inherit; font-size: 14px; }
+.chip.play.on { outline: 2px solid #1b1b18; } .chip.play.gone { opacity: .5; cursor: default; }</style>
+<script>(() => {
+  let audio = null, on = null;
+  function off() { if (audio) audio.pause(); if (on) on.classList.remove("on"); audio = on = null; }
+  document.addEventListener("click", ev => {
+    const b = ev.target.closest(".chip.play");
+    if (!b || b.classList.contains("gone")) return;
+    const again = b === on; off(); if (again) return;
+    on = b; b.classList.add("on");
+    audio = new Audio(b.dataset.clip);
+    audio.onended = off;
+    audio.onerror = () => { b.classList.add("gone"); b.title = "This recording is no longer on the board"; off(); };
+    audio.play().catch(() => {});
+  });
+})();</script>"""
 
 
 def _share(s: SavedSession, most: int) -> str:
@@ -1387,7 +1416,7 @@ def child_page(child_id: str, sessions: list[SavedSession]) -> str:
     rows = "".join(
         f'<tr class="session"><td class="rank">{i}</td><td class="when">{_when(s.started_at)}{_share(s, most)}</td>'
         f'<td class="age">{format_age(s.age_months)}</td><td class="{_hot(s)}">{s.flag_count()}</td>'
-        f'<td><div class="chips">{_word_chips(s)}</div></td></tr>'
+        f'<td><div class="chips">{_word_chips(s, True)}</div></td></tr>'
         for i, s in enumerate(sessions, 1)
     )
     crumbs = f'<a href="/">Speak Up</a><span>/</span><a href="/sessions">Past sessions</a><span>/</span><b>{escape(child_id)}</b>'
@@ -1401,7 +1430,9 @@ def child_page(child_id: str, sessions: list[SavedSession]) -> str:
 <table>
   <tr><th></th><th>Date</th><th>Age</th><th class="n">Flags</th><th>Words</th></tr>
   {rows}
-</table>""")
+</table>
+<p class="sub">Click a word to hear its recording.</p>
+{PLAY_JS}""")
 
 
 # The child screen (/kid): what the child looks at on the board's monitor while the SLP works the session on

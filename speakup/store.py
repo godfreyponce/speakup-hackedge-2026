@@ -99,6 +99,10 @@ def _fill_in_calls(conn: sqlite3.Connection) -> None:
 
 def save_session(db_path: Path, session: Session | Practice) -> int:
     with closing(_connect(db_path)) as conn, conn:
+        old = getattr(session, "saved_id", None)
+        if old is not None:
+            conn.execute("DELETE FROM results WHERE session_id = ?", (old,))
+            conn.execute("DELETE FROM sessions WHERE id = ?", (old,))
         session_id = conn.execute(
             "INSERT INTO sessions (child_id, age_months, started_at) VALUES (?, ?, ?)",
             (session.child_id, session.age_months, session.started_at),
@@ -165,6 +169,14 @@ def last_result(db_path: Path, child_id: str, word: str) -> LastTime | None:
         return None
     started_at, slp_call, *values = row
     return LastTime(started_at, Result(**dict(zip(FIELDS, values))), slp_call)
+
+
+def saved_clip(db_path: Path, session_id: int, position: int) -> Path | None:
+    """The recording of one saved word, if it is still on the board."""
+    with closing(_connect(db_path)) as conn:
+        row = conn.execute("SELECT clip FROM results WHERE session_id = ? AND position = ?",
+                           (session_id, position)).fetchone()
+    return Path(row[0]) if row and row[0] else None
 
 
 def last_correct_clip(db_path: Path, child_id: str, word: str) -> tuple[str, Path] | None:

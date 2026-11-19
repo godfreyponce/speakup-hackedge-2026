@@ -69,7 +69,7 @@ def to_result(word: str, p_wrong: float, model: str = MODEL_NAME) -> dict:
         expected_phone="ɹ",
         heard_phone=None if wrong else "ɹ",
         error_type="off" if wrong else None,
-        confidence=round(p_wrong if wrong else 1 - p_wrong, 2),
+        confidence=min(round(p_wrong if wrong else 1 - p_wrong, 2), 0.99),  # never claims 100%
         model=model,
         recorded_at=datetime.now().astimezone().isoformat(timespec="seconds"),
     ))

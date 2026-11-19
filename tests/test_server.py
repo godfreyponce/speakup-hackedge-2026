@@ -650,9 +650,9 @@ class ServerTest(unittest.TestCase):
         self.assertEqual(status, 200)
         older, newer = re.findall(r'<tr class="session">(.*?)</tr>', body, re.S)
         self.assertIn("6 yr 11 mo", older)
-        self.assertIn('class="chip normal">rabbit<', older)
+        self.assertIn('class="chip play normal" data-clip="/saved/1/0.wav"', older)
         self.assertIn("7 yr 0 mo", newer)
-        self.assertIn('class="chip flag">rabbit<', newer)
+        self.assertIn('class="chip play flag" data-clip="/saved/2/0.wav"', newer)
         self.assertIn('<span class="chip normal">wrong, not flagged for age</span>', body)
 
     def test_child_page_unknown_or_bad_id_is_404(self):
@@ -905,6 +905,25 @@ class ServerTest(unittest.TestCase):
         self.assertIn('<p class="listen">SLP please listen: carrot</p>', body)
         self.assertIn("SLP please listen: carrot", fake.prompts[0])
         self.assertNotIn("SLP please listen", fake.prompts[1])
+
+    # The summary's way back and way on, and the header's Reset demo (board-only until Nov 19).
+    def test_summary_goes_back_or_practices_the_same_student(self):
+        self.finish()
+        body = self.get("/summary")[2]
+        self.assertIn('action="/resume"', body)
+        self.assertIn('action="/practice-again"', body)
+        self.assertEqual(self.post("/practice-again")[1]["Location"], "/practice")
+        self.assertEqual((self.server.practice.child_id, self.server.practice.age_months), ("S-014", 96))
+
+    def test_back_to_screening_reopens_the_session(self):
+        self.finish()
+        self.assertEqual(self.post("/resume")[1]["Location"], "/word")
+        self.assertFalse(self.server.session.done)
+
+    def test_reset_demo_clears_the_open_session(self):
+        self.finish()
+        self.assertEqual(self.post("/reset")[1]["Location"], "/")
+        self.assertIsNone(self.server.session)
 
     # Practice (#21): the fallback bank covers rabbit and carrot.
 

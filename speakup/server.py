@@ -24,7 +24,7 @@ from speakup.practice import Practice
 from speakup.recorder import RecorderError
 from speakup.result import check
 from speakup.session import Session, parse_birth_date, parse_child_id
-from speakup.store import last_correct_clip, last_result, load_sessions, save_session
+from speakup.store import last_correct_clip, last_result, load_sessions, save_session, saved_clip
 
 try:  # the sound analysis, the voice check and the word pick need numpy; the app still runs without them
     from speakup import acoustics, segment, voice
@@ -50,6 +50,7 @@ def felt_looks() -> dict[str, list[str]]:
     return {"world": list(felt["worlds"]), "buddy": list(felt["buddies"])}
 # A try is keyed s3 (screen, word 4) or p5 (practice, try 6): its clip, its analysis, its voice reading.
 # /audio/s3.wav is the selected word (what Arti scored and the analysis shows), /audio/s3-full.wav the recording.
+_SAVED = re.compile(r"/saved/([0-9]+)/([0-9]+)\.wav")
 _AUDIO = re.compile(r"/audio/([sp][0-9]+)(-full)?\.wav")
 _ANALYSIS = re.compile(r"/analysis/([sp][0-9]+)(?:\?embed=1)?")
 _WINDOW = re.compile(r"/analysis/([sp][0-9]+)/window")
@@ -110,6 +111,7 @@ class SpeakUpServer(ThreadingHTTPServer):
         # state: idle, listening, thinking, done, error; go: the page to show when it is done.
         self.rec_lock = threading.Lock()
         self.rec: dict = {"state": "idle", "error": None, "go": "/"}
+        self.select_gen = 0  # counts box moves, so only the newest one's score is kept
 
     @property
     def recording(self) -> bool:
@@ -128,6 +130,22 @@ class SpeakUpServer(ThreadingHTTPServer):
         rewind = getattr(self.recorder, "rewind", None)  # --replay: each session plays its clips from the first
         if rewind is not None:
             rewind()
+
+    def reset_demo(self) -> None:
+        """Demo only: drop the open screening and practice (unsaved ones are discarded) and blank the child screen.
+        Saved sessions stay in the database."""
+        with self.note_lock:
+            self.session = None
+            self.save_error = None
+            self.note = None
+            self.note_pending = False
+        self.practice = None
+        self.practice_ended = False
+        self.practice_save_error = None
+        self.phase = "idle"
+        self.tries = 0
+        self.analyses = {}
+        self.reset_try_state("screen", "child")
 
     def later(self, fn: Callable, *args) -> Future:
         """fn(*args) on a worker process, or here and now without a pool."""
@@ -463,6 +481,9 @@ class Handler(BaseHTTPRequestHandler):
             self.analysis_page(_ANALYSIS.fullmatch(self.path).group(1))
         elif self.path == "/sessions":
             self.send_page(200, pages.sessions_page(load_sessions(self.server.db_path)))
+        elif _SAVED.fullmatch(self.path):
+            m = _SAVED.fullmatch(self.path)
+            self.send_file(saved_clip(self.server.db_path, int(m.group(1)), int(m.group(2))), "audio/wav")
         elif self.path.startswith("/child/"):
             self.child(self.path.removeprefix("/child/"))
         elif self.path in ("/word", "/summary") and session is None:
@@ -479,7 +500,8 @@ class Handler(BaseHTTPRequestHandler):
                 note, pending = self.server.note_state()
                 self.send_page(500 if error else 200, pages.summary_page(session, error, note, pending,
                                                                          self.server.family_state(),
-                                                                         self.recorder_mode()))
+                                                                         self.recorder_mode(),
+                                                                         self.server.bank is not None))
             else:
                 self.redirect("/word")
         elif self.path in ("/practice", "/practice/summary") and practice is None:
@@ -542,6 +564,19 @@ class Handler(BaseHTTPRequestHandler):
                 self.redirect(self.server.rec["go"])
         elif self.path == "/start":
             self.start(fields)
+        elif self.path == "/practice-again":
+            self.practice_again(session)
+        elif self.path == "/resume" and session is not None and session.done:
+            session.resume()
+            with self.server.note_lock:
+                self.server.note = None
+                self.server.note_pending = False
+            self.redirect("/word")
+        elif self.path == "/reset" and self.server.recording:
+            self.redirect(self.server.rec["go"])
+        elif self.path == "/reset":
+            self.server.reset_demo()
+            self.redirect("/")
         elif self.path == "/select" and (session is None or session.done):
             self.redirect("/")
         elif self.path == "/select":
@@ -638,15 +673,7 @@ class Handler(BaseHTTPRequestHandler):
             self.redirect("/")
             return
         if fields.get("mode") == "practice":
-            words = self.server.words
-            has_clip = getattr(self.server.recorder, "has_clip", None)
-            if has_clip is not None:  # --replay: practice can't skip a word, so it walks only the words with a clip
-                words = [w for w in words if has_clip(w.word)]
-            self.server.practice = Practice(parsed_id, age_months, words, self.server.bank)
-            self.server.practice_ended = False
-            self.server.practice_save_error = None
-            self.server.reset_try_state("practice", voice_mode)
-            self.redirect("/practice")
+            self.begin_practice(parsed_id, age_months, voice_mode)
             return
         session = Session(parsed_id, age_months, self.server.words)
         with self.server.note_lock:
@@ -658,14 +685,33 @@ class Handler(BaseHTTPRequestHandler):
         self.server.reset_try_state("screen", voice_mode)
         self.redirect("/word")
 
+    def begin_practice(self, child_id: str, age_months: int, voice_mode: str) -> None:
+        words = self.server.words
+        has_clip = getattr(self.server.recorder, "has_clip", None)
+        if has_clip is not None:  # --replay: practice can't skip a word, so it walks only the words with a clip
+            words = [w for w in words if has_clip(w.word)]
+        self.server.practice = Practice(child_id, age_months, words, self.server.bank)
+        self.server.practice_ended = False
+        self.server.practice_save_error = None
+        self.server.reset_try_state("practice", voice_mode)
+        self.redirect("/practice")
+
+    def practice_again(self, session: Session | None) -> None:
+        """Practice for the student just screened, from the summary: no re-entering the ID and birth date."""
+        if session is None or self.server.bank is None:
+            self.redirect("/")
+            return
+        self.begin_practice(session.child_id, session.age_months, self.server.voice_mode)
+
     def save(self, session: Session) -> None:
         try:
-            save_session(self.server.db_path, session)
+            session.saved_id = save_session(self.server.db_path, session)
         except (OSError, sqlite3.Error) as e:
             self.server.save_error = str(e)
             note, pending = self.server.note_state()
             self.send_page(500, pages.summary_page(session, self.server.save_error, note, pending,
-                                                   self.server.family_state(), self.recorder_mode()))
+                                                   self.server.family_state(), self.recorder_mode(),
+                                                   self.server.bank is not None))
             return
         self.server.save_error = None
         self.redirect("/summary")
@@ -830,17 +876,19 @@ class Handler(BaseHTTPRequestHandler):
             refuse(400, "The selection needs a start and an end in seconds.")
             return
         word_clip = word_clip_path(info.clip)
+        self.server.select_gen += 1
+        gen = self.server.select_gen
         try:
             segment.crop(info.clip, word_clip, start, end)
             self.forget_analysis(word_clip)
-            self.server.phase = "thinking"
             raw, reading = self.score(info.word, word_clip, True)
+            if gen != self.server.select_gen:  # the SLP moved the box again meanwhile
+                refuse(409, "Replaced by a newer move.")
+                return
             owner.rescore(check(raw), (start, end, auto))
         except (OSError, ValueError) as e:
             refuse(500, f"Model gave a bad result: {e}")
             return
-        finally:
-            self.server.phase = "idle"
         self.server.info[key] = replace(info, word_clip=word_clip, selection=(start, end), auto_selected=auto,
                                         target_window=None,
                                         method=method, reading=reading if reading is not None else info.reading)

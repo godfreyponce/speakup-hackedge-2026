@@ -531,9 +531,6 @@ class Handler(BaseHTTPRequestHandler):
             else:
                 self.server.look = {**self.server.look, **pick}
                 self.redirect("/look")
-        elif self.path == "/proof/watts":  # typed from the meter; it never moves the session, so the mic may be on
-            error = proof.LIVE.set_watts(fields.get("watts", ""))
-            self.send_json({"ok": error is None, "error": error, "watts": proof.LIVE.snapshot().watts})
         elif _WINDOW.fullmatch(self.path):
             # Pure arithmetic on the cached analysis: safe even while the mic is on.
             self.target_window(_WINDOW.fullmatch(self.path).group(1), fields)

@@ -1,7 +1,6 @@
-"""The proof bar on the SLP pages and the watts typed from the meter (#38)."""
+"""The proof bar on the SLP pages (#38)."""
 
 import http.client
-import json
 import tempfile
 import threading
 import unittest
@@ -58,23 +57,9 @@ class ProofServerTest(unittest.TestCase):
         footer = body.split('<footer class="proof"')[1].split("</footer>")[0]
         self.assertNotRegex(footer, r'class="tile[ "]')  # nothing measured: one quiet line, no tiles
         self.assertIn('class="unmeasured"', footer)
-        self.assertIn('name="watts" value=""', footer)
 
     def test_start_page_has_no_bar(self):
         self.assertNotIn('<footer class="proof"', self.request("GET", "/")[1])
-
-    def test_watts_typed_from_the_meter(self):
-        self.start()
-        status, body = self.request("POST", "/proof/watts", {"watts": "3.4"})
-        self.assertEqual(status, 200)
-        self.assertEqual(json.loads(body), {"ok": True, "error": None, "watts": "3.4"})
-        self.assertIn('name="watts" value="3.4"', self.request("GET", "/word")[1])
-
-    def test_watts_rejects_a_non_number(self):
-        reply = json.loads(self.request("POST", "/proof/watts", {"watts": "lots"})[1])
-        self.assertFalse(reply["ok"])
-        self.assertIn("type the number on the meter", reply["error"])
-        self.assertIsNone(reply["watts"])
 
     def test_new_session_clears_arti_times(self):
         self.live.add_arti_ms(60.0)

@@ -50,7 +50,7 @@ python3 -c "from speakup import synth, synth_book; open('rabbit.wav','wb').write
 python3 -m speakup --demo --sample-clip rabbit.wav
 ```
 
-The second line makes `rabbit.wav` with the app's own speech synthesizer (`speakup/synth.py`): a computer-made "rabbit", not a recording of anyone. With it, each word gets the full SLP view: the measured F3-F2 gap, the waveform, the sound picture and Listen again. The r call itself still comes from the demo script, not from Arti, so only the sound analysis is real. Plain `python3 -m speakup --demo` also works, without the sound analysis.
+The second line makes `rabbit.wav` with the app's own speech synthesizer (`speakup/synth.py`): a computer-made "rabbit", not a recording of anyone. With it, the first word (rabbit) gets the full SLP view: the measured F3-F2 gap, the waveform, the sound picture and Listen again. The r call itself still comes from the demo script, not from Arti, so only the sound analysis is real. Later words have no clip, so their page says what it leaves out. Plain `python3 -m speakup --demo` also works, without the sound analysis.
 
 On Windows, use `py` in place of `python3`.
 

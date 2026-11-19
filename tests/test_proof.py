@@ -91,31 +91,6 @@ class RouteTest(unittest.TestCase):
         self.assertTrue(proof.default_route(ROUTE_LAN_ONLY, IPV6_DEFAULT))
 
 
-class WattsTest(unittest.TestCase):
-    def test_number_kept_as_typed(self):
-        p = proof.Proof()
-        self.assertIsNone(p.set_watts(" 3.40 "))
-        self.assertEqual(p.snapshot().watts, "3.40")
-
-    def test_blank_clears(self):
-        p = proof.Proof()
-        p.set_watts("3.4")
-        self.assertIsNone(p.set_watts(""))
-        self.assertIsNone(p.snapshot().watts)
-
-    def test_trailing_point_is_taken_as_the_number(self):
-        p = proof.Proof()
-        self.assertIsNone(p.set_watts("5."))
-        self.assertEqual(p.snapshot().watts, "5")
-
-    def test_rejects_non_numbers(self):
-        p = proof.Proof()
-        for bad in ("abc", "-2", "0", "nan", "inf", "1e999", ".", "5..", "0."):
-            with self.subTest(bad=bad):
-                self.assertIsNotNone(p.set_watts(bad))
-                self.assertIsNone(p.snapshot().watts)
-
-
 class SnapshotTest(unittest.TestCase):
     def setUp(self):
         self.dir = tempfile.TemporaryDirectory()
@@ -133,7 +108,6 @@ class SnapshotTest(unittest.TestCase):
         self.assertEqual(s.arti_words, 0)
         self.assertIsNone(s.qwen_tps)
         self.assertIsNone(s.qwen_prompt_tps)
-        self.assertIsNone(s.watts)
         # no /proc files here: the machine has no /proc, so RAM and network say so
         self.assertIsNone(s.ram_kb)
         self.assertIsNone(s.online)
@@ -179,11 +153,10 @@ class SnapshotTest(unittest.TestCase):
         p = self.proof()
         p.add_arti_ms(60.0)
         p.add_llama_log(LLAMA_NEW)
-        p.set_watts("3.4")
         p.new_session()
         s = p.snapshot()
         self.assertEqual((s.arti_last_ms, s.arti_words), (None, 0))
-        self.assertEqual((s.qwen_tps, s.watts), (136.30, "3.4"))
+        self.assertEqual(s.qwen_tps, 136.30)
 
     def test_arti_timer_records_ms(self):
         p = self.proof()
@@ -203,8 +176,8 @@ class SnapshotTest(unittest.TestCase):
         self.assertGreater(self.proof().snapshot().peak_rss_kb, 1000)
 
 
-NOTHING = proof.Snapshot(None, None, 0, None, None, None, None, None, None)
-MEASURED = proof.Snapshot(61.0, 64.0, 12, 6.64, 21.33, (831808, 1992768), 219136, False, "3.4")
+NOTHING = proof.Snapshot(None, None, 0, None, None, None, None, None)
+MEASURED = proof.Snapshot(61.0, 64.0, 12, 6.64, 21.33, (831808, 1992768), 219136, False)
 
 
 def tiles(snapshot):
@@ -227,33 +200,21 @@ class BarTest(unittest.TestCase):
             self.assertIn(name, line)
         self.assertIn("no usable /proc/meminfo on this machine", line)
         self.assertIn("no /proc/net/route on this machine", line)
-        self.assertIn('name="watts" value=""', line)  # the meter can still be typed in
 
     def test_partly_measured(self):
-        html = tiles(proof.Snapshot(61.0, 61.0, 1, None, None, None, 32000, None, None))
+        html = tiles(proof.Snapshot(61.0, 61.0, 1, None, None, None, 32000, None))
         self.assertEqual(tile_count(html), 1)
         self.assertIn("61<span>ms</span>", html)
         line = html.split('class="unmeasured"')[1]
         self.assertNotIn("Arti", line)
         self.assertIn("Qwen", line)
         self.assertIn("app peak 31 MB", line)  # measured, so it stays visible beside the missing total
-        self.assertIn('name="watts" value=""', line)
-
-    def test_watts_typed_beside_another_tile_is_a_tile(self):
-        html = tiles(proof.Snapshot(None, None, 0, None, None, None, None, True, "3.4"))
-        self.assertEqual(tile_count(html), 2)
-        self.assertIn('name="watts" value="3.4"', html.split('class="unmeasured"')[0])
-
-    def test_watts_typed_alone_stays_in_the_quiet_line(self):
-        html = tiles(proof.Snapshot(None, None, 0, None, None, None, None, None, "3.4"))
-        self.assertEqual(tile_count(html), 0)  # a tile of its own would add a row to the folded bar
-        self.assertIn('name="watts" value="3.4"', html.split('class="unmeasured"')[1])
 
     def test_measured(self):
         html = tiles(MEASURED)
         self.assertNotIn("not measured yet", html)
         self.assertNotIn('class="unmeasured"', html)
-        self.assertEqual(tile_count(html), 5)
+        self.assertEqual(tile_count(html), 4)
         self.assertIn("61<span>ms</span>", html)
         self.assertIn("median 64 ms over 12 tries this session", html)
         self.assertIn("6.6<span>tokens/s</span>", html)
@@ -261,14 +222,13 @@ class BarTest(unittest.TestCase):
         self.assertIn("812<span>of 1,946 MB</span>", html)
         self.assertIn("app peak 214 MB, main process", html)
         self.assertIn('<div class="big">Offline</div>', html)
-        self.assertIn('name="watts" value="3.4"', html)
 
     def test_online(self):
-        html = tiles(proof.Snapshot(None, None, 0, None, None, None, None, True, None))
+        html = tiles(proof.Snapshot(None, None, 0, None, None, None, None, True))
         self.assertIn('<div class="big">Online</div>', html)
 
     def test_generation_speed_without_prompt_speed(self):
-        html = tiles(proof.Snapshot(None, None, 0, 6.64, None, None, None, None, None))
+        html = tiles(proof.Snapshot(None, None, 0, 6.64, None, None, None, None))
         self.assertIn("6.6<span>tokens/s</span>", html)
         self.assertNotIn("prompt", html)
 

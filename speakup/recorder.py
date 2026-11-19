@@ -34,7 +34,7 @@ class FakeRecorder(Stoppable):
     def __init__(self, seconds: float = 0, sample: Path | None = None):
         super().__init__()
         self.seconds = seconds  # the lab copy waits like the real mic, so the child screen's listening state shows
-        self.sample = sample  # a WAV to hand back as the "recording", to try the sound analysis on a laptop
+        self.sample = sample  # a WAV to hand back as the first "recording", to try the sound analysis on a laptop
 
     def record(self, path: Path) -> None:
         self._begin()
@@ -42,6 +42,7 @@ class FakeRecorder(Stoppable):
         if self.sample is not None:
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(self.sample.read_bytes())
+            self.sample = None  # only the first word: the clip says "rabbit", so later words get no clip
 
 
 # 48 kHz (Nov 4): children's /s/ reaches 7 to 9 kHz, beyond a 16 kHz recording's 8 kHz limit. Arti and the

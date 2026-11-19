@@ -42,6 +42,15 @@ class RecorderTest(unittest.TestCase):
         FakeRecorder().record(clip)
         self.assertFalse(clip.exists())
 
+    def test_sample_clip_goes_to_the_first_word_only(self):
+        sample = self.tmp / "rabbit.wav"
+        sample.write_bytes(b"RIFF")
+        rec = FakeRecorder(sample=sample)
+        rec.record(self.tmp / "1.wav")
+        rec.record(self.tmp / "2.wav")
+        self.assertEqual((self.tmp / "1.wav").read_bytes(), b"RIFF")
+        self.assertFalse((self.tmp / "2.wav").exists())
+
 
 if __name__ == "__main__":
     unittest.main()

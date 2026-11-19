@@ -267,6 +267,9 @@ class Handler(BaseHTTPRequestHandler):
                 "total": 5, "index": practice.turn % 5,
                 "word": word.word, "line": practice.line, "picture": self.picture(word.word),
                 "tried": practice.current_attempt is not None,
+                # The coach panel: level, where the r is, and a tip (the miss tip after a miss, else the word's).
+                "practice": {"level": practice.level, "position": word.position,
+                             "tip": practice.tip or self.server.bank.tips[word.position]},
             }
         session = self.server.session
         if session is None:

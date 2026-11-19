@@ -10,6 +10,7 @@ import time
 from pathlib import Path
 from typing import Callable
 
+from speakup import coach
 from speakup.llm import TURN, LlmError
 from speakup.words import Word
 
@@ -58,9 +59,11 @@ def check_line(line: str, target: Word, words: list[Word]) -> None:
 
 
 class Bank:
-    def __init__(self, lines: dict[tuple[str, str], str], qwen: frozenset[tuple[str, str]] = frozenset()):
+    def __init__(self, lines: dict[tuple[str, str], str], qwen: frozenset[tuple[str, str]] = frozenset(),
+                 tips: dict[str, str] | None = None):
         self.lines = lines
         self.qwen = qwen  # the (word, level) keys whose line Qwen wrote
+        self.tips = tips or dict(coach.TIPS)  # the coach's tip per r position, approved or a checked Qwen rewording
 
     def line(self, word: Word, level: str) -> str:
         return word.word if level == "word" else self.lines[(word.word, level)]
@@ -186,4 +189,10 @@ def fill(generate: Callable[..., str], words: list[Word], fallback: Bank) -> Ban
         _log(f"{level} took {took:.1f} s, kept {len(kept)} of {len(words)} lines")
         lines.update({(word, level): line for word, line in kept.items()})
         qwen.update((word, level) for word in kept)
-    return Bank(lines, frozenset(qwen))
+    tips = dict(coach.TIPS)
+    try:
+        with TURN:
+            tips = coach.parse_tips(generate(coach.tip_prompt(), grammar=coach.tip_grammar(), n_predict=320), _log)
+    except LlmError as e:
+        _log(f"tips call failed: {e}")
+    return Bank(lines, frozenset(qwen), tips)

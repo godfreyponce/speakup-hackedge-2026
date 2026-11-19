@@ -1,8 +1,9 @@
 """The practice coach (#21): the child says one item, Arti scores it, and this code moves the level.
-Qwen never sets the level; it only fills the bank of lines."""
+Qwen never sets the level or picks the word; it only fills the bank of lines and rewords the tips."""
 
 from datetime import datetime
 
+from speakup import coach
 from speakup.age_norms import should_flag, should_watch
 from speakup.bank import LEVELS, Bank
 from speakup.result import Result
@@ -23,12 +24,14 @@ class Practice:
         self.started_at = datetime.now().astimezone().isoformat(timespec="seconds")
         self.level = LEVELS[0]
         self.turn = 0
+        self._order = [words[0]]  # the word of each turn; the coach picks each next one
+        self.tip: str | None = None  # shown to the child with the line after a miss
         self.line = bank.line(self.current_word, self.level)
         self._attempts: list[Attempt] = []
 
     @property
     def current_word(self) -> Word:
-        return self.words[self.turn % len(self.words)]
+        return self._order[self.turn]
 
     @property
     def current_attempt(self) -> Attempt | None:
@@ -77,6 +80,9 @@ class Practice:
         attempt = self.current_attempt
         if attempt is None:
             return
-        self.level = next_level(self.level, attempt.result.error_type is None)
+        missed = attempt.result.error_type is not None
+        self.level = next_level(self.level, not missed)
         self.turn += 1
+        self._order[self.turn:] = [coach.next_word(self.words, self._attempts, self.turn)]
+        self.tip = bank.tips.get(attempt.result.error_type) or bank.tips[self.current_word.position] if missed else None
         self.line = bank.line(self.current_word, self.level)

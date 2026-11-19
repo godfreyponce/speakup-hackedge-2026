@@ -67,7 +67,7 @@ class ToResultTest(unittest.TestCase):
         self.assertEqual(right["confidence"], 0.51)
 
         for d in (wrong, right):
-            self.assertEqual(check(d).model, "arti-v0")
+            self.assertEqual(check(d).model, "arti-v2-soft")
 
 
 if __name__ == "__main__":

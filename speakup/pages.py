@@ -8,7 +8,7 @@ from html import escape
 from pathlib import Path
 from urllib.parse import urlencode
 
-from speakup import backnav, calibration, evidence, lexicon, proof, selectview
+from speakup import backnav, calibration, coach, evidence, lexicon, proof, selectview
 from speakup.bank import LEVELS
 from speakup.practice import Practice
 from speakup.result import ERROR_WORDS, Result
@@ -985,6 +985,19 @@ def word_page(session: Session, error: str | None = None, view: WordView | None 
 </main>""")
 
 
+def _coach_note(practice, attempt) -> str:
+    """What the coach is doing, for the SLP: the weak position it is drilling, the tip on screen, a near miss."""
+    bits = []
+    if attempt is not None and coach.almost(attempt.result):
+        bits.append("<b>Almost there:</b> a near miss, worth praising the effort.")
+    weak = coach.weakest(practice.attempts)
+    if weak:
+        bits.append(f"Coach is drilling r at the {escape(weak)}.")
+    if practice.tip:
+        bits.append(f"Tip on the child's screen: “{escape(practice.tip)}”")
+    return f'<div class="tpos">{" ".join(bits)}</div>' if bits else ""
+
+
 def practice_page(practice: Practice, error: str | None = None, view: WordView | None = None) -> str:
     view = view or WordView()
     attempt = practice.current_attempt
@@ -993,7 +1006,8 @@ def practice_page(practice: Practice, error: str | None = None, view: WordView |
     by_qwen = " Line written by Qwen on the board." if view.qwen_line else ""
     item = (f'<div class="tpos">Practice: {ladder}</div>'
             f'<div class="tline">{escape(practice.line)}</div><div class="tpos">{escape(practice.level.capitalize())} level, '
-            f'try {practice.turn + 1}. Target word {escape(word.word)}, r at the {escape(word.position)}.{by_qwen}</div>')
+            f'try {practice.turn + 1}. Target word {escape(word.word)}, r at the {escape(word.position)}.{by_qwen}</div>'
+            + _coach_note(practice, attempt))
     work = _work(practice, attempt, practice.turn, view, "/practice", item, "Next",
                  "The child screen shows the line. Press Record and have the child say it. "
                  "A right answer moves up a level (word, phrase, sentence); a miss moves down. Your call overrides Arti's.",

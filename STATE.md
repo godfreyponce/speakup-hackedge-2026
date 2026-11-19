@@ -32,4 +32,4 @@ Archive: `docs/HISTORY.md`. Queue: GitHub Issues (`gh issue list`). Protocol: `A
 
 - Under `--replay`, starting a practice or a screening puts every word back at its first clip, for the other one too (#73, by design). A practice run during a rehearsal rewinds the screening's clip order, so tell the team first.
 
-- On the board, run `python3 -m speakup --arecord --device <dev> --arti models/arti-v0.onnx`; the default ALSA device may be the onboard codec, not the USB mic. The board check is #13.
+- On the board, run `python3 -m speakup --arecord --device <dev> --arti models/arti-v2-soft.onnx`; the default ALSA device may be the onboard codec, not the USB mic. The board check is #13.

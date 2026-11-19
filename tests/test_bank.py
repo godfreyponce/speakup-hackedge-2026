@@ -145,8 +145,8 @@ class QwenBankTest(unittest.TestCase):
         self.assertEqual(bank.line(rabbit, "sentence"), "the puppy sees a soft rabbit.")
         self.assertIn("bank: sentence call failed: llama.cpp took longer than 120 s", err.getvalue())
         self.assertRegex(err.getvalue(), r"bank: phrase took \d+\.\d s, kept 10 of 10 lines")
-        self.assertEqual(len(calls), 2)
-        for grammar_text, n_predict in calls:
+        self.assertEqual(len(calls), 3)  # phrase, sentence, tips
+        for grammar_text, n_predict in calls[:2]:  # the lines; calls[2] is the tips
             self.assertTrue(grammar_text)
             self.assertEqual(n_predict, 400)
 

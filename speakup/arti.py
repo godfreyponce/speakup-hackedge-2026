@@ -16,9 +16,10 @@ RATE = 16000
 # The loudest 1.5 s holds the word in 95% of corpus clips (docs/model-timing.md).
 WINDOW_SECONDS = 1.5
 THRESHOLD = 0.5
-MODEL_NAME = "arti-v0"
+MODEL_NAME = "arti-v2-soft"  # shipped model; a result names the file it came from (load)
 # The board's four A53 cores.
-THREADS = 4
+THREADS = 1  # measured on the SK-AM62B (docs/architecture-comparison.md): 1 thread is as fast idle, 2x faster while the
+#            language model and browser run, and uses 1.7x less energy per clip than 4
 
 _WINDOW = int(RATE * WINDOW_SECONDS)
 _FRAME = RATE // 100
@@ -60,7 +61,7 @@ def prepare(samples: Sequence[int]) -> list[float]:
     return [x / peak for x in window]
 
 
-def to_result(word: str, p_wrong: float) -> dict:
+def to_result(word: str, p_wrong: float, model: str = MODEL_NAME) -> dict:
     wrong = p_wrong >= THRESHOLD
     return asdict(Result(
         word=word,
@@ -69,7 +70,7 @@ def to_result(word: str, p_wrong: float) -> dict:
         heard_phone=None if wrong else "ɹ",
         error_type="off" if wrong else None,
         confidence=round(p_wrong if wrong else 1 - p_wrong, 2),
-        model=MODEL_NAME,
+        model=model,
         recorded_at=datetime.now().astimezone().isoformat(timespec="seconds"),
     ))
 
@@ -83,6 +84,7 @@ def load(model_path: Path) -> Callable[[str, Path], dict]:
     from speakup.voice import Stretcher
 
     stretcher = Stretcher(model_path, THREADS)
+    name = Path(model_path).stem
 
     def audio_of(path: Path):
         return np.asarray([prepare(read_wav(Path(path)))], dtype=np.float32)
@@ -91,15 +93,15 @@ def load(model_path: Path) -> Callable[[str, Path], dict]:
         audio = audio_of(path)
         with proof.LIVE.arti_timer():
             p_wrong = stretcher.p_wrong(audio, 1.0)
-        return to_result(word, p_wrong)
+        return to_result(word, p_wrong, name)
 
     def stretched(word: str, path: Path, alpha: float):
         audio = audio_of(path)
         with proof.LIVE.arti_timer():  # all of the word's model runs: three or four with the stretch
             reading = stretcher.read(audio, alpha)
-        result = to_result(word, reading.p_wrong)
+        result = to_result(word, reading.p_wrong, name)
         if reading.alpha != 1.0:
-            result["model"] = f"{MODEL_NAME}+adult{reading.alpha:.2f}"
+            result["model"] = f"{name}+adult{reading.alpha:.2f}"
         return result, reading
 
     listen.stretched = stretched

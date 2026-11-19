@@ -183,6 +183,23 @@ function spin() {
   })(t0);
 }
 
+// Practice only: the coach panel beside the buddy (level steps, where the r is, a tip). Never a result or a flag.
+const WHERE = { start: "at the start", middle: "in the middle", end: "at the end" };
+function coachPanel(c, word) {
+  let el = $("coach");
+  if (!el) {
+    el = box("coach");
+    el.innerHTML = '<div class="steps"><span>word</span><span>phrase</span><span>sentence</span></div>' +
+      '<div class="spot"></div><div class="where"></div><div class="help"></div>';
+  }
+  stage.classList.toggle("practice", !!c);
+  if (!c) return;
+  el.querySelectorAll(".steps span").forEach((s) => s.classList.toggle("on", s.textContent === c.level));
+  el.querySelector(".spot").innerHTML = word.replace(/r+/g, "<b>$&</b>");
+  el.querySelector(".where").textContent = "The r is " + WHERE[c.position];
+  el.querySelector(".help").textContent = "💡 " + c.tip;
+}
+
 function show(st) {
   const now = Date.now();
   if (lastTries !== null && st.tries > lastTries) {
@@ -200,6 +217,7 @@ function show(st) {
   else if (st.phase === "thinking") next = "think";
   else next = st.tried ? "next" : "ready";
   if (st.session && !st.done) setLine(st);
+  coachPanel(st.session && !st.done && st.practice, st.word);
   progress(st);
   lastTries = st.tries;
   if (next === scene) return;

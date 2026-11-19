@@ -9,7 +9,7 @@ phase: ""
 
 # Hackedge-2026 — Project State
 
-Speak Up, the team's HackEdge 2026 entry: an offline r-sound speech screener on a TI SK-AM62B board. Python 3 with numpy. Visibility: Private.
+Speak Up, the team's HackEdge 2026 entry: an offline r-sound speech screener on a TI SK-AM62B board. Python 3 with numpy. Visibility: Public.
 
 *Thin snapshot. `next_action` above names the ticket that is up now — start there.
 Archive: `docs/HISTORY.md`. Queue: GitHub Issues (`gh issue list`). Protocol: `AGENTS.md`.*
